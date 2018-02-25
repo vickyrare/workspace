@@ -19,9 +19,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+	SuccessHandler successHandler;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
@@ -39,10 +41,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
-				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+				.antMatchers("/admin/**").hasAuthority("ADMIN")
+				.antMatchers("/user/**").hasAnyAuthority("ADMIN", "USER").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/home")
+				.loginPage("/login").failureUrl("/login?error=true").successHandler(successHandler)
+				//.defaultSuccessUrl("/admin/home")
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.and().logout()
