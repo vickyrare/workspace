@@ -12,6 +12,7 @@
 
 <body>
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
+<!--/*@thymesVar id="postComment" type="io.codecrafts.model.PostComment"*/-->
 	<div class="container">
 	
 		<form th:action="@{/logout}" method="get">
@@ -25,28 +26,27 @@
 					<span th:utext="${userName}"></span>
 				</div>
 				<div class="panel-heading">
-					<h1 class="panel-title">Posts</h1> <a class="btn btn-default" href="#" th:href="@{'/user/post/new'}" role="button">New</a>
+					<h1 class="panel-title">Post Comments</h1> <a class="btn btn-default" href="#" th:href="@{'user/post/new'}" role="button">New</a>
 				</div>
 				<div class="panel-body">
-					<div class="table-responsive" th:if="${not #lists.isEmpty(posts)}">
+					<div class="table-responsive" th:if="${not #lists.isEmpty(postComments)}">
 						<table class="table table-hover ">
 							<thead class="thead-inverse">
 							<tr>
-								<th>ID</th>
-								<th>Title</th>
-								<th>Started By</th>
+								<th>Comment ID</th>
+								<th>Content</th>
+								<th>Submitter</th>
 								<th>View</th>
 								<th>Update</th>
 								<th>Delete</th>
 							</tr>
 							</thead>
-							<tr th:each="post : ${posts}">
-								<td th:text="${post.getId()}">1</td>
-								<td th:text="${post.getTitle()}">Browsing issue</td>
-								<td th:text="${post.getUser().getName()}">John</td>
-								<td><a href="#" th:href="@{'/post/' + ${post.getId()} + '/show'}">View</a></td>
-								<td><a href="#" th:href="@{'/user/post/' + ${post.getId()} + '/edit'}">Edit</a></td>
-								<td><a href="#" th:href="@{'/user/post/' + ${post.getId()} + '/delete'}">Delete</a></td>
+							<tr th:each="postComment : ${postComments}">
+								<td th:text="${postComment.getId()}">1</td>
+								<td th:text="${postComment.getContent()}">Try to reset the connection.</td>
+								<td th:text="${postComment.getUser().getName()}">David</td>
+								<td><a href="#" th:href="@{'user/postcomments/' + ${post.getId()} + '/update'}">Update</a></td>
+								<td><a href="#" th:href="@{'user/postcomments/' + ${post.getId()} + '/delete'}">Delete</a></td>
 							</tr>
 						</table>
 					</div>

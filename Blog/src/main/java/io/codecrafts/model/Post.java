@@ -15,13 +15,13 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "post_id")
-	private int id;
+	private Long id;
 
 	@Column(name = "title")
-	@NotEmpty(message = "*Please provide an Title")
+	@NotEmpty(message = "*Please provide a Title")
 	private String title;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
@@ -38,11 +38,11 @@ public class Post {
 		comment.setPost(null);
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

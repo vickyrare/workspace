@@ -2,7 +2,9 @@ package io.codecrafts.controller;
 
 import javax.validation.Valid;
 
+import io.codecrafts.model.Post;
 import io.codecrafts.model.User;
+import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class LoginController {
 	
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private PostService postService;
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
@@ -74,6 +81,8 @@ public class LoginController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		List<Post> posts = postService.getAll();
+		modelAndView.addObject("posts", posts);
 		modelAndView.setViewName("user/home");
 		return modelAndView;
 	}
