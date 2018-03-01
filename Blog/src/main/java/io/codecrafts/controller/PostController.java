@@ -25,34 +25,33 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
-	@GetMapping(value="/user/post")
+	@GetMapping(value="/posts")
 	public ModelAndView listPost(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("user/post");
+		List<Post> posts = postService.getAll();
+		modelAndView.addObject("posts", posts);
+		modelAndView.setViewName("posts");
 		return modelAndView;
 	}
 
-	@GetMapping(value="/user/post/new")
+	@GetMapping(value="/posts/new")
 	public ModelAndView createNewPostForm(){
 		ModelAndView modelAndView = new ModelAndView();
 		Post post = new Post();
 		modelAndView.addObject("post", post);
-		modelAndView.setViewName("user/post/postform");
+		modelAndView.setViewName("/postform");
 		return modelAndView;
 	}
 
-	@PostMapping(value="/user/post")
+	@PostMapping(value="/posts")
 	public ModelAndView addNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
 
         Post newPost = new Post();
 		newPost.setTitle(post.getTitle());
 
-		if (post.getTitle() == null) {
-			bindingResult.rejectValue("title", "error.title","Please provide title.");
-		}
 		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("user/post/postform");
+			modelAndView.setViewName("/postform");
 		} else {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			User loggedInUser = userService.findUserByEmail(authentication.getName());
@@ -62,48 +61,54 @@ public class PostController {
 
 			List<Post> posts = postService.getAll();
 			modelAndView.addObject("posts", posts);
-			modelAndView.setViewName("user/home");
+			modelAndView.setViewName("/posts");
 		}
 
 		return modelAndView;
 	}
 
-    @GetMapping(value="/user/post/{id}/edit")
+	@GetMapping(value="/posts/{id}")
+	public ModelAndView viewPost(@PathVariable Long id){
+		ModelAndView modelAndView = new ModelAndView();
+		Post post = postService.findPost(id);
+		modelAndView.addObject("post", post);
+		modelAndView.setViewName("postview");
+		return modelAndView;
+	}
+
+    @GetMapping(value="/posts/{id}/edit")
     public ModelAndView createEditPostForm(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView();
         Post post = postService.findPost(id);
         modelAndView.addObject("post", post);
-        modelAndView.setViewName("user/post/posteditform");
+        modelAndView.setViewName("posteditform");
         return modelAndView;
 	}
 
-    @PostMapping(value="/user/post/edit")
+    @PostMapping(value="/posts/{id}")
     public ModelAndView editPost(@Valid @ModelAttribute Post post, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
 
-        if (post.getTitle() == null) {
-            bindingResult.rejectValue("title", "error.title","Please provide title.");
-        }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("user/post/posteditform");
+            modelAndView.setViewName("posteditform");
         } else {
             Post editPost = postService.findPost(post.getId());
             editPost.setTitle(post.getTitle());
             postService.savePost(editPost);
             List<Post> posts = postService.getAll();
             modelAndView.addObject("posts", posts);
-            modelAndView.setViewName("user/home");
+            modelAndView.setViewName("posts");
         }
         return modelAndView;
     }
 
-    @GetMapping(value="/user/post/{id}/delete")
+    @GetMapping(value="/posts/{id}/delete")
 	public ModelAndView deletePost(@PathVariable Long id){
 		postService.deletePost(id);
 		ModelAndView modelAndView = new ModelAndView();
 		List<Post> posts = postService.getAll();
 		modelAndView.addObject("posts", posts);
-		modelAndView.setViewName("user/home");
+		modelAndView.setViewName("posts");
 		return modelAndView;
 	}
 }

@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Admin Page</title>
+<title>User Page</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -25,7 +25,7 @@
 					<span th:utext="${userName}"></span>
 				</div>
 				<div class="panel-heading">
-					<h1 class="panel-title">Posts</h1> <a class="btn btn-default" href="#" th:href="@{'/user/post/new'}" role="button">New</a>
+					<h1 class="panel-title">Posts</h1> <a class="btn btn-default" href="#" th:href="@{'/posts/new'}" role="button">New</a>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive" th:if="${not #lists.isEmpty(posts)}">
@@ -43,12 +43,12 @@
 							</thead>
 							<tr th:each="post : ${posts}">
 								<td th:text="${post.getId()}">1</td>
-                                <td><a th:text="${post.getTitle()}" href="#" th:href="@{'/user/post/' + ${post.getId()} + '/view'}">Browsing issue</a></td>
+                                <td><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()}}">Browsing issue</a></td>
 								<td th:text="${post.getUser().getFirstName()}">John</td>
 								<td th:text="${post.getCreationDate()}">2018-02-28 19:21:27</td>
 								<td th:text="${post.getPostComments().size()}">10</td>
-								<td><a href="#" th:href="@{'/user/post/' + ${post.getId()} + '/edit'}">Edit</a></td>
-								<td><a href="#" th:href="@{'/user/post/' + ${post.getId()} + '/delete'}">Delete</a></td>
+								<td><a href="#" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a></td>
+								<td><a href="#" th:href="@{'/posts/' + ${post.getId()} + '/delete'}">Delete</a></td>
 							</tr>
 						</table>
 					</div>

@@ -25,9 +25,11 @@
 					<span th:utext="${userName}"></span>
 				</div>
 				<div class="panel-body">
-					<form th:object="${post}" th:action="@{'/user/post'}" method="post" class="form-horizontal">
+					<form th:object="${post}" th:action="@{'/posts/' + ${post.id}}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
+								<label th:text="${post.id}"></label>
+								<input type="hidden" th:field="*{id}" th:value="${post.id}" class="form-control" />
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
 							</div>
