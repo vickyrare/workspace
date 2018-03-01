@@ -44,7 +44,7 @@
 							<tr th:each="postComment : ${postComments}">
 								<td th:text="${postComment.getId()}">1</td>
 								<td th:text="${postComment.getContent()}">Try to reset the connection.</td>
-								<td th:text="${postComment.getUser().getName()}">David</td>
+								<td th:text="${postComment.getUser().getFirstName()}">David</td>
 								<td><a href="#" th:href="@{'user/postcomments/' + ${post.getId()} + '/update'}">Update</a></td>
 								<td><a href="#" th:href="@{'user/postcomments/' + ${post.getId()} + '/delete'}">Delete</a></td>
 							</tr>

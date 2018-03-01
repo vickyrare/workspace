@@ -33,7 +33,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         User adminUser = new User();
-        adminUser.setName("Waqqas");
+        adminUser.setFirstName("Waqqas");
         adminUser.setLastName("Sharif");
         adminUser.setEmail("vickyrare@gmail.com");
         adminUser.setPassword("12345678");
@@ -44,7 +44,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         userService.saveUser(adminUser);
 
         User user = new User();
-        user.setName("Waqqas");
+        user.setFirstName("Waqqas");
         user.setLastName("Sharif");
         user.setEmail("vickyrare@yahoo.com");
         user.setPassword("12345678");
