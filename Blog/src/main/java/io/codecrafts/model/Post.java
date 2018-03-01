@@ -1,12 +1,11 @@
 package io.codecrafts.model;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "post")
@@ -20,6 +19,11 @@ public class Post {
 	@Column(name = "title")
 	@NotEmpty(message = "*Please provide a Title")
 	private String title;
+
+	@Column(name="creation_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private
+	Date creationDate;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
@@ -68,5 +72,17 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+    public List<PostComment> getPostComments() {
+        return postComments;
+    }
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 }

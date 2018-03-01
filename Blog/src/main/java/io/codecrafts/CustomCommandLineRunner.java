@@ -6,7 +6,6 @@ import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
 import io.codecrafts.repository.PostRepository;
 import io.codecrafts.repository.RoleRepository;
-import io.codecrafts.repository.UserRepository;
 import io.codecrafts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 
 @Component
@@ -57,11 +57,13 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         Post post =  new Post();
         post.setTitle("How to hack Wii U");
         post.setUser(user);
+        post.setCreationDate(new Date());
         postRepository.save(post);
 
         PostComment postComment = new PostComment();
         postComment.setContent("Visit http://www.wiiu.guide.org");
         postComment.setUser(user);
+        postComment.setPostDate(new Date());
         post.addComment(postComment);
         postRepository.save(post);
     }

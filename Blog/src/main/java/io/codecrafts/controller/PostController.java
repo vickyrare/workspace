@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -56,6 +57,7 @@ public class PostController {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPost.setUser(loggedInUser);
+			newPost.setCreationDate(new Date());
 			postService.savePost(newPost);
 
 			List<Post> posts = postService.getAll();

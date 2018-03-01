@@ -1,12 +1,9 @@
 package io.codecrafts.model;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "post_comment")
@@ -24,6 +21,11 @@ public class PostComment {
 	@Column(name = "content")
 	@NotEmpty(message = "*Please provide content")
 	private String content;
+
+	@Column(name="post_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private
+	Date postDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id")
@@ -59,5 +61,13 @@ public class PostComment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
 	}
 }
