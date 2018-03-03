@@ -47,12 +47,11 @@ public class PostController {
 	public ModelAndView addNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
 
-        Post newPost = new Post();
-		newPost.setTitle(post.getTitle());
-
-		if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/postform");
 		} else {
+			Post newPost = new Post();
+			newPost.setTitle(post.getTitle());
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPost.setUser(loggedInUser);
@@ -67,16 +66,7 @@ public class PostController {
 		return modelAndView;
 	}
 
-	@GetMapping(value="/posts/{id}")
-	public ModelAndView viewPost(@PathVariable Long id){
-		ModelAndView modelAndView = new ModelAndView();
-		Post post = postService.findPost(id);
-		modelAndView.addObject("post", post);
-		modelAndView.setViewName("postview");
-		return modelAndView;
-	}
-
-    @GetMapping(value="/posts/{id}/edit")
+	@GetMapping(value="/posts/{id}/edit")
     public ModelAndView createEditPostForm(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView();
         Post post = postService.findPost(id);

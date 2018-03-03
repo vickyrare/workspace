@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Admin Page</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
+<!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
+<div class="container">
+
+	<div class="panel-group" style="margin-top:40px">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span th:utext="${userName}"></span>
+			</div>
+			<div class="panel-heading">
+				<h1 class="panel-title">Post Comments</h1> <a class="btn btn-default" href="#" th:href="@{'/posts/' + ${post.id} + '/comments/new'}" role="button">New</a>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive" th:if="${comments != null}">
+					<table class="table table-hover ">
+						<thead class="thead-inverse">
+						<tr>
+							<th>Content</th>
+							<th>Submitter</th>
+							<th>Posted On</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+						</thead>
+						<tr th:each="comment : ${comments}">
+							<td th:text="${comment.getContent()}">Visit</td>
+							<td th:text="${comment.getUser().getFirstName()}">Michael</td>
+							<td th:text="${comment.getPostDate()}">Michael</td>
+							<td><a href="#" th:href="@{'/posts/' + ${post.id} + '/comments/' + ${comment.getId()} + '/edit'}">Edit</a></td>
+							<td><a href="#" th:href="@{'/posts/' + ${post.id} + '/comments/' + ${comment.getId()} + '/delete'}">Delete</a></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

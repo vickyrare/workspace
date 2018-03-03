@@ -43,7 +43,7 @@
 							</thead>
 							<tr th:each="post : ${posts}">
 								<td th:text="${post.getId()}">1</td>
-                                <td><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()}}">Browsing issue</a></td>
+                                <td><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()} + '/comments'}">Browsing issue</a></td>
 								<td th:text="${post.getUser().getFirstName()}">John</td>
 								<td th:text="${post.getCreationDate()}">2018-02-28 19:21:27</td>
 								<td th:text="${post.getPostComments().size()}">10</td>
