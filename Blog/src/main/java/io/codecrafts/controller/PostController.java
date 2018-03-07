@@ -48,7 +48,7 @@ public class PostController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("/postform");
+			modelAndView.setViewName("postform");
 		} else {
 			Post newPost = new Post();
 			newPost.setTitle(post.getTitle());
@@ -60,7 +60,7 @@ public class PostController {
 
 			List<Post> posts = postService.getAll();
 			modelAndView.addObject("posts", posts);
-			modelAndView.setViewName("/posts");
+			modelAndView.setViewName("posts");
 		}
 
 		return modelAndView;

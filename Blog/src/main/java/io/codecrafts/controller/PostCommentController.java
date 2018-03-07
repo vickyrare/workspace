@@ -47,11 +47,9 @@ public class PostCommentController {
 	@GetMapping(value="/posts/{postId}/comments/new")
 	public ModelAndView newCommentForm(@PathVariable Long postId){
 		ModelAndView modelAndView = new ModelAndView();
-		Post post = postService.findPost(postId);
 		PostComment postComment = new PostComment();
-		postComment.setPost(post);
 		modelAndView.addObject("postid", postId);
-		modelAndView.addObject("comment", postComment);
+		modelAndView.addObject("postComment", postComment);
 		modelAndView.setViewName("commentform");
 		return modelAndView;
 	}
@@ -62,7 +60,6 @@ public class PostCommentController {
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("postid", postId);
-			modelAndView.addObject("comment", postComment);
 			modelAndView.setViewName("commentform");
 		} else {
 			PostComment newPostComment = new PostComment();
@@ -87,7 +84,7 @@ public class PostCommentController {
         ModelAndView modelAndView = new ModelAndView();
         PostComment postComment = postCommentService.findPostComment(commentId);
         modelAndView.addObject("postid", postId);
-		modelAndView.addObject("comment", postComment);
+		modelAndView.addObject("postComment", postComment);
         modelAndView.setViewName("commenteditform");
         return modelAndView;
 	}

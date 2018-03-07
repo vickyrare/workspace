@@ -12,7 +12,7 @@
 
 <body>
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
-<!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
+<!--/*@thymesVar id="postComment" type="io.codecrafts.model.PostComment"*/-->
 	<div class="container">
 	
 		<form th:action="@{/logout}" method="get">
@@ -23,10 +23,10 @@
 		<div class="panel-group" style="margin-top:40px">
 			<div class="panel panel-primary">
 				<div class="panel-body">
-					<form th:object="${comment}" th:action="@{'/posts/' + ${postid} + '/comments/' + ${comment.id}}" method="post" class="form-horizontal">
+					<form th:object="${postComment}" th:action="@{'/posts/' + ${postid} + '/comments/' + ${postComment.id}}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:text="${comment.id}"></label>
+								<label th:text="${postComment.id}"></label>
 								<label th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="validation-message"></label>
 								<input type="text" th:field="*{content}" placeholder="content" class="form-control" />
 							</div>

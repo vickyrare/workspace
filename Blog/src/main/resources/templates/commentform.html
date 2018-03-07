@@ -11,8 +11,7 @@
 </head>
 
 <body>
-<!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
-<!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
+<!--/*@thymesVar id="postComment" type="io.codecrafts.model.PostComment"*/-->
 	<div class="container">
 	
 		<form th:action="@{/logout}" method="get">
@@ -26,7 +25,7 @@
 					<span th:utext="${userName}"></span>
 				</div>
 				<div class="panel-body">
-					<form th:object="${comment}" th:action="@{'/posts/' + ${postid} +'/comments'}" method="post" class="form-horizontal">
+					<form th:object="${postComment}" th:action="@{'/posts/' + ${postid} +'/comments'}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
 								<label th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="validation-message"></label>
