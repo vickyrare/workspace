@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface PostService {
 	public List<Post> getAll();
+	public List<Post> findAllInRange(int page, int numItems);
 	public Post findPost(Long id);
 	public void savePost(Post post);
 	public void deletePost(Long id);

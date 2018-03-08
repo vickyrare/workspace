@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +19,8 @@ import java.util.List;
 
 @Controller
 public class PostController {
+
+	static int ITEMS_PER_PAGE = 10;
 	
 	@Autowired
 	private UserService userService;
@@ -26,11 +29,18 @@ public class PostController {
 	private PostService postService;
 
 	@GetMapping(value="/posts")
-	public ModelAndView listPost(){
+	public ModelAndView listPost(Model model, @RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
 		List<Post> posts = postService.getAll();
+		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
+		if(posts.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+		}
+		posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
+		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.setViewName("posts");
+
 		return modelAndView;
 	}
 
@@ -59,7 +69,18 @@ public class PostController {
 			postService.savePost(newPost);
 
 			List<Post> posts = postService.getAll();
+			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
+			int currentPage;
+			if(posts.size() % ITEMS_PER_PAGE == 0) {
+				totalPages -= 1;
+				currentPage = (posts.size() / ITEMS_PER_PAGE) - 1;
+			} else {
+				currentPage = (posts.size() / ITEMS_PER_PAGE);
+			}
+
+			posts = postService.findAllInRange(currentPage, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
+			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.setViewName("posts");
 		}
 
@@ -85,9 +106,16 @@ public class PostController {
             Post editPost = postService.findPost(post.getId());
             editPost.setTitle(post.getTitle());
             postService.savePost(editPost);
-            List<Post> posts = postService.getAll();
-            modelAndView.addObject("posts", posts);
-            modelAndView.setViewName("posts");
+			List<Post> posts = postService.getAll();
+			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
+			if(posts.size() % ITEMS_PER_PAGE == 0) {
+				totalPages -= 1;
+			}
+
+			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
+			modelAndView.addObject("posts", posts);
+			modelAndView.addObject("totalPages", totalPages);
+			modelAndView.setViewName("posts");
         }
         return modelAndView;
     }
@@ -97,7 +125,14 @@ public class PostController {
 		postService.deletePost(id);
 		ModelAndView modelAndView = new ModelAndView();
 		List<Post> posts = postService.getAll();
+		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
+		if(posts.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+		}
+
+		posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
+		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.setViewName("posts");
 		return modelAndView;
 	}

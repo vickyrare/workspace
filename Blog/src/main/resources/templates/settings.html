@@ -10,12 +10,13 @@
 </head>
 <body>
 	<div class="container">
+		<div th:replace="template :: header"></div>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form autocomplete="off" action="#" th:action="@{/settings}"
 					th:object="${user}" method="post" class="form-horizontal"
 					role="form">
-					<h2>Registration Form</h2>
+					<h2>Settings</h2>
 					<div class="form-group">
 						<div class="col-sm-9">
 						<label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
@@ -59,6 +60,7 @@
 				</form>
 			</div>
 		</div>
+		<div th:replace="template :: footer"></div>
 	</div>
 
 </body>

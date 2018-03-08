@@ -7,6 +7,7 @@ import io.codecrafts.repository.PostRepository;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +32,13 @@ public class PostServiceImpl implements PostService {
 	public List<Post> getAll() {
 		List<Post> posts = new ArrayList<Post>();
 		postRepository.findAll().forEach(posts::add);
-		return  posts;
+		return posts;
+	}
+
+	public List<Post> findAllInRange(int page, int numItems){
+		List<Post> posts = new ArrayList<Post>();
+		postRepository.findAll(new PageRequest(page, numItems)).forEach(posts::add);
+		return posts;
 	}
 
 	@Override
