@@ -19,29 +19,52 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive" th:if="${not #lists.isEmpty(posts)}">
-						<table class="table table-hover ">
+						<table class="table table-hover table-condensed">
 							<thead class="thead-inverse">
 							<tr>
-								<th>ID</th>
-								<th>Title</th>
-								<th>Started By</th>
-								<th>Date Created</th>
-								<th>Replies</th>
-								<th>Update</th>
-								<th>Delete</th>
+								<th>Title / Thread Starter</th>
+								<th>Replies / Views</th>
+								<th>Last Post By</th>
 							</tr>
 							</thead>
+							<tbody>
 							<tr th:each="post : ${posts}">
-								<td th:text="${post.getId()}">1</td>
-                                <td><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()} + '/comments'}">Browsing issue</a></td>
-								<td th:text="${post.getUser().getFirstName()}">John</td>
-								<td th:text="${post.getCreationDate()}">2018-02-28 19:21:27</td>
-								<td th:text="${post.getPostComments().size()}">10</td>
-								<td><a href="#" th:href="@{'/posts/' + ${post.getId()} + '/edit'}">Edit</a></td>
-								<td><a href="#" th:href="@{'/posts/' + ${post.getId()} + '/delete'}">Delete</a></td>
+								<td>
+									<table class="table table-condensed table-borderless">
+										<tr>
+											<td><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()} + '/comments'}">Browsing issue</a></td>
+										</tr>
+										<tr>
+											<td th:text="'Started By ' + ${post.getUser().getFirstName()} + ', ' + ${post.getCreationDate()}">Started By Jack H, 2018-02-28 19:21:27</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table class="table table-condensed table-borderless">
+										<tr>
+											<td th:text="'Replies: ' + ${post.getPostComments().size()}">Replies: 1</td>
+										</tr>
+										<tr>
+											<td th:text="'Views: ' + ${post.getPostComments().size()}">Views: 2</td>
+										</tr>
+									</table>
+								</td>
+								<td>
+									<table class="table table-condensed table-borderless">
+										<tr>
+											<td th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getUser().getFirstName()}">Tom</td>
+											<td th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</td>
+										</tr>
+										<tr>
+											<td th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getPostDate()}">2018-02-28 19:21:27</td>
+											<td th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
+							</tbody>
 						</table>
-						<ul class="pagination">
+						<ul class="pagination" th:if="${totalPages &gt; 1}">
 							<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
 								<a th:href="@{/posts/(page=${i})}" th:text="${i}" class="page-link"></a>
 							</li>

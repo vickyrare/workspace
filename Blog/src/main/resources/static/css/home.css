@@ -3,3 +3,7 @@
 	font-size: 22px;
 	color: #004080;
 }
+
+.table-borderless tr, .table-borderless td, .table-borderless th {
+	border: none !important;
+}
