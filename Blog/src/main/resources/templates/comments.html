@@ -14,7 +14,7 @@
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
 <!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
 <div class="container">
-
+	<div th:replace="template :: header"></div>
 	<div class="panel-group" style="margin-top:40px">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 	</div>
-
+	<div th:replace="template :: footer"></div>
 </div>
 </body>
 </html>

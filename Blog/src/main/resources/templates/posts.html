@@ -3,7 +3,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>User Page</title>
+<title>Posts</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -13,12 +13,7 @@
 <body>
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
 	<div class="container">
-	
-		<form th:action="@{/logout}" method="get">
-			<button class="btn btn-md btn-danger btn-block" name="registration"
-				type="Submit">Logout</button>
-		</form>    
-		
+		<div th:replace="template :: header"></div>
 		<div class="panel-group" style="margin-top:40px">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
@@ -55,7 +50,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<div th:replace="template :: footer"></div>
 	</div>
 </body>
 </html>
