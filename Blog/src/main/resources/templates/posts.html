@@ -41,9 +41,9 @@
 								<td><a href="#" th:href="@{'/posts/' + ${post.getId()} + '/delete'}">Delete</a></td>
 							</tr>
 						</table>
-						<ul class="nav nav-pills">
-							<li class="nav-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
-								<a th:href="@{/posts/(page=${i})}" th:text="${i}" class="nav-link"></a>
+						<ul class="pagination">
+							<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+								<a th:href="@{/posts/(page=${i})}" th:text="${i}" class="page-link"></a>
 							</li>
 						</ul>
 					</div>
