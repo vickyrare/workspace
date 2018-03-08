@@ -40,6 +40,7 @@ public class PostCommentController {
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
+		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
 	}
@@ -50,6 +51,7 @@ public class PostCommentController {
 		PostComment postComment = new PostComment();
 		modelAndView.addObject("postid", postId);
 		modelAndView.addObject("postComment", postComment);
+		modelAndView.addObject("title", "New Comment");
 		modelAndView.setViewName("commentform");
 		return modelAndView;
 	}
@@ -74,6 +76,7 @@ public class PostCommentController {
 			List<PostComment> postComments = postCommentService.getAllComments(postId);
 			modelAndView.addObject("post", post);
 			modelAndView.addObject("comments", postComments);
+			modelAndView.addObject("title", "Comments");
 			modelAndView.setViewName("comments");
 		}
 		return modelAndView;
@@ -85,6 +88,7 @@ public class PostCommentController {
         PostComment postComment = postCommentService.findPostComment(commentId);
         modelAndView.addObject("postid", postId);
 		modelAndView.addObject("postComment", postComment);
+		modelAndView.addObject("title", "Edit Comment");
         modelAndView.setViewName("commenteditform");
         return modelAndView;
 	}
@@ -106,6 +110,7 @@ public class PostCommentController {
 			List<PostComment> postComments = postCommentService.getAllComments(postId);
 			modelAndView.addObject("post", editPostComment.getPost());
 			modelAndView.addObject("comments", postComments);
+			modelAndView.addObject("title", "Comments");
 			modelAndView.setViewName("comments");
 		}
 		return modelAndView;
@@ -119,6 +124,7 @@ public class PostCommentController {
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
+		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
 	}

@@ -39,6 +39,7 @@ public class PostController {
 		posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("title", "Posts");
 		modelAndView.setViewName("posts");
 
 		return modelAndView;
@@ -49,6 +50,7 @@ public class PostController {
 		ModelAndView modelAndView = new ModelAndView();
 		Post post = new Post();
 		modelAndView.addObject("post", post);
+		modelAndView.addObject("title", "New Post");
 		modelAndView.setViewName("/postform");
 		return modelAndView;
 	}
@@ -80,6 +82,7 @@ public class PostController {
 
 			posts = postService.findAllInRange(currentPage, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
+			modelAndView.addObject("title", "Posts");
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.setViewName("posts");
 		}
@@ -92,6 +95,7 @@ public class PostController {
         ModelAndView modelAndView = new ModelAndView();
         Post post = postService.findPost(id);
         modelAndView.addObject("post", post);
+		modelAndView.addObject("title", "Edit Post");
         modelAndView.setViewName("posteditform");
         return modelAndView;
 	}
@@ -114,6 +118,7 @@ public class PostController {
 
 			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
+			modelAndView.addObject("title", "Posts");
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.setViewName("posts");
         }
@@ -133,6 +138,7 @@ public class PostController {
 		posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("title", "Posts");
 		modelAndView.setViewName("posts");
 		return modelAndView;
 	}

@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" th:href="@{'/css/login.css'}" />
+        <link rel="stylesheet" type="text/css" th:href="@{'/css/home.css'}" />
+        <link rel="stylesheet" type="text/css" th:href="@{'/css/registration.css'}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+
     <div th:fragment="header">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -16,11 +26,38 @@
             </div>
         </nav>
     </div>
+
+    <div th:fragment="header_login">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Blog</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/registration"><span class="glyphicon glyphicon-log-in"></span>Register</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div th:fragment="header_registration">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Blog</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
     <div th:fragment="footer">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="http://codecrafts.io/">copyright &copy; CodeCrafts</a>
+                    <a class="navbar-brand" href="http://codecrafts.io/">Copyright &copy; CodeCrafts 2018</a>
                 </div>
             </div>
         </nav>
