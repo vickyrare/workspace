@@ -51,7 +51,7 @@ public class PostController {
 		Post post = new Post();
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("title", "New Post");
-		modelAndView.setViewName("/postform");
+		modelAndView.setViewName("postform");
 		return modelAndView;
 	}
 

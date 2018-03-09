@@ -38,6 +38,11 @@
 							<td><a href="#" th:href="@{'/posts/' + ${post.id} + '/comments/' + ${comment.getId()} + '/delete'}">Delete</a></td>
 						</tr>
 					</table>
+					<ul class="pagination" th:if="${totalPages &gt; 1}">
+						<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+							<a th:href="@{/posts/{postid}/comments/(postid=${post.id},page=${i})}" th:text="${i}" class="page-link"></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

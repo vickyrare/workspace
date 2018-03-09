@@ -1,8 +1,10 @@
 package io.codecrafts.service;
 
+import io.codecrafts.model.Post;
 import io.codecrafts.model.PostComment;
 import io.codecrafts.repository.PostCommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,12 @@ public class PostCommentServiceImpl implements PostCommentService {
 	public List<PostComment> getAllComments(Long postId) {
 		List<PostComment> postComments = new ArrayList<>();
 		postCommentRepository.findByPostId(postId).forEach(postComments::add);
+		return postComments;
+	}
+
+	public List<PostComment> findAllInRange(Long postId, int page, int numItems){
+		List<PostComment> postComments = new ArrayList<PostComment>();
+		postCommentRepository.findByPostId(postId, new PageRequest(page, numItems)).forEach(postComments::add);
 		return postComments;
 	}
 

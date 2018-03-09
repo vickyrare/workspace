@@ -11,10 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -23,6 +20,8 @@ import java.util.List;
 
 @Controller
 public class PostCommentController {
+
+	static int ITEMS_PER_PAGE = 10;
 	
 	@Autowired
 	private UserService userService;
@@ -34,12 +33,20 @@ public class PostCommentController {
 	private PostCommentService postCommentService;
 
 	@GetMapping(value="/posts/{postId}/comments")
-	public ModelAndView getAllComments(@PathVariable Long postId){
+	public ModelAndView getAllComments(@PathVariable Long postId, @RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
+
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
+		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+		}
+
+		postComments = postCommentService.findAllInRange(postId, page - 1, ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
+		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
@@ -74,8 +81,21 @@ public class PostCommentController {
 			post.addComment(newPostComment);
 			postService.savePost(post);
 			List<PostComment> postComments = postCommentService.getAllComments(postId);
+
+			int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+			int currentPage;
+			if(postComments.size() % ITEMS_PER_PAGE == 0) {
+				totalPages -= 1;
+				currentPage = (postComments.size() / ITEMS_PER_PAGE) - 1;
+			} else {
+				currentPage = (postComments.size() / ITEMS_PER_PAGE);
+			}
+
+			postComments = postCommentService.findAllInRange(postId, currentPage, ITEMS_PER_PAGE);
+
 			modelAndView.addObject("post", post);
 			modelAndView.addObject("comments", postComments);
+			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("title", "Comments");
 			modelAndView.setViewName("comments");
 		}
@@ -108,8 +128,17 @@ public class PostCommentController {
 			editPostComment.setContent(postComment.getContent());
 			postCommentService.updateComment(editPostComment);
 			List<PostComment> postComments = postCommentService.getAllComments(postId);
-			modelAndView.addObject("post", editPostComment.getPost());
+
+			int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+			if(postComments.size() % ITEMS_PER_PAGE == 0) {
+				totalPages -= 1;
+			}
+
+			postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
+			Post post = postService.findPost(postId);
+			modelAndView.addObject("post", post);
 			modelAndView.addObject("comments", postComments);
+			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("title", "Comments");
 			modelAndView.setViewName("comments");
 		}
@@ -121,9 +150,16 @@ public class PostCommentController {
 		postCommentService.deleteComment(commentId);
 		ModelAndView modelAndView = new ModelAndView();
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
+		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+		}
+
+		postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
+		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
