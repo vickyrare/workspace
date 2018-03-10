@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +28,7 @@ public class PostController {
 	private PostService postService;
 
 	@GetMapping(value="/posts")
-	public ModelAndView listPost(Model model, @RequestParam(defaultValue = "1")int page){
+	public ModelAndView listPost(@RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
 		List<Post> posts = postService.getAll();
 		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;

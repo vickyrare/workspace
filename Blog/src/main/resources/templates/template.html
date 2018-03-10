@@ -17,11 +17,12 @@
                     <a class="navbar-brand">Blog</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/posts">Home</a></li>
-                    <li><a href="/settings"><span class="glyphicon glyphicon-user"></span>Settings</a></li>
+                    <li><a href="/posts"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                    <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
+                    <li th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}"><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>User Administration</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
             </div>
         </nav>

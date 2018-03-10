@@ -66,29 +66,4 @@ public class LoginController {
 		}
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	public ModelAndView adminHome(){
-		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("admin/home");
-		return modelAndView;
-	}
-
-	@RequestMapping(value="/user/home", method = RequestMethod.GET)
-	public ModelAndView userHome(){
-		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-		List<Post> posts = postService.getAll();
-		modelAndView.addObject("posts", posts);
-		modelAndView.setViewName("user/home");
-		return modelAndView;
-	}
-	
-
 }

@@ -8,8 +8,10 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import io.codecrafts.model.Post;
 import io.codecrafts.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +32,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Override
+	public List<User> getAll() {
+		List<User> users = new ArrayList<User>();
+		userRepository.findAll().forEach(users::add);
+		return users;
+	}
+
+	@Override
+	public List<User> findAllInRange(int page, int numItems) {
+		List<User> users = new ArrayList<User>();
+		userRepository.findAll(new PageRequest(page, numItems)).forEach(users::add);
+		return users;
+	}
+
 
 	@Override
 	public User findUserByEmail(String email) {

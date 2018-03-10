@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="template :: head">
+</head>
+
+<body>
+<!--/*@thymesVar id="user" type="io.codecrafts.model.User"*/-->
+<div class="container">
+	<div th:replace="template :: header"></div>
+	<div class="panel-group" style="margin-top:40px">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span th:utext="${userName}"></span>
+			</div>
+			<div class="panel-heading">
+				<h1 class="panel-title">User</h1> <a class="btn btn-default" href="#" th:href="@{'/admin/users/new'}" role="button">New</a>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive" th:if="${users != null}">
+					<table class="table table-hover ">
+						<thead class="thead-inverse">
+						<tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Email</th>
+							<th>Edit</th>
+							<th>Delete</th>
+						</tr>
+						</thead>
+						<tr th:each="user : ${users}">
+							<td th:text="${user.getId()}">Visit</td>
+							<td th:text="${user.getFirstName()}">Michael</td>
+							<td th:text="${user.getLastName()}">Clarke</td>
+							<td th:text="${user.getEmail()}">jim@gmail.com</td>
+							<td><a href="#" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit</a></td>
+							<td><a href="#" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete</a></td>
+						</tr>
+					</table>
+					<ul class="pagination" th:if="${totalPages &gt; 1}">
+						<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+							<a th:href="@{/admin/users/(page=${i})}" th:text="${i}" class="page-link"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="template :: footer"></div>
+</div>
+</body>
+</html>
