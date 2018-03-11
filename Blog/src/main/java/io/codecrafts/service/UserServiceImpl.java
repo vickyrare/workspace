@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
+	public User findUserById(Long id) {
+		User user = userRepository.findOne(id);
+		return user;
+	}
+
+	@Override
 	public List<User> getAll() {
 		List<User> users = new ArrayList<User>();
 		userRepository.findAll().forEach(users::add);
@@ -58,6 +64,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		user.setActive(true);
 		userRepository.save(user);
+	}
+
+	@Override
+	public void deleteUser(Long id) {
+		userRepository.delete(id);
 	}
 
 	@Override

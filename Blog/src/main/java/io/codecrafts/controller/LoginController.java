@@ -62,7 +62,6 @@ public class LoginController {
 			modelAndView.addObject("user", new User());
 			modelAndView.addObject("title", "Posts");
 			modelAndView.setViewName("registration");
-			
 		}
 		return modelAndView;
 	}
