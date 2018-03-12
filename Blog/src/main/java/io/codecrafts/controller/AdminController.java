@@ -23,7 +23,7 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(value="/admin/users", method = RequestMethod.GET)
+	@GetMapping(value="/admin/users")
 	public ModelAndView userAdministration(@RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -52,7 +52,7 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/users", method = RequestMethod.POST)
+	@PostMapping(value = "/admin/users")
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
@@ -85,7 +85,7 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/admin/users/{id}/edit", method = RequestMethod.GET)
+	@GetMapping(value="/admin/users/{id}/edit")
 	public ModelAndView createEditForm(@PathVariable Long id){
 		ModelAndView modelAndView = new ModelAndView();
 		User user = userService.findUserById(id);
@@ -94,7 +94,7 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/admin/users/{id}", method = RequestMethod.POST)
+	@PostMapping(value = "/admin/users/{id}")
 	public ModelAndView editUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (bindingResult.hasErrors()) {

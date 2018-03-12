@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +27,7 @@ public class SettingsController {
 	@Autowired
 	private PostService postService;
 
-	@RequestMapping(value="/settings", method = RequestMethod.GET)
+	@GetMapping(value="/settings")
 	public ModelAndView settings(){
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -35,7 +37,7 @@ public class SettingsController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/settings", method = RequestMethod.POST)
+	@PostMapping(value = "/settings")
 	public ModelAndView updateUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (bindingResult.hasErrors()) {
