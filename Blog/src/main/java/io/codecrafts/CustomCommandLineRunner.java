@@ -37,6 +37,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         adminUser.setLastName("Sharif");
         adminUser.setEmail("vickyrare@gmail.com");
         adminUser.setPassword("12345678");
+        adminUser.setActive(true);
 
         Role adminRole = roleRepository.findByRole("ADMIN");
         adminUser.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
@@ -48,12 +49,13 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         user.setLastName("Sharif");
         user.setEmail("vickyrare@yahoo.com");
         user.setPassword("12345678");
+        user.setActive(true);
 
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 
         userService.saveUser(user);
-
+        
         Post post =  new Post();
         post.setTitle("How to hack Wii U");
         post.setUser(user);

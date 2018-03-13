@@ -10,5 +10,6 @@ public interface UserService {
 	public List<User> findAllInRange(int page, int numItems);
 	public User findUserByEmail(String email);
 	public void saveUser(User user);
+	public void updateUser(User user);
 	public void deleteUser(Long id);
 }

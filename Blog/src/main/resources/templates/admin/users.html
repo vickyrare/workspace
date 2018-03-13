@@ -36,7 +36,8 @@
 							<td th:text="${user.getLastName()}">Clarke</td>
 							<td th:text="${user.getEmail()}">jim@gmail.com</td>
 							<td><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/edit'}">Edit</a></td>
-							<td><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/delete'}">Delete</a></td>
+							<td th:if="${user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/disable'}">Disable</a></td>
+							<td th:if="${!user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/enable'}">Enable</a></td>
 						</tr>
 					</table>
 					<ul class="pagination" th:if="${totalPages &gt; 1}">

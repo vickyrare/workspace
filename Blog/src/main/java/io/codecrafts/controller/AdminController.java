@@ -138,4 +138,33 @@ public class AdminController {
 		modelAndView.setViewName("/admin/users");
 		return modelAndView;
 	}
+
+	@GetMapping(value="/admin/users/{id}/disable")
+	public ModelAndView disableUser(@PathVariable Long id){
+		return setStatus(id, false);
+	}
+
+	@GetMapping(value="/admin/users/{id}/enable")
+	public ModelAndView enableUser(@PathVariable Long id){
+		return setStatus(id, true);
+	}
+
+	private ModelAndView setStatus(Long id, boolean enable) {
+		User user = userService.findUserById(id);
+		user.setActive(enable);
+		userService.updateUser(user);
+		ModelAndView modelAndView = new ModelAndView();
+		List<User> users = userService.getAll();
+		int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
+		if(users.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+		}
+
+		users = userService.findAllInRange(0, ITEMS_PER_PAGE);
+		modelAndView.addObject("users", users);
+		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("title", "User Administration");
+		modelAndView.setViewName("/admin/users");
+		return modelAndView;
+	}
 }
