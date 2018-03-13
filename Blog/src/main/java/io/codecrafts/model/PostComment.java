@@ -18,7 +18,7 @@ public class PostComment {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@Column(name = "content")
+	@Column(name = "content", length=500)
 	@NotEmpty(message = "*Please provide content")
 	private String content;
 

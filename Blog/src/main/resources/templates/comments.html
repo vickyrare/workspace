@@ -16,27 +16,47 @@
 				<span th:utext="${userName}"></span>
 			</div>
 			<div class="panel-heading">
-				<h1 class="panel-title">Post Comments</h1> <a class="btn btn-default" href="#" th:href="@{'/posts/' + ${post.id} + '/comments/new'}" role="button">New</a>
+				<h1 th:text="${post.getTitle()}" class="panel-title"></h1>
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive" th:if="${comments != null}">
-					<table class="table table-hover ">
-						<thead class="thead-inverse">
-						<tr>
-							<th>Content</th>
-							<th>Submitter</th>
-							<th>Posted On</th>
-							<th>Edit</th>
-							<th>Delete</th>
-						</tr>
-						</thead>
+					<table class="table table-condensed">
+						<colgroup>
+							<col class="col-md-2">
+							<col class="col-md-11">
+						</colgroup>
+						<tbody>
 						<tr th:each="comment : ${comments}">
-							<td th:text="${comment.getContent()}">Visit</td>
-							<td th:text="${comment.getUser().getFirstName()}">Michael</td>
-							<td th:text="${comment.getPostDate()}">Michael</td>
-							<td><a href="#" th:href="@{'/posts/' + ${post.id} + '/comments/' + ${comment.getId()} + '/edit'}">Edit</a></td>
-							<td><a href="#" th:href="@{'/posts/' + ${post.id} + '/comments/' + ${comment.getId()} + '/delete'}">Delete</a></td>
+							<td>
+								<table class="table table-condensed table-borderless">
+									<tr>
+										<td th:text="${comment.getUser().getFirstName()}">Michael John</td>
+									</tr>
+									<tr>
+										<td th:text="${comment.getPostDate()}">2018-02-28 19:21:27</td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table class="table table-condensed table-borderless">
+									<tr>
+										<td><div th:text="${comment.getContent()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div></td>
+									</tr>
+								</table>
+							</td>
 						</tr>
+						<form th:object="${postComment}" th:action="@{'/posts/' + ${post.id} +'/comments'}" method="post" class="form-horizontal">
+						<tr>
+							<label th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="validation-message"></label>
+							<td colspan="2"><textarea th:field="*{content}" placeholder="Please type your comments here" class="form-control" rows="5"></textarea></td>
+						</tr>
+						<tr>
+							<td>
+								<button type="submit" class="btn float-right">Post Comment</button>
+							</td>
+						</tr>
+						</form>
+						</tbody>
 					</table>
 					<ul class="pagination" th:if="${totalPages &gt; 1}">
 						<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">

@@ -45,6 +45,8 @@ public class PostCommentController {
 		postComments = postCommentService.findAllInRange(postId, page - 1, ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
+		PostComment postComment = new PostComment();
+		modelAndView.addObject("postComment", postComment);
 		modelAndView.addObject("comments", postComments);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("title", "Comments");
@@ -52,53 +54,43 @@ public class PostCommentController {
 		return modelAndView;
 	}
 
-	@GetMapping(value="/posts/{postId}/comments/new")
-	public ModelAndView newCommentForm(@PathVariable Long postId){
-		ModelAndView modelAndView = new ModelAndView();
-		PostComment postComment = new PostComment();
-		modelAndView.addObject("postid", postId);
-		modelAndView.addObject("postComment", postComment);
-		modelAndView.addObject("title", "New Comment");
-		modelAndView.setViewName("commentform");
-		return modelAndView;
-	}
-
 	@PostMapping(value="/posts/{postId}/comments")
 	public ModelAndView addNewComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable Long postId){
 		ModelAndView modelAndView = new ModelAndView();
 
-		if (bindingResult.hasErrors()) {
-			modelAndView.addObject("postid", postId);
-			modelAndView.setViewName("commentform");
-		} else {
+		Post post = postService.findPost(postId);
+
+		if (!bindingResult.hasErrors()) {
 			PostComment newPostComment = new PostComment();
 			newPostComment.setContent(postComment.getContent());
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Post post = postService.findPost(postId);
 			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPostComment.setUser(loggedInUser);
 			newPostComment.setPostDate(new Date());
 			post.addComment(newPostComment);
 			postService.savePost(post);
-			List<PostComment> postComments = postCommentService.getAllComments(postId);
+			postComment = new PostComment();
+			modelAndView.addObject("postComment", postComment);
 
-			int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-			int currentPage;
-			if(postComments.size() % ITEMS_PER_PAGE == 0) {
-				totalPages -= 1;
-				currentPage = (postComments.size() / ITEMS_PER_PAGE) - 1;
-			} else {
-				currentPage = (postComments.size() / ITEMS_PER_PAGE);
-			}
-
-			postComments = postCommentService.findAllInRange(postId, currentPage, ITEMS_PER_PAGE);
-
-			modelAndView.addObject("post", post);
-			modelAndView.addObject("comments", postComments);
-			modelAndView.addObject("totalPages", totalPages);
-			modelAndView.addObject("title", "Comments");
-			modelAndView.setViewName("comments");
 		}
+		List<PostComment> postComments = postCommentService.getAllComments(postId);
+
+		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+		int currentPage;
+		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+			totalPages -= 1;
+			currentPage = (postComments.size() / ITEMS_PER_PAGE) - 1;
+		} else {
+			currentPage = (postComments.size() / ITEMS_PER_PAGE);
+		}
+
+		postComments = postCommentService.findAllInRange(postId, currentPage, ITEMS_PER_PAGE);
+
+		modelAndView.addObject("post", post);
+		modelAndView.addObject("comments", postComments);
+		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("title", "Comments");
+		modelAndView.setViewName("comments");
 		return modelAndView;
 	}
 
