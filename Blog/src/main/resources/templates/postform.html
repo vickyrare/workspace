@@ -12,7 +12,7 @@
 		<div class="panel-group" style="margin-top:40px">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<span th:utext="${userName}"></span>
+					<span>New Thread</span>
 				</div>
 				<div class="panel-body">
 					<form th:object="${post}" th:action="@{'/posts'}" method="post" class="form-horizontal">
@@ -22,7 +22,7 @@
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span>Save Thread</button>
 					</form>
 				</div>
 			</div>

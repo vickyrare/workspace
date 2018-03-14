@@ -12,10 +12,7 @@
 		<div class="panel-group" style="margin-top:40px">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<span th:utext="${userName}"></span>
-				</div>
-				<div class="panel-heading">
-					<h1 class="panel-title">Posts</h1> <a class="btn btn-default" href="#" th:href="@{'/posts/new'}" role="button">New</a>
+					<a class="btn btn-default" href="#" th:href="@{'/posts/new'}" role="button"><span class="glyphicon glyphicon-plus"></span>New Thread</a>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive" th:if="${not #lists.isEmpty(posts)}">

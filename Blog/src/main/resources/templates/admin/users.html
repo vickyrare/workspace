@@ -12,10 +12,7 @@
 	<div class="panel-group" style="margin-top:40px">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<span th:utext="${userName}"></span>
-			</div>
-			<div class="panel-heading">
-				<h1 class="panel-title">User</h1> <a class="btn btn-default" href="#" th:href="@{'/admin/users/new'}" role="button">New</a>
+				<a class="btn btn-default" href="#" th:href="@{'/admin/users/new'}" role="button"><span class="glyphicon glyphicon-plus"></span>Add User</a>
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive" th:if="${users != null}">
@@ -27,17 +24,17 @@
 							<th>Last Name</th>
 							<th>Email</th>
 							<th>Edit</th>
-							<th>Delete</th>
+							<th>Account Status</th>
 						</tr>
 						</thead>
-						<tr th:each="user : ${users}">
+						<tr th:each="user : ${users}" th:classappend="${!user.isActive()} ? danger">
 							<td th:text="${user.getId()}">Visit</td>
 							<td th:text="${user.getFirstName()}">Michael</td>
 							<td th:text="${user.getLastName()}">Clarke</td>
 							<td th:text="${user.getEmail()}">jim@gmail.com</td>
-							<td><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/edit'}">Edit</a></td>
-							<td th:if="${user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/disable'}">Disable</a></td>
-							<td th:if="${!user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/enable'}">Enable</a></td>
+							<td><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit</a></td>
+							<td th:if="${user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/disable'}"><span class="glyphicon glyphicon-ban-circle"></span>Disable</a></td>
+							<td th:if="${!user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/enable'}"><span class="glyphicon glyphicon-ok-sign"></span>Enable</a></td>
 						</tr>
 					</table>
 					<ul class="pagination" th:if="${totalPages &gt; 1}">
