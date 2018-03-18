@@ -27,10 +27,8 @@ import io.codecrafts.repository.UserRepository;
 @Service("userService")
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
@@ -98,5 +96,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isActive(), true, true, true, authorities);
+	}
+
+	public UserRepository getUserRepository() {
+		return userRepository;
+	}
+
+	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+	public BCryptPasswordEncoder getbCryptPasswordEncoder() {
+		return bCryptPasswordEncoder;
+	}
+
+	@Autowired
+	public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 }
