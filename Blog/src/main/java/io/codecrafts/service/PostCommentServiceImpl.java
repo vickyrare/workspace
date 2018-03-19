@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +26,16 @@ public class PostCommentServiceImpl implements PostCommentService {
 	public List<PostComment> findAllInRange(Long postId, int page, int numItems){
 		List<PostComment> postComments = new ArrayList<PostComment>();
 		postCommentRepository.findByPostId(postId, new PageRequest(page, numItems)).forEach(postComments::add);
+
+		//sort in descending order
+		Collections.sort(postComments, (postComment1, postComment2) -> {
+			if(postComment1.getPostDate() == null || postComment2.getPostDate() == null) {
+				return 0;
+			}
+
+			return postComment2.getPostDate().compareTo(postComment1.getPostDate());
+		});
+
 		return postComments;
 	}
 
@@ -43,6 +54,7 @@ public class PostCommentServiceImpl implements PostCommentService {
 	public void deleteComment(Long id) {
 		postCommentRepository.delete(id);
 	}
+
 	public PostComment findPostComment(Long id) {
 	    PostComment postComment = postCommentRepository.findOne(id);
 	    return postComment;
