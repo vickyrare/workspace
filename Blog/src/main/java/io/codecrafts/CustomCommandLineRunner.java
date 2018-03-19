@@ -9,6 +9,7 @@ import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,14 +20,17 @@ import java.util.HashSet;
 @Component
 public class CustomCommandLineRunner implements CommandLineRunner {
 
-    @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     private PostRepository postRepository;
+
+    public CustomCommandLineRunner(@Lazy UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     @Transactional
