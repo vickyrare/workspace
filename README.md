@@ -1,19 +1,28 @@
 # workspace
 A common workground for learning new technlogies
 
-Blog app:
+Blog application:
 
-This app is built using Spring Boot and Thymeleafs.
+This application is built using Spring Boot and Thymeleafs.
 
-How to build:
+Prerequisites:
 
 You need to install MySQL and then create a database called blog.
 
 Open Blog\src\main\resources\application.properties and provide user name and password for MySQL.
 
+By default the application is running on port 4000 which can be changed by modifying the property server.port=4000 in the Blog\src\main\resources\application.properties file.
+
 Install Java 8 and Maven.
 
-Go the Blog/ directory and then run the target mvn install to build the app and mvn spring-boot:run to run the app.
+How to build:
+Go the Blog directory and then run the target (mvn install) to build the application or target (mvn spring-boot:run) to run the application.
 
 There is no need to install Tomcat or any other Web Server.
 
+The application comes with two builtin users.
+
+Admin (username: vickyrare@gmail.com, password: 12345678)
+User (username: vickyrare@yahoo.com, password: 12345678)
+
+They can be changed in the CustomCommandLineRunner.java file.
