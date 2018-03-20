@@ -64,6 +64,7 @@ public class AdminController {
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("/admin/userform");
 		} else {
+			user.setActive(true);
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been created successfully");
 			List<User> users = userService.getAll();
