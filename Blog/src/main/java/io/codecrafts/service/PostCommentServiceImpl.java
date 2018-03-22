@@ -25,17 +25,7 @@ public class PostCommentServiceImpl implements PostCommentService {
 
 	public List<PostComment> findAllInRange(Long postId, int page, int numItems){
 		List<PostComment> postComments = new ArrayList<PostComment>();
-		postCommentRepository.findByPostId(postId, new PageRequest(page, numItems)).forEach(postComments::add);
-
-		//sort in descending order
-		Collections.sort(postComments, (postComment1, postComment2) -> {
-			if(postComment1.getPostDate() == null || postComment2.getPostDate() == null) {
-				return 0;
-			}
-
-			return postComment2.getPostDate().compareTo(postComment1.getPostDate());
-		});
-
+		postCommentRepository.findByPostIdOrderByPostDateDesc(postId, new PageRequest(page, numItems)).forEach(postComments::add);
 		return postComments;
 	}
 
