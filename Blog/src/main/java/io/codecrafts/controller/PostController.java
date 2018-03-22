@@ -67,19 +67,16 @@ public class PostController {
 			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPost.setUser(loggedInUser);
 			newPost.setCreationDate(new Date());
+			newPost.setLastModified(newPost.getCreationDate());
 			postService.savePost(newPost);
 
 			List<Post> posts = postService.getAll();
 			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-			int currentPage;
 			if(posts.size() % ITEMS_PER_PAGE == 0) {
 				totalPages -= 1;
-				currentPage = (posts.size() / ITEMS_PER_PAGE) - 1;
-			} else {
-				currentPage = (posts.size() / ITEMS_PER_PAGE);
 			}
 
-			posts = postService.findAllInRange(currentPage, ITEMS_PER_PAGE);
+			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("title", "Posts");
 			modelAndView.addObject("totalPages", totalPages);
@@ -108,6 +105,7 @@ public class PostController {
         } else {
             Post editPost = postService.findPost(post.getId());
             editPost.setTitle(post.getTitle());
+			editPost.setLastModified(new Date());
             postService.savePost(editPost);
 			List<Post> posts = postService.getAll();
 			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;

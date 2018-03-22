@@ -68,6 +68,7 @@ public class PostCommentController {
 			newPostComment.setUser(loggedInUser);
 			newPostComment.setPostDate(new Date());
 			post.addComment(newPostComment);
+			post.setLastModified(newPostComment.getPostDate());
 			postService.savePost(post);
 			postComment = new PostComment();
 			modelAndView.addObject("postComment", postComment);
@@ -76,15 +77,11 @@ public class PostCommentController {
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 
 		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-		int currentPage;
 		if(postComments.size() % ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
-			currentPage = (postComments.size() / ITEMS_PER_PAGE) - 1;
-		} else {
-			currentPage = (postComments.size() / ITEMS_PER_PAGE);
 		}
 
-		postComments = postCommentService.findAllInRange(postId, currentPage, ITEMS_PER_PAGE);
+		postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
 
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
@@ -128,6 +125,8 @@ public class PostCommentController {
 
 			postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
 			Post post = postService.findPost(postId);
+			post.setLastModified(editPostComment.getPostDate());
+			postService.savePost(post);
 			modelAndView.addObject("post", post);
 			modelAndView.addObject("comments", postComments);
 			modelAndView.addObject("totalPages", totalPages);

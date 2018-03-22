@@ -22,8 +22,11 @@ public class Post {
 
 	@Column(name="creation_date")
 	@Temporal(TemporalType.TIMESTAMP)
-	private
-	Date creationDate;
+	private	Date creationDate;
+
+	@Column(name="last_modified")
+	@Temporal(TemporalType.TIMESTAMP)
+	private	Date lastModified;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
@@ -49,14 +52,6 @@ public class Post {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-//	public int getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(int userId) {
-//		this.userId = userId;
-//	}
 
 	public String getTitle() {
 		return title;
@@ -84,5 +79,13 @@ public class Post {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Date getLastModified() {
+		return lastModified;
+	}
+
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
 	}
 }

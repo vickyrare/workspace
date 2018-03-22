@@ -23,16 +23,7 @@ public class PostServiceImpl implements PostService {
 
 	public List<Post> findAllInRange(int page, int numItems){
 		List<Post> posts = new ArrayList<Post>();
-		postRepository.findAll(new PageRequest(page, numItems)).forEach(posts::add);
-
-		//sort in descending order
-		Collections.sort(posts, (post1, post2) -> {
-			if(post1.getPostComments().size() == 0 || post2.getPostComments().size() == 0) {
-				return 0;
-			}
-
-			return post2.getPostComments().get(post2.getPostComments().size() - 1).getPostDate().compareTo(post1.getPostComments().get(post1.getPostComments().size() - 1).getPostDate());
-		});
+		postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(page, numItems)).forEach(posts::add);
 
 		return posts;
 	}

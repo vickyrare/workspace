@@ -64,6 +64,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         post.setTitle("How to hack Wii U");
         post.setUser(user);
         post.setCreationDate(new Date());
+        post.setLastModified(post.getCreationDate());
         postRepository.save(post);
 
         PostComment postComment = new PostComment();
