@@ -25,7 +25,7 @@ public class PostCommentServiceImpl implements PostCommentService {
 
 	public List<PostComment> findAllInRange(Long postId, int page, int numItems){
 		List<PostComment> postComments = new ArrayList<PostComment>();
-		postCommentRepository.findByPostIdOrderByPostDateDesc(postId, new PageRequest(page, numItems)).forEach(postComments::add);
+		postCommentRepository.findByPostIdOrderByPostDateAsc(postId, new PageRequest(page, numItems)).forEach(postComments::add);
 		return postComments;
 	}
 
