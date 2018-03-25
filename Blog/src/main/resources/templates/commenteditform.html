@@ -10,7 +10,7 @@
 <!--/*@thymesVar id="postComment" type="io.codecrafts.model.PostComment"*/-->
 	<div class="container">
 		<div th:replace="template :: header"></div>
-		<div class="panel-group" style="margin-top:40px">
+		<div class="panel-group">
 			<div class="panel panel-primary">
 				<div class="panel-body">
 					<form th:object="${postComment}" th:action="@{'/posts/' + ${postid} + '/comments/' + ${postComment.id}}" method="post" class="form-horizontal">

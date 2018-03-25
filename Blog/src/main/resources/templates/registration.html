@@ -8,6 +8,7 @@
 <body>
 	<div class="container">
 		<div th:replace="template :: header_registration"></div>
+		<div class="panel-group">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<form autocomplete="off" action="#" th:action="@{/registration}"
@@ -59,6 +60,7 @@
 					
 				</form>
 			</div>
+		</div>
 		</div>
 		<div th:replace="template :: footer"></div>
 	</div>

@@ -10,7 +10,7 @@
 <!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
 <div class="container">
 	<div th:replace="template :: header"></div>
-	<div class="panel-group" style="margin-top:40px">
+	<div class="panel-group">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h1 th:text="${post.getTitle()}" class="panel-title"></h1>
@@ -19,7 +19,7 @@
 				<div class="table-responsive" th:if="${comments != null}">
 					<table class="table table-condensed">
 						<colgroup>
-							<col class="col-md-2">
+							<col class="col-md-1">
 							<col class="col-md-11">
 						</colgroup>
 						<tbody>
