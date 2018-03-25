@@ -20,7 +20,7 @@
 							<thead class="thead-inverse">
 							<tr>
 								<th class="col-md-1"></th>
-								<th class="col-md-5">Title / Thread Starter</th>
+								<th class="col-md-8">Title / Thread Starter</th>
 								<th class="col-md-1">Replies / Views</th>
 								<th class="col-md-2">Last Post By</th>
 							</tr>
@@ -28,7 +28,6 @@
 							<tbody>
 							<tr th:each="post : ${posts}" class="active">
 								<td>
-									<img th:src="@{/images/avatar.png}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
 								</td>
 								<td>
 									<table class="table table-condensed table-borderless">
@@ -43,22 +42,22 @@
 								<td>
 									<table class="table table-condensed table-borderless">
 										<tr>
-											<td><button type="button" class="btn btn-light">Replies <span class="badge" th:text="${post.getPostComments().size()}">${post.getPostComments().size()}</span></button></td>
+											<td class="text-center"><button type="button" class="btn btn-light">Replies <span class="badge" th:text="${post.getPostComments().size()}">${post.getPostComments().size()}</span></button></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-light">Views <span class="badge" th:text="${post.getPostComments().size()}">${post.getPostComments().size()}</span></button></td>
+											<td class="text-center"><button type="button" class="btn btn-light">Views <span class="badge" th:text="${post.getPostComments().size()}">${post.getPostComments().size()}</span></button></td>
 										</tr>
 									</table>
 								</td>
 								<td>
 									<table class="table table-condensed table-borderless">
 										<tr>
-											<td><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getUser().getFirstName() + ' ' + post.getPostComments().get(post.getPostComments().size() - 1).getUser().getLastName()}">Tom</button></td>
-											<td><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
+											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getUser().getFirstName() + ' ' + post.getPostComments().get(post.getPostComments().size() - 1).getUser().getLastName()}">Tom</button></td>
+											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getPostDate()}">2018-02-28 19:21:27</button></td>
-											<td><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
+											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getPostDate()}">2018-02-28 19:21:27</button></td>
+											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
 										</tr>
 									</table>
 								</td>
