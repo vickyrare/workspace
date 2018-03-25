@@ -27,17 +27,32 @@
 							<td>
 								<table class="table table-condensed table-borderless">
 									<tr>
-										<td th:text="${comment.getUser().getFirstName()}">Michael John</td>
+										<td>
+											<img th:src="@{/images/avatar.png}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
+										</td>
 									</tr>
 									<tr>
-										<td th:text="${comment.getPostDate()}">2018-02-28 19:21:27</td>
+										<td>
+											<table class="table table-condensed table-borderless">
+												<tr>
+													<td class="text-center"><button type="button" class="btn btn-light" th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">Michael</button></td>
+												</tr>
+												<tr>
+													<td class="text-center"><button type="button" class="btn btn-light" th:text="${comment.getPostDate()}">2018-02-28 19:21:27</button></td>
+												</tr>
+											</table>
+										</td>
 									</tr>
 								</table>
 							</td>
 							<td>
 								<table class="table table-condensed table-borderless">
 									<tr>
-										<td><div th:text="${comment.getContent()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div></td>
+										<td>
+											<div class="panel panel-default">
+												<div class="panel-body" th:text="${comment.getContent()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+											</div>
+										</td>
 									</tr>
 								</table>
 							</td>
