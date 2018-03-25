@@ -1,5 +1,6 @@
 package io.codecrafts.model;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class Post {
 	@Column(name = "post_id")
 	private Long id;
 
-	@Column(name = "title")
+	@Column(name = "title", columnDefinition="TEXT")
+	@Length(min=3, max = 100)
 	@NotEmpty(message = "*Please provide a Title")
 	private String title;
 

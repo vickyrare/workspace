@@ -1,5 +1,6 @@
 package io.codecrafts.model;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class PostComment {
 	private User user;
 
 	@Column(name = "content", columnDefinition="TEXT")
+	@Length(min=3, max = 500)
 	@NotEmpty(message = "*Please provide content")
 	private String content;
 
