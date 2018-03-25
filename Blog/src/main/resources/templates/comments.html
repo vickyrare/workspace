@@ -19,8 +19,8 @@
 				<div class="table-responsive" th:if="${comments != null}">
 					<table class="table table-condensed">
 						<colgroup>
-							<col class="col-md-1">
-							<col class="col-md-11">
+							<col class="col-md-2">
+							<col class="col-md-10">
 						</colgroup>
 						<tbody>
 						<tr th:each="comment : ${comments}">
@@ -29,18 +29,8 @@
 									<tr>
 										<td>
 											<img th:src="@{/images/avatar.png}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<table class="table table-condensed table-borderless">
-												<tr>
-													<td class="text-center"><button type="button" class="btn btn-light" th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">Michael</button></td>
-												</tr>
-												<tr>
-													<td class="text-center"><button type="button" class="btn btn-light" th:text="${comment.getPostDate()}">2018-02-28 19:21:27</button></td>
-												</tr>
-											</table>
+											<figcaption class="figure-caption text-center" th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">Figure caption</figcaption>
+											<figcaption class="figure-caption text-center" th:text="${comment.getPostDate()}">2018-02-28 19:21:27</figcaption>
 										</td>
 									</tr>
 								</table>
