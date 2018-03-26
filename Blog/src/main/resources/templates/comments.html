@@ -29,8 +29,8 @@
 									<tr>
 										<td>
 											<img th:src="@{/images/avatar.png}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
-											<figcaption class="figure-caption text-center" th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">Figure caption</figcaption>
-											<figcaption class="figure-caption text-center" th:text="${comment.getPostDate()}">2018-02-28 19:21:27</figcaption>
+											<figcaption class="figure-caption text-center"><small th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">John Doe</small></figcaption>
+											<figcaption class="figure-caption text-center"><small th:text="${comment.getPostDate()}">2018-02-28 19:21:27</small></figcaption>
 										</td>
 									</tr>
 								</table>

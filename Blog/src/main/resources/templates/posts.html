@@ -36,7 +36,7 @@
 											<td><h4><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()} + '/comments'}">Browsing issue</a></h4></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-light" th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${post.getCreationDate()}"></button></td>
+											<td><button type="button" class="btn btn-light"><small th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${post.getCreationDate()}"></small></button></td>
 										</tr>
 									</table>
 								</td>
