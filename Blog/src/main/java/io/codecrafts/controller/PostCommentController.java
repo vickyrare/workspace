@@ -36,6 +36,10 @@ public class PostCommentController {
 	public ModelAndView getAllComments(@PathVariable Long postId, @RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
 		if(postComments.size() % ITEMS_PER_PAGE == 0) {
@@ -57,6 +61,10 @@ public class PostCommentController {
 	@PostMapping(value="/posts/{postId}/comments")
 	public ModelAndView addNewComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable Long postId){
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
 
 		Post post = postService.findPost(postId);
 
@@ -94,53 +102,89 @@ public class PostCommentController {
 	@GetMapping(value="/posts/{postId}/comments/{commentId}/edit")
     public ModelAndView editCommentForm(@PathVariable Long postId, @PathVariable Long commentId){
         ModelAndView modelAndView = new ModelAndView();
-        PostComment postComment = postCommentService.findPostComment(commentId);
-        modelAndView.addObject("postid", postId);
-		modelAndView.addObject("postComment", postComment);
-		modelAndView.addObject("title", "Edit Comment");
-        modelAndView.setViewName("commenteditform");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
+		PostComment postComment = postCommentService.findPostComment(commentId);
+		if(user.getId() == postComment.getUser().getId()) {
+			Post post = postService.findPost(postId);
+			modelAndView.addObject("post", post);
+			postComment = postCommentService.findPostComment(commentId);
+			modelAndView.addObject("postComment", postComment);
+			modelAndView.addObject("title", "Edit Comment");
+			modelAndView.setViewName("commenteditform");
+		} else {
+			return getModelAndViewForPost(postId);
+		}
         return modelAndView;
 	}
 
     @PostMapping(value="/posts/{postId}/comments/{commentId}")
     public ModelAndView editComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable Long postId, @PathVariable Long commentId) {
 		ModelAndView modelAndView = new ModelAndView();
+		PostComment editPostComment = postCommentService.findPostComment(commentId);
 
-		if (bindingResult.hasErrors()) {
-			postComment.setId(commentId);
-			modelAndView.addObject("postid", postId);
-			modelAndView.addObject("comment", postComment);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
 
-			modelAndView.setViewName("commenteditform");
-		} else {
-			PostComment editPostComment = postCommentService.findPostComment(commentId);
-			editPostComment.setContent(postComment.getContent());
-			postCommentService.updateComment(editPostComment);
-			List<PostComment> postComments = postCommentService.getAllComments(postId);
+		if(user.getId() == editPostComment.getUser().getId()) {
+			if (bindingResult.hasErrors()) {
+				postComment.setId(commentId);
+				modelAndView.addObject("postid", postId);
+				modelAndView.addObject("comment", postComment);
 
-			int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-			if(postComments.size() % ITEMS_PER_PAGE == 0) {
-				totalPages -= 1;
+				modelAndView.setViewName("commenteditform");
+			} else {
+				editPostComment.setContent(postComment.getContent());
+				postCommentService.updateComment(editPostComment);
+				List<PostComment> postComments = postCommentService.getAllComments(postId);
+
+				int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
+				if (postComments.size() % ITEMS_PER_PAGE == 0) {
+					totalPages -= 1;
+				}
+
+				postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
+				Post post = postService.findPost(postId);
+				post.setLastModified(editPostComment.getPostDate());
+				postService.savePost(post);
+				modelAndView.addObject("post", post);
+				postComment = new PostComment();
+				modelAndView.addObject("postComment", postComment);
+				modelAndView.addObject("comments", postComments);
+				modelAndView.addObject("totalPages", totalPages);
+				modelAndView.addObject("title", "Comments");
+				modelAndView.setViewName("comments");
 			}
-
-			postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
-			Post post = postService.findPost(postId);
-			post.setLastModified(editPostComment.getPostDate());
-			postService.savePost(post);
-			modelAndView.addObject("post", post);
-			modelAndView.addObject("comments", postComments);
-			modelAndView.addObject("totalPages", totalPages);
-			modelAndView.addObject("title", "Comments");
-			modelAndView.setViewName("comments");
+		} else {
+			return getModelAndViewForPost(postId);
 		}
 		return modelAndView;
 	}
 
 	@GetMapping(value="/posts/{postId}/comments/{commentId}/delete")
 	public ModelAndView deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
-		postCommentService.deleteComment(commentId);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+
+		PostComment postComment = postCommentService.findPostComment(commentId);
+    	if(user.getRoles().contains("ADMIN") || user.getId() == postComment.getUser().getId()) {
+			postCommentService.deleteComment(commentId);
+		}
+		return getModelAndViewForPost(postId);
+	}
+
+	private ModelAndView getModelAndViewForPost(Long postId) {
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
+
 		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
 		if(postComments.size() % ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
@@ -149,6 +193,8 @@ public class PostCommentController {
 		postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
+		PostComment postComment = new PostComment();
+		modelAndView.addObject("postComment", postComment);
 		modelAndView.addObject("comments", postComments);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("title", "Comments");

@@ -123,7 +123,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value="/admin/users/{id}/delete")
-	public ModelAndView deletePost(@PathVariable Long id){
+	public ModelAndView deleteUser(@PathVariable Long id){
 		userService.deleteUser(id);
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> users = userService.getAll();

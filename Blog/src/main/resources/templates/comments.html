@@ -6,6 +6,7 @@
 </head>
 
 <body>
+<!--/*@thymesVar id="user" type="io.codecrafts.model.User"*/-->
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
 <!--/*@thymesVar id="comment" type="io.codecrafts.model.PostComment"*/-->
 <div class="container">
@@ -41,6 +42,11 @@
 										<td>
 											<div class="panel panel-default">
 												<div class="panel-body" th:text="${comment.getContent()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+											</div>
+											<br>
+											<div class="pull-right">
+												<a href="#" class="btn btn-xs btn-primary float-right" th:if="${comment.getUser().getId() == user.getId()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/comments/' + ${comment.id} + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit Comment</a>
+												<a href="#" class="btn btn-xs btn-primary float-right" th:if="${comment.getUser().getId() == user.getId()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/comments/' + ${comment.id} + '/delete'}"><span class="glyphicon glyphicon-trash"></span>Delete Comment</a>
 											</div>
 										</td>
 									</tr>

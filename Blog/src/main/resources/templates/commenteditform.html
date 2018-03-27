@@ -12,16 +12,18 @@
 		<div th:replace="template :: header"></div>
 		<div class="panel-group">
 			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h1 class="panel-title" th:text="${post.getTitle()}">Browsing issue</h1>
+				</div>
 				<div class="panel-body">
-					<form th:object="${postComment}" th:action="@{'/posts/' + ${postid} + '/comments/' + ${postComment.id}}" method="post" class="form-horizontal">
+					<form th:object="${postComment}" th:action="@{'/posts/' + ${post.getId()} + '/comments/' + ${postComment.id}}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:text="${postComment.id}"></label>
 								<label th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="validation-message"></label>
 								<input type="text" th:field="*{content}" placeholder="content" class="form-control" />
 							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary">Edit Comment</button>
 					</form>
 				</div>
 			</div>
