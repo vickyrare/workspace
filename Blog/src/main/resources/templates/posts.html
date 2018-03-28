@@ -6,6 +6,7 @@
 </head>
 
 <body>
+<!--/*@thymesVar id="user" type="io.codecrafts.model.User"*/-->
 <!--/*@thymesVar id="post" type="io.codecrafts.model.Post"*/-->
 	<div class="container">
 		<div th:replace="template :: header"></div>
@@ -36,7 +37,13 @@
 											<td><h4><a th:text="${post.getTitle()}" href="#" th:href="@{'/posts/' + ${post.getId()} + '/comments'}">Browsing issue</a></h4></td>
 										</tr>
 										<tr>
-											<td><button type="button" class="btn btn-light"><small th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${post.getCreationDate()}"></small></button></td>
+											<td>
+												<button type="button" class="btn btn-light"><small th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${post.getCreationDate()}"></small></button>
+												<div class="pull-right">
+													<a href="#" class="btn btn-xs btn-primary float-right" th:if="${post.getUser().getId() == user.getId() && post.getPostComments().size() == 0}" role="button" th:href="@{'/posts/' + ${post.id}  + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit Post</a>
+													<a href="#" class="btn btn-xs btn-danger float-right" th:if="${post.getUser().getId() == user.getId() && post.getPostComments().size() == 0 || user.isAdmin()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/delete'}"><span class="glyphicon glyphicon-trash"></span>Delete Post</a>
+												</div>
+											</td>
 										</tr>
 									</table>
 								</td>

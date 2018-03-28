@@ -171,7 +171,7 @@ public class PostCommentController {
 		User user = userService.findUserByEmail(auth.getName());
 
 		PostComment postComment = postCommentService.findPostComment(commentId);
-    	if(user.getRoles().contains("ADMIN") || user.getId() == postComment.getUser().getId()) {
+    	if(user.isAdmin() || user.getId() == postComment.getUser().getId()) {
 			postCommentService.deleteComment(commentId);
 		}
 		return getModelAndViewForPost(postId);

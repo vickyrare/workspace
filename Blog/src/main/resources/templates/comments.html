@@ -46,7 +46,7 @@
 											<br>
 											<div class="pull-right">
 												<a href="#" class="btn btn-xs btn-primary float-right" th:if="${comment.getUser().getId() == user.getId()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/comments/' + ${comment.id} + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit Comment</a>
-												<a href="#" class="btn btn-xs btn-primary float-right" th:if="${comment.getUser().getId() == user.getId()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/comments/' + ${comment.id} + '/delete'}"><span class="glyphicon glyphicon-trash"></span>Delete Comment</a>
+												<a href="#" class="btn btn-xs btn-danger float-right" th:if="${comment.getUser().getId() == user.getId() || user.isAdmin()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/comments/' + ${comment.id} + '/delete'}"><span class="glyphicon glyphicon-trash"></span>Delete Comment</a>
 											</div>
 										</td>
 									</tr>

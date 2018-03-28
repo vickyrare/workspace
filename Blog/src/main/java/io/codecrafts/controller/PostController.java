@@ -30,6 +30,11 @@ public class PostController {
 	@GetMapping(value="/posts")
 	public ModelAndView listPost(@RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
 		List<Post> posts = postService.getAll();
 		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
 		if(posts.size() % ITEMS_PER_PAGE == 0) {
@@ -47,6 +52,11 @@ public class PostController {
 	@GetMapping(value="/posts/new")
 	public ModelAndView createNewPostForm(){
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
 		Post post = new Post();
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("title", "New Post");
@@ -57,6 +67,10 @@ public class PostController {
 	@PostMapping(value="/posts")
 	public ModelAndView addNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
 
         if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("postform");
@@ -87,12 +101,22 @@ public class PostController {
 	}
 
 	@GetMapping(value="/posts/{id}/edit")
-    public ModelAndView createEditPostForm(@PathVariable Long id){
+    public ModelAndView createEditPostForm(@PathVariable Long postId){
         ModelAndView modelAndView = new ModelAndView();
-        Post post = postService.findPost(id);
-        modelAndView.addObject("post", post);
-		modelAndView.addObject("title", "Edit Post");
-        modelAndView.setViewName("posteditform");
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
+        Post post = postService.findPost(postId);
+
+		if(user.getId() == post.getUser().getId()) {
+			modelAndView.addObject("post", post);
+			modelAndView.addObject("title", "Edit Post");
+			modelAndView.setViewName("posteditform");
+		} else {
+			return getModelAndViewForAllPosts();
+		}
         return modelAndView;
 	}
 
@@ -122,10 +146,26 @@ public class PostController {
         return modelAndView;
     }
 
-    @GetMapping(value="/posts/{id}/delete")
-	public ModelAndView deletePost(@PathVariable Long id){
-		postService.deletePost(id);
+    @GetMapping(value="/posts/{postId}/delete")
+	public ModelAndView deletePost(@PathVariable Long postId){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		Post post = postService.findPost(postId);
+
+		if(user.isAdmin() || user.getId() == post.getUser().getId()) {
+			postService.deletePost(postId);
+		}
+
+		return getModelAndViewForAllPosts();
+	}
+
+	private ModelAndView getModelAndViewForAllPosts() {
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", user);
+
 		List<Post> posts = postService.getAll();
 		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
 		if(posts.size() % ITEMS_PER_PAGE == 0) {

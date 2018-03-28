@@ -109,4 +109,13 @@ public class User {
 		this.roles = roles;
 	}
 
+	public boolean isAdmin() {
+		for(Role role: roles) {
+			if(role.getRole().compareTo("ADMIN") == 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
