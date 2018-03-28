@@ -32,8 +32,8 @@ public class PostController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
 		List<Post> posts = postService.getAll();
 		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
@@ -54,8 +54,8 @@ public class PostController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
 		Post post = new Post();
 		modelAndView.addObject("post", post);
@@ -69,16 +69,15 @@ public class PostController {
         ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
+		modelAndView.addObject("title", "Posts");
 
         if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("postform");
 		} else {
 			Post newPost = new Post();
 			newPost.setTitle(post.getTitle());
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPost.setUser(loggedInUser);
 			newPost.setCreationDate(new Date());
 			newPost.setLastModified(newPost.getCreationDate());
@@ -92,7 +91,6 @@ public class PostController {
 
 			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
-			modelAndView.addObject("title", "Posts");
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.setViewName("posts");
 		}
@@ -100,19 +98,19 @@ public class PostController {
 		return modelAndView;
 	}
 
-	@GetMapping(value="/posts/{id}/edit")
+	@GetMapping(value="/posts/{postId}/edit")
     public ModelAndView createEditPostForm(@PathVariable Long postId){
         ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
+		modelAndView.addObject("title", "Edit Post");
 
         Post post = postService.findPost(postId);
 
-		if(user.getId() == post.getUser().getId()) {
+		if(loggedInUser.getId() == post.getUser().getId()) {
 			modelAndView.addObject("post", post);
-			modelAndView.addObject("title", "Edit Post");
 			modelAndView.setViewName("posteditform");
 		} else {
 			return getModelAndViewForAllPosts();
@@ -124,7 +122,12 @@ public class PostController {
     public ModelAndView editPost(@Valid @ModelAttribute Post post, BindingResult bindingResult){
         ModelAndView modelAndView = new ModelAndView();
 
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
+
         if (bindingResult.hasErrors()) {
+			modelAndView.addObject("title", "Edit Post");
             modelAndView.setViewName("posteditform");
         } else {
             Post editPost = postService.findPost(post.getId());
@@ -149,10 +152,10 @@ public class PostController {
     @GetMapping(value="/posts/{postId}/delete")
 	public ModelAndView deletePost(@PathVariable Long postId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
+		User loggedInUser = userService.findUserByEmail(auth.getName());
 		Post post = postService.findPost(postId);
 
-		if(user.isAdmin() || user.getId() == post.getUser().getId()) {
+		if(loggedInUser.isAdmin() || loggedInUser.getId() == post.getUser().getId()) {
 			postService.deletePost(postId);
 		}
 
@@ -163,8 +166,8 @@ public class PostController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
 		List<Post> posts = postService.getAll();
 		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;

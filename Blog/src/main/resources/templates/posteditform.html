@@ -12,13 +12,12 @@
 		<div class="panel-group">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<span th:utext="${userName}"></span>
+					<h1 class="panel-title">Edit Post</h1>
 				</div>
 				<div class="panel-body">
 					<form th:object="${post}" th:action="@{'/posts/' + ${post.id}}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
-								<label th:text="${post.id}"></label>
 								<input type="hidden" th:field="*{id}" th:value="${post.id}" class="form-control" />
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />

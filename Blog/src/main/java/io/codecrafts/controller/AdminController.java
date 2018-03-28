@@ -62,6 +62,7 @@ public class AdminController {
 								 "There is already a user registered with the email provided");
 		}
 		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("title", "New User");
 			modelAndView.setViewName("/admin/userform");
 		} else {
 			user.setActive(true);
@@ -91,6 +92,7 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 		User user = userService.findUserById(id);
 		modelAndView.addObject("user", user);
+		modelAndView.addObject("title", "Edit User");
 		modelAndView.setViewName("/admin/usereditform");
 		return modelAndView;
 	}
@@ -99,7 +101,8 @@ public class AdminController {
 	public ModelAndView editUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		if (bindingResult.hasErrors()) {
-			modelAndView.setViewName("/admin/userform");
+			modelAndView.addObject("title", "Edit User");
+			modelAndView.setViewName("/admin/usereditform");
 		} else {
 			User updatedUser = userService.findUserById(user.getId());
 			updatedUser.setFirstName(user.getFirstName());

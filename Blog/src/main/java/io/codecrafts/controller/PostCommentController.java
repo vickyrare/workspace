@@ -37,8 +37,8 @@ public class PostCommentController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
@@ -63,16 +63,14 @@ public class PostCommentController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
 		Post post = postService.findPost(postId);
 
 		if (!bindingResult.hasErrors()) {
 			PostComment newPostComment = new PostComment();
 			newPostComment.setContent(postComment.getContent());
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			User loggedInUser = userService.findUserByEmail(authentication.getName());
 			newPostComment.setUser(loggedInUser);
 			newPostComment.setPostDate(new Date());
 			post.addComment(newPostComment);
@@ -80,7 +78,6 @@ public class PostCommentController {
 			postService.savePost(post);
 			postComment = new PostComment();
 			modelAndView.addObject("postComment", postComment);
-
 		}
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 
@@ -104,16 +101,16 @@ public class PostCommentController {
         ModelAndView modelAndView = new ModelAndView();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
+		modelAndView.addObject("title", "Edit Comment");
 
 		PostComment postComment = postCommentService.findPostComment(commentId);
-		if(user.getId() == postComment.getUser().getId()) {
+		if(loggedInUser.getId() == postComment.getUser().getId()) {
 			Post post = postService.findPost(postId);
 			modelAndView.addObject("post", post);
 			postComment = postCommentService.findPostComment(commentId);
 			modelAndView.addObject("postComment", postComment);
-			modelAndView.addObject("title", "Edit Comment");
 			modelAndView.setViewName("commenteditform");
 		} else {
 			return getModelAndViewForPost(postId);
@@ -127,15 +124,15 @@ public class PostCommentController {
 		PostComment editPostComment = postCommentService.findPostComment(commentId);
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 
-		if(user.getId() == editPostComment.getUser().getId()) {
+		if(loggedInUser.getId() == editPostComment.getUser().getId()) {
 			if (bindingResult.hasErrors()) {
 				postComment.setId(commentId);
 				modelAndView.addObject("postid", postId);
 				modelAndView.addObject("comment", postComment);
-
+				modelAndView.addObject("title", "Edit Comment");
 				modelAndView.setViewName("commenteditform");
 			} else {
 				editPostComment.setContent(postComment.getContent());
@@ -168,10 +165,10 @@ public class PostCommentController {
 	@GetMapping(value="/posts/{postId}/comments/{commentId}/delete")
 	public ModelAndView deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
+		User loggedInUser = userService.findUserByEmail(auth.getName());
 
 		PostComment postComment = postCommentService.findPostComment(commentId);
-    	if(user.isAdmin() || user.getId() == postComment.getUser().getId()) {
+    	if(loggedInUser.isAdmin() || loggedInUser.getId() == postComment.getUser().getId()) {
 			postCommentService.deleteComment(commentId);
 		}
 		return getModelAndViewForPost(postId);
@@ -181,8 +178,8 @@ public class PostCommentController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("user", loggedInUser);
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 
 		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;

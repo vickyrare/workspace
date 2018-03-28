@@ -30,9 +30,12 @@ public class SettingsController {
 	@GetMapping(value="/settings")
 	public ModelAndView settings(){
 		ModelAndView modelAndView = new ModelAndView();
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User loggedInUser = userService.findUserByEmail(authentication.getName());
 		modelAndView.addObject("user", loggedInUser);
+
+		modelAndView.addObject("title", "Settings");
 		modelAndView.setViewName("settings");
 		return modelAndView;
 	}
@@ -40,6 +43,12 @@ public class SettingsController {
 	@PostMapping(value = "/settings")
 	public ModelAndView updateUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User loggedInUser = userService.findUserByEmail(authentication.getName());
+		modelAndView.addObject("user", loggedInUser);
+
+		modelAndView.addObject("title", "Settings");
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("settings");
 		} else {
