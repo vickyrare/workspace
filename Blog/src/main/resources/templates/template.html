@@ -16,39 +16,19 @@
                 <div class="navbar-header">
                     <a class="navbar-brand">Blog</a>
                 </div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" th:if="${#authorization.expression('isAuthenticated()')}">
                     <li><a href="/posts"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-                    <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                     <li th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}"><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>User Administration</a></li>
+                    <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                    <li th:if="${title.equals('Registration')}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
                 </ul>
-            </div>
-        </nav>
-    </div>
-
-    <div th:fragment="header_login">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand">Blog</a>
-                </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/registration"><span class="glyphicon glyphicon-log-in"></span>Register</a></li>
+                    <li th:if="${title.equals('Login')}"><a href="/registration"><span class="glyphicon glyphicon-log-in"></span>Register</a></li>
                 </ul>
-            </div>
-        </nav>
-    </div>
-
-    <div th:fragment="header_registration">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand">Blog</a>
-                </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+                    <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                 </ul>
             </div>
         </nav>
