@@ -1,2 +1,7 @@
 SpringMVC/target/*
+SpringMVC/.idea/*
 Blog/target/*
+Blog/.idea/*
+ClientServer/.gradle/*
+ClientServer/build/*
+ClientServer/.idea/*
