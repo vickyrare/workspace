@@ -1,6 +1,6 @@
 package io.codecrafts.ClientServer.server;
 
-import io.codecrafts.ClientServer.GuiServer;
+import io.codecrafts.ClientServer.server.GuiServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

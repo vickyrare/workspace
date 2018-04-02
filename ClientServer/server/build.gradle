@@ -25,6 +25,6 @@ dependencies {
 
 jar {
    manifest {
-      attributes 'Main-Class': 'io.codecrafts.ClientServer.App'
+      attributes 'Main-Class': 'io.codecrafts.ClientServer.server.GuiServer'
    }
 }
