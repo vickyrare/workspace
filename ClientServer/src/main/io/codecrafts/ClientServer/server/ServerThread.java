@@ -1,4 +1,4 @@
-package io.codecrafts.Sockets;
+package io.codecrafts.ClientServer.server;
 
 import io.codecrafts.ClientServer.GuiServer;
 
@@ -31,16 +31,17 @@ public class ServerThread implements Runnable {
 			e.printStackTrace();
 		}
 		String greeting = null;
-		try {
-			greeting = in.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if ("hello server".equals(greeting)) {
-			out.println("hello client");
-		}
-		else {
-			out.println("unrecognised greeting");
+		while(clientSocket.isConnected()) {
+			try {
+				greeting = in.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if ("hello server".equals(greeting)) {
+				out.println("hello client");
+			} else {
+				out.println("unrecognised greeting");
+			}
 		}
 		
 		try {
@@ -49,11 +50,6 @@ public class ServerThread implements Runnable {
 			e.printStackTrace();
 		}
 		out.close();
-		try {
-			clientSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 }

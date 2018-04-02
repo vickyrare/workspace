@@ -1,6 +1,7 @@
-package io.codecrafts.ClientServer;
+package io.codecrafts.ClientServer.server;
 
-import io.codecrafts.Sockets.ServerThread;
+import io.codecrafts.ClientServer.server.GuiServer;
+import io.codecrafts.ClientServer.server.ServerThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -54,7 +55,7 @@ public class ClientConnection implements Runnable {
             try {
                 System.out.println("Server is waiting for client connections");
                 clientSocket = serverSocket.accept();
-                guiServer.addClient(clientSocket.getPort());
+                guiServer.addClient(clientSocket.getPort(), clientSocket);
                 System.out.println("Client connection accepted");
             }
             catch (SocketException socketException) {
@@ -65,14 +66,6 @@ public class ClientConnection implements Runnable {
             }
             Thread t = new Thread(new ServerThread(clientSocket));
             t.start();
-            try {
-                t.join();
-                t.sleep(1000);
-                guiServer.removeClient(clientSocket.getPort());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 }

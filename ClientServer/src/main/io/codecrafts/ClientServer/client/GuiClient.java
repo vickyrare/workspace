@@ -1,4 +1,4 @@
-package io.codecrafts.ClientServer;
+package io.codecrafts.ClientServer.client;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,8 @@ public class GuiClient {
 
     private JTextField textFieldMessage;
 
+    private JList listReceivedMessages;
+
     private JButton buttonConnect;
 
     private JButton buttonDisconnect;
@@ -33,13 +35,16 @@ public class GuiClient {
 
     private boolean connected;
 
+    public static DefaultListModel<String> receivedMessages = new DefaultListModel<String>();
 
     public GuiClient() {
         connected = false;
         textFieldPort.setText("6666");
         buttonConnect.setEnabled(!connected);
         buttonDisconnect.setEnabled(connected);
+        buttonSendMessage.setEnabled(connected);
 
+        listReceivedMessages.setModel(receivedMessages);
 
         buttonConnect.addActionListener(new ActionListener() {
             @Override
@@ -50,7 +55,8 @@ public class GuiClient {
                         connected = true;
                         buttonDisconnect.setEnabled(connected);
                         buttonConnect.setEnabled(!connected);
-                        sendMessage("hello server");
+                        buttonSendMessage.setEnabled(connected);
+                        textFieldPort.setEnabled(false);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -67,9 +73,20 @@ public class GuiClient {
                         connected = false;
                         buttonDisconnect.setEnabled(connected);
                         buttonConnect.setEnabled(!connected);
+                        buttonSendMessage.setEnabled(connected);
+                        textFieldPort.setEnabled(true);
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();
+                }
+            }
+        });
+        buttonSendMessage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(connected) {
+                    sendMessage(textFieldMessage.getText());
+                    textFieldMessage.setText("");
                 }
             }
         });
@@ -78,6 +95,7 @@ public class GuiClient {
     public void startConnection(String ip, int port) throws IOException {
         clientSocket = new Socket(ip, port);
         clientSocket.setSoTimeout(1000);
+        clientSocket.setKeepAlive(true);
         out = new PrintWriter(clientSocket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
@@ -87,7 +105,7 @@ public class GuiClient {
         String resp = null;
         try {
             resp = in.readLine();
-            this.textFieldMessage.setText(resp);
+            receivedMessages.addElement(resp);
         } catch (IOException e) {
             e.printStackTrace();
         }

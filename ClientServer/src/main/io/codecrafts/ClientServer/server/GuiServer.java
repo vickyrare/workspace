@@ -1,10 +1,13 @@
-package io.codecrafts.ClientServer;
+package io.codecrafts.ClientServer.server;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -29,12 +32,18 @@ public class GuiServer {
 
     private boolean serverRunning;
 
+    private Map<Integer, Socket> clientConnections = new HashMap<Integer, Socket>();
+
     public static DefaultListModel<Integer> connectedClients = new DefaultListModel<Integer>();
 
-    public void addClient(int port) {
+    public void addClient(int port, Socket clientSocket) {
         if(!connectedClients.contains(port)) {
             System.out.println("Client connected on port " + port);
             connectedClients.addElement(port);
+        }
+
+        if(!clientConnections.containsKey(port)) {
+            clientConnections.put(port, clientSocket);
         }
     }
 
@@ -42,6 +51,15 @@ public class GuiServer {
         for(int i = 0; i < connectedClients.getSize(); i++) {
             if(port == connectedClients.get(i)) {
                 connectedClients.remove(i);
+                break;
+            }
+        }
+        if (clientConnections.containsKey(port)) {
+            Socket clientSocket = clientConnections.remove(port);
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -49,6 +67,17 @@ public class GuiServer {
     public void removeAllClients() {
         if(connectedClients != null && !connectedClients.isEmpty()) {
             connectedClients.removeAllElements();
+        }
+
+        for(Socket clientSocket: clientConnections.values()) {
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(clientConnections != null) {
+            clientConnections.clear();
         }
     }
 
@@ -70,6 +99,7 @@ public class GuiServer {
                         serverRunning = true;
                         buttonStopServer.setEnabled(serverRunning);
                         buttonStartServer.setEnabled(!serverRunning);
+                        textFieldPort.setEnabled(false);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -87,6 +117,7 @@ public class GuiServer {
                         serverRunning = false;
                         buttonStopServer.setEnabled(serverRunning);
                         buttonStartServer.setEnabled(!serverRunning);
+                        textFieldPort.setEnabled(true);
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();
