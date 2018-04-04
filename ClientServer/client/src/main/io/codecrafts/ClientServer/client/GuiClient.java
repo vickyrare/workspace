@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 /**
  * Created by waqqas on 4/1/2018.
@@ -139,16 +140,12 @@ public class GuiClient extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(!txtServerPort.getText().isEmpty() && !isConnected()) {
-                    try {
-                        startConnection("127.0.0.1", Integer.parseInt(txtServerPort.getText()));
-                        connected = true;
-                        btnDisconnect.setEnabled(connected);
-                        btnConnect.setEnabled(!connected);
-                        btnSendMessage.setEnabled(connected);
-                        txtServerPort.setEnabled(false);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                    startConnection("127.0.0.1", Integer.parseInt(txtServerPort.getText()));
+                    connected = true;
+                    btnDisconnect.setEnabled(connected);
+                    btnConnect.setEnabled(!connected);
+                    btnSendMessage.setEnabled(connected);
+                    txtServerPort.setEnabled(false);
                 }
             }
         });
@@ -181,12 +178,26 @@ public class GuiClient extends JFrame{
         });
     }
 
-    public void startConnection(String ip, int port) throws IOException {
-        clientSocket = new Socket(ip, port);
-        clientSocket.setSoTimeout(1000);
-        clientSocket.setKeepAlive(true);
-        out = new PrintWriter(clientSocket.getOutputStream(), true);
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    public void startConnection(String ip, int port) {
+        try {
+            clientSocket = new Socket(ip, port);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Server is currently unavailable.");
+            return;
+        }
+        try {
+            clientSocket.setSoTimeout(1000);
+            clientSocket.setKeepAlive(true);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            out = new PrintWriter(clientSocket.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String sendMessage(String msg) {
@@ -202,8 +213,13 @@ public class GuiClient extends JFrame{
     }
 
     public void stopConnection() throws IOException {
-        in.close();
-        out.close();
+        if(in != null) {
+            in.close();
+        }
+
+        if(out != null) {
+            out.close();
+        }
         clientSocket.close();
     }
 
