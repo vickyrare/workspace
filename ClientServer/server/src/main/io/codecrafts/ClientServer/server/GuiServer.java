@@ -131,13 +131,17 @@ public class GuiServer {
         serverThread = new Thread(clientConnection);
         serverThread.start();
 
-        Thread guiThread = new Thread(new Runnable() {
+        Thread connectionWatcherThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true) {
                     try {
                         Thread.sleep(500);
-                        //System.out.println("Thread running");
+                        for(Socket clientSocket: clientConnections.values()) {
+                            if(clientSocket.isClosed()) {
+                                removeClient(clientSocket.getPort());
+                            }
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -145,7 +149,7 @@ public class GuiServer {
             }
         });
 
-        //guiThread.start();
+        connectionWatcherThread.start();
     }
 
     public void stop() throws IOException {

@@ -31,9 +31,13 @@ public class ServerThread implements Runnable {
 			e.printStackTrace();
 		}
 		String greeting = null;
-		while(clientSocket.isConnected()) {
+		while(clientSocket.isConnected() && !clientSocket.isClosed()) {
 			try {
 				greeting = in.readLine();
+				if(greeting == null) {
+					System.out.println("Client on port " + clientSocket.getPort() + " disconnected");
+					break;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

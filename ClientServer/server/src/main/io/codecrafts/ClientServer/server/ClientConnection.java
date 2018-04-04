@@ -60,12 +60,15 @@ public class ClientConnection implements Runnable {
             }
             catch (SocketException socketException) {
                 System.out.println("Server is getting shutdown");
+                return;
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-            Thread t = new Thread(new ServerThread(clientSocket));
-            t.start();
+            if(clientSocket != null) {
+                Thread t = new Thread(new ServerThread(clientSocket), "" + clientSocket.getPort());
+                t.start();
+            }
         }
     }
 }
