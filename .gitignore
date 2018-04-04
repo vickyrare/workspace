@@ -4,4 +4,9 @@ Blog/target/*
 Blog/.idea/*
 ClientServer/.gradle/*
 ClientServer/build/*
+ClientServer/out/*
 ClientServer/.idea/*
+ClientServer/server/build/*
+ClientServer/server/out/*
+ClientServer/client/build/*
+ClientServer/client/out/*
