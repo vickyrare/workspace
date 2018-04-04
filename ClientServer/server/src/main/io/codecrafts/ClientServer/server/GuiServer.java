@@ -38,6 +38,8 @@ public class GuiServer extends JFrame{
 
     private ServerSocket serverSocket;
 
+    Thread connectionWatcherThread;
+
     private boolean serverRunning;
 
     private Map<Integer, Socket> clientConnections = new HashMap<Integer, Socket>();
@@ -203,7 +205,7 @@ public class GuiServer extends JFrame{
         serverThread = new Thread(clientConnection);
         serverThread.start();
 
-        Thread connectionWatcherThread = new Thread(new Runnable() {
+        connectionWatcherThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true) {
@@ -215,7 +217,7 @@ public class GuiServer extends JFrame{
                             }
                         }
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        return;
                     }
                 }
             }
@@ -227,6 +229,7 @@ public class GuiServer extends JFrame{
     public void stop() throws IOException {
         clientConnection.stopClientConnections();
         serverThread.interrupt();
+        connectionWatcherThread.interrupt();
     }
 
     public static void main(String []args) {
