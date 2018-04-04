@@ -1,6 +1,8 @@
 package io.codecrafts.ClientServer.server;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -13,16 +15,22 @@ import java.util.Vector;
 /**
  * Created by waqqas on 4/1/2018.
  */
-public class GuiServer {
-    private JButton buttonStartServer;
+public class GuiServer extends JFrame{
+    private JPanel contentPane;
 
-    private JButton buttonStopServer;
+    private JTextField txtServerPort;
 
-    private JPanel panelServer;
+    private JScrollPane scrollPaneClientConnections;
 
-    private JTextField textFieldPort;
+    private JList listClientConnections;
 
-    private JList listConnectedClients;
+    private JLabel lblClientConnections;
+
+    private JPanel panelStartStopServer;
+
+    private JButton btnStartServer;
+
+    private JButton btnStopServer;
 
     ClientConnection clientConnection;
 
@@ -82,24 +90,88 @@ public class GuiServer {
     }
 
     public GuiServer() {
+        setTitle("GUI Server");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 732, 250);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        GridBagLayout gbl_contentPane = new GridBagLayout();
+        gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
+        gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0};
+        gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+        gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+        contentPane.setLayout(gbl_contentPane);
+
+        JLabel lblServerPort = new JLabel("Server Port");
+        GridBagConstraints gbc_lblServerPort = new GridBagConstraints();
+        gbc_lblServerPort.insets = new Insets(0, 0, 5, 5);
+        gbc_lblServerPort.anchor = GridBagConstraints.WEST;
+        gbc_lblServerPort.gridx = 1;
+        gbc_lblServerPort.gridy = 0;
+        contentPane.add(lblServerPort, gbc_lblServerPort);
+
+        txtServerPort = new JTextField();
+        GridBagConstraints gbc_txtServerPort = new GridBagConstraints();
+        gbc_txtServerPort.fill = GridBagConstraints.HORIZONTAL;
+        gbc_txtServerPort.insets = new Insets(0, 0, 5, 0);
+        gbc_txtServerPort.gridx = 2;
+        gbc_txtServerPort.gridy = 0;
+        contentPane.add(txtServerPort, gbc_txtServerPort);
+        txtServerPort.setColumns(10);
+
+        lblClientConnections = new JLabel("Client Connections");
+        GridBagConstraints gbc_lblClientConnections = new GridBagConstraints();
+        gbc_lblClientConnections.anchor = GridBagConstraints.NORTHWEST;
+        gbc_lblClientConnections.insets = new Insets(0, 0, 5, 5);
+        gbc_lblClientConnections.gridx = 1;
+        gbc_lblClientConnections.gridy = 1;
+        contentPane.add(lblClientConnections, gbc_lblClientConnections);
+
+        scrollPaneClientConnections = new JScrollPane();
+        GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+        gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+        gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
+        gbc_scrollPane.anchor = GridBagConstraints.NORTH;
+        gbc_scrollPane.gridx = 2;
+        gbc_scrollPane.gridy = 1;
+        contentPane.add(scrollPaneClientConnections, gbc_scrollPane);
+
+        listClientConnections = new JList();
+        scrollPaneClientConnections.setViewportView(listClientConnections);
+
+        panelStartStopServer = new JPanel();
+        GridBagConstraints gbc_panel = new GridBagConstraints();
+        gbc_panel.anchor = GridBagConstraints.NORTH;
+        gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+        gbc_panel.gridx = 2;
+        gbc_panel.gridy = 2;
+        contentPane.add(panelStartStopServer, gbc_panel);
+
+        btnStartServer = new JButton("Start Server");
+        panelStartStopServer.add(btnStartServer);
+
+        btnStopServer = new JButton("Stop Server");
+        panelStartStopServer.add(btnStopServer);
+
         serverRunning = false;
-        textFieldPort.setText("6666");
-        buttonStartServer.setEnabled(!serverRunning);
-        buttonStopServer.setEnabled(serverRunning);
+        txtServerPort.setText("6666");
+        btnStartServer.setEnabled(!serverRunning);
+        btnStopServer.setEnabled(serverRunning);
 
-        listConnectedClients.setModel(connectedClients);
+        listClientConnections.setModel(connectedClients);
 
-        buttonStartServer.addActionListener(new ActionListener() {
+        btnStartServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!textFieldPort.getText().isEmpty() && !isServerRunning()) {
+                if(!txtServerPort.getText().isEmpty() && !isServerRunning()) {
                     try {
-                        start(Integer.parseInt(textFieldPort.getText()));
+                        start(Integer.parseInt(txtServerPort.getText()));
                         removeAllClients();
                         serverRunning = true;
-                        buttonStopServer.setEnabled(serverRunning);
-                        buttonStartServer.setEnabled(!serverRunning);
-                        textFieldPort.setEnabled(false);
+                        btnStopServer.setEnabled(serverRunning);
+                        btnStartServer.setEnabled(!serverRunning);
+                        txtServerPort.setEnabled(false);
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
@@ -107,7 +179,7 @@ public class GuiServer {
             }
         });
 
-        buttonStopServer.addActionListener(new ActionListener() {
+        btnStopServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -115,9 +187,9 @@ public class GuiServer {
                         stop();
                         removeAllClients();
                         serverRunning = false;
-                        buttonStopServer.setEnabled(serverRunning);
-                        buttonStartServer.setEnabled(!serverRunning);
-                        textFieldPort.setEnabled(true);
+                        btnStopServer.setEnabled(serverRunning);
+                        btnStartServer.setEnabled(!serverRunning);
+                        txtServerPort.setEnabled(true);
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -158,11 +230,16 @@ public class GuiServer {
     }
 
     public static void main(String []args) {
-        JFrame jFrame= new JFrame("GUI Server");
-        jFrame.setContentPane(new GuiServer().panelServer);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.pack();
-        jFrame.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    GuiServer frame = new GuiServer();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private boolean isServerRunning() {
