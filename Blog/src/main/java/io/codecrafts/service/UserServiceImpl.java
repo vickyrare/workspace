@@ -1,10 +1,6 @@
 package io.codecrafts.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
@@ -32,7 +28,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
-	public User findUserById(Long id) {
+	public User findUserById(UUID id) {
 		User user = userRepository.findOne(id);
 		return user;
 	}
@@ -69,7 +65,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public void deleteUser(Long id) {
+	public void deleteUser(UUID id) {
 		userRepository.delete(id);
 	}
 

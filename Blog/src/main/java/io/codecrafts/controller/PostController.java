@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class PostController {
@@ -101,7 +102,7 @@ public class PostController {
 	}
 
 	@GetMapping(value="/posts/{postId}/edit")
-    public ModelAndView createEditPostForm(@PathVariable Long postId){
+    public ModelAndView createEditPostForm(@PathVariable UUID postId){
         ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -153,7 +154,7 @@ public class PostController {
     }
 
     @GetMapping(value="/posts/{postId}/delete")
-	public ModelAndView deletePost(@PathVariable Long postId){
+	public ModelAndView deletePost(@PathVariable UUID postId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User loggedInUser = userService.findUserByEmail(auth.getName());
 		Post post = postService.findPost(postId);

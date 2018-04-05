@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface PostCommentRepository extends JpaRepository<PostComment, Long> {
-    public List<PostComment> findByPostId(Long postId);
-    Page<PostComment> findByPostId(Long postId, Pageable pageable);
-    Page<PostComment> findByPostIdOrderByPostDateAsc(Long postId, Pageable pageable);
+public interface PostCommentRepository extends JpaRepository<PostComment, UUID> {
+    public List<PostComment> findByPostId(UUID postId);
+    Page<PostComment> findByPostId(UUID postId, Pageable pageable);
+    Page<PostComment> findByPostIdOrderByPostDateAsc(UUID postId, Pageable pageable);
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class AdminController {
@@ -90,7 +91,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value="/admin/users/{id}/edit")
-	public ModelAndView createEditForm(@PathVariable Long id){
+	public ModelAndView createEditForm(@PathVariable UUID id){
 		ModelAndView modelAndView = new ModelAndView();
 		User user = userService.findUserById(id);
 		modelAndView.addObject("user", user);
@@ -129,7 +130,7 @@ public class AdminController {
 	}
 
 	@GetMapping(value="/admin/users/{id}/delete")
-	public ModelAndView deleteUser(@PathVariable Long id){
+	public ModelAndView deleteUser(@PathVariable UUID id){
 		userService.deleteUser(id);
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> users = userService.getAll();
@@ -148,16 +149,16 @@ public class AdminController {
 	}
 
 	@GetMapping(value="/admin/users/{id}/disable")
-	public ModelAndView disableUser(@PathVariable Long id){
+	public ModelAndView disableUser(@PathVariable UUID id){
 		return setStatus(id, false);
 	}
 
 	@GetMapping(value="/admin/users/{id}/enable")
-	public ModelAndView enableUser(@PathVariable Long id){
+	public ModelAndView enableUser(@PathVariable UUID id){
 		return setStatus(id, true);
 	}
 
-	private ModelAndView setStatus(Long id, boolean enable) {
+	private ModelAndView setStatus(UUID id, boolean enable) {
 		User user = userService.findUserById(id);
 		user.setActive(enable);
 		userService.updateUser(user);

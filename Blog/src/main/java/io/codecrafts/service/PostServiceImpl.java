@@ -33,13 +33,13 @@ public class PostServiceImpl implements PostService {
 		postRepository.save(post);
 	}
 
-    public Post findPost(Long id) {
+    public Post findPost(UUID id) {
 	    Post post = postRepository.findOne(id);
 	    return post;
     }
 
 	@Override
-	public void deletePost(Long id) {
+	public void deletePost(UUID id) {
 		postRepository.delete(id);
 	}
 }

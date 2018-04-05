@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class PostCommentController {
@@ -33,7 +34,7 @@ public class PostCommentController {
 	private PostCommentService postCommentService;
 
 	@GetMapping(value="/posts/{postId}/comments")
-	public ModelAndView getAllComments(@PathVariable Long postId, @RequestParam(defaultValue = "1")int page){
+	public ModelAndView getAllComments(@PathVariable UUID postId, @RequestParam(defaultValue = "1")int page){
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -60,7 +61,7 @@ public class PostCommentController {
 	}
 
 	@PostMapping(value="/posts/{postId}/comments")
-	public ModelAndView addNewComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable Long postId){
+	public ModelAndView addNewComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable UUID postId){
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -99,7 +100,7 @@ public class PostCommentController {
 	}
 
 	@GetMapping(value="/posts/{postId}/comments/{commentId}/edit")
-    public ModelAndView editCommentForm(@PathVariable Long postId, @PathVariable Long commentId){
+    public ModelAndView editCommentForm(@PathVariable UUID postId, @PathVariable UUID commentId){
         ModelAndView modelAndView = new ModelAndView();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -121,7 +122,7 @@ public class PostCommentController {
 	}
 
     @PostMapping(value="/posts/{postId}/comments/{commentId}")
-    public ModelAndView editComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable Long postId, @PathVariable Long commentId) {
+    public ModelAndView editComment(@Valid @ModelAttribute PostComment postComment, BindingResult bindingResult, @PathVariable UUID postId, @PathVariable UUID commentId) {
 		ModelAndView modelAndView = new ModelAndView();
 		PostComment editPostComment = postCommentService.findPostComment(commentId);
 
@@ -166,7 +167,7 @@ public class PostCommentController {
 	}
 
 	@GetMapping(value="/posts/{postId}/comments/{commentId}/delete")
-	public ModelAndView deleteComment(@PathVariable Long postId, @PathVariable Long commentId){
+	public ModelAndView deleteComment(@PathVariable UUID postId, @PathVariable UUID commentId){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User loggedInUser = userService.findUserByEmail(auth.getName());
 
@@ -177,7 +178,7 @@ public class PostCommentController {
 		return getModelAndViewForPost(postId);
 	}
 
-	private ModelAndView getModelAndViewForPost(Long postId) {
+	private ModelAndView getModelAndViewForPost(UUID postId) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

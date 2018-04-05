@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostCommentServiceImpl implements PostCommentService {
@@ -17,19 +18,19 @@ public class PostCommentServiceImpl implements PostCommentService {
 	@Autowired
 	private PostCommentRepository postCommentRepository;
 
-	public List<PostComment> getAllComments(Long postId) {
+	public List<PostComment> getAllComments(UUID postId) {
 		List<PostComment> postComments = new ArrayList<>();
 		postCommentRepository.findByPostId(postId).forEach(postComments::add);
 		return postComments;
 	}
 
-	public List<PostComment> findAllInRange(Long postId, int page, int numItems){
+	public List<PostComment> findAllInRange(UUID postId, int page, int numItems){
 		List<PostComment> postComments = new ArrayList<PostComment>();
 		postCommentRepository.findByPostIdOrderByPostDateAsc(postId, new PageRequest(page, numItems)).forEach(postComments::add);
 		return postComments;
 	}
 
-	public PostComment getComment(Long id) {
+	public PostComment getComment(UUID id) {
 		return postCommentRepository.findOne(id);
 	}
 
@@ -41,11 +42,11 @@ public class PostCommentServiceImpl implements PostCommentService {
 		postCommentRepository.save(postComment);
 	}
 
-	public void deleteComment(Long id) {
+	public void deleteComment(UUID id) {
 		postCommentRepository.delete(id);
 	}
 
-	public PostComment findPostComment(Long id) {
+	public PostComment findPostComment(UUID id) {
 	    PostComment postComment = postCommentRepository.findOne(id);
 	    return postComment;
     }
