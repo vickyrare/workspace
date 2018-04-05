@@ -53,6 +53,7 @@ public class PostCommentController {
 		modelAndView.addObject("postComment", postComment);
 		modelAndView.addObject("comments", postComments);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", page);
 		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
@@ -91,6 +92,7 @@ public class PostCommentController {
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;
@@ -153,6 +155,7 @@ public class PostCommentController {
 				modelAndView.addObject("postComment", postComment);
 				modelAndView.addObject("comments", postComments);
 				modelAndView.addObject("totalPages", totalPages);
+				modelAndView.addObject("page", 1);
 				modelAndView.addObject("title", "Comments");
 				modelAndView.setViewName("comments");
 			}
@@ -194,6 +197,7 @@ public class PostCommentController {
 		modelAndView.addObject("postComment", postComment);
 		modelAndView.addObject("comments", postComments);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "Comments");
 		modelAndView.setViewName("comments");
 		return modelAndView;

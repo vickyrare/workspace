@@ -43,6 +43,7 @@ public class PostController {
 		posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", page);
 		modelAndView.addObject("title", "Posts");
 		modelAndView.setViewName("posts");
 
@@ -92,6 +93,7 @@ public class PostController {
 			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("totalPages", totalPages);
+			modelAndView.addObject("page", 1);
 			modelAndView.setViewName("posts");
 		}
 
@@ -144,6 +146,7 @@ public class PostController {
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("title", "Posts");
 			modelAndView.addObject("totalPages", totalPages);
+			modelAndView.addObject("page", 1);
 			modelAndView.setViewName("posts");
         }
         return modelAndView;
@@ -178,6 +181,7 @@ public class PostController {
 		posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "Posts");
 		modelAndView.setViewName("posts");
 		return modelAndView;

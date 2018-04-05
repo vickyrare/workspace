@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-	static int ITEMS_PER_PAGE = 4;
+	static int ITEMS_PER_PAGE = 10;
 	
 	@Autowired
 	private UserService userService;
@@ -36,6 +36,7 @@ public class AdminController {
 		users = userService.findAllInRange(page - 1, ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", page);
 		modelAndView.addObject("title", "User Administration");
 		modelAndView.setViewName("/admin/users");
 
@@ -81,6 +82,7 @@ public class AdminController {
 			users = userService.findAllInRange(currentPage, ITEMS_PER_PAGE);
 			modelAndView.addObject("users", users);
 			modelAndView.addObject("totalPages", totalPages);
+			modelAndView.addObject("page", currentPage + 1);
 			modelAndView.addObject("title", "User Administration");
 			modelAndView.setViewName("/admin/users");
 		}
@@ -120,6 +122,7 @@ public class AdminController {
 			modelAndView.addObject("users", users);
 			modelAndView.addObject("title", "User Administration");
 			modelAndView.addObject("totalPages", totalPages);
+			modelAndView.addObject("page", 1);
 			modelAndView.setViewName("/admin/users");
 		}
 		return modelAndView;
@@ -138,6 +141,7 @@ public class AdminController {
 		users = userService.findAllInRange(0, ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "User Administration");
 		modelAndView.setViewName("/admin/users");
 		return modelAndView;
@@ -167,6 +171,7 @@ public class AdminController {
 		users = userService.findAllInRange(0, ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
+		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "User Administration");
 		modelAndView.setViewName("/admin/users");
 		return modelAndView;
