@@ -42,6 +42,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         adminUser.setEmail("vickyrare@gmail.com");
         adminUser.setPassword("12345678");
         adminUser.setActive(true);
+        adminUser.setCreationDate(new Date());
 
         Role adminRole = roleRepository.findByRole("ADMIN");
         adminUser.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
@@ -54,6 +55,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         user.setEmail("vickyrare@yahoo.com");
         user.setPassword("12345678");
         user.setActive(true);
+        user.setCreationDate(new Date());
 
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));

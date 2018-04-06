@@ -3,6 +3,7 @@ package io.codecrafts.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,10 +28,12 @@ public class Post {
 
 	@Column(name="creation_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
 	private	Date creationDate;
 
 	@Column(name="last_modified")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
 	private	Date lastModified;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)

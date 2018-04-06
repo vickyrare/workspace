@@ -38,7 +38,7 @@
 										</tr>
 										<tr>
 											<td>
-												<button type="button" class="btn btn-light"><small th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${post.getCreationDate()}"></small></button>
+												<button type="button" class="btn btn-light"><small th:text="'Started by: ' + ${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()} + ', ' + ${#dates.format(new java.util.Date(post.getCreationDate()), 'yyyy-MM-dd HH:mm:ss')}"></small></button>
 												<div class="pull-right">
 													<a href="#" class="btn btn-xs btn-primary float-right" th:if="${post.getUser().getId() == user.getId() && post.getPostComments().size() == 0}" role="button" th:href="@{'/posts/' + ${post.id}  + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit Post</a>
 													<a href="#" class="btn btn-xs btn-danger float-right" th:if="${post.getUser().getId() == user.getId() && post.getPostComments().size() == 0 || user.isAdmin()}" role="button" th:href="@{'/posts/' + ${post.id}  + '/delete'}"><span class="glyphicon glyphicon-trash"></span>Delete Post</a>
@@ -64,7 +64,7 @@
 											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
 										</tr>
 										<tr>
-											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${post.getPostComments().get(post.getPostComments().size() - 1).getPostDate()}">2018-02-28 19:21:27</button></td>
+											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &gt; 0}" th:text="${#dates.format(new java.util.Date(post.getPostComments().get(post.getPostComments().size() - 1).getPostDate()), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</button></td>
 											<td class="text-center"><button type="button" class="btn btn-light" th:if="${post.getPostComments().size() &lt; 1}" th:text="NA">NA</button></td>
 										</tr>
 									</table>

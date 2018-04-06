@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -68,6 +69,7 @@ public class AdminController {
 			modelAndView.setViewName("/admin/userform");
 		} else {
 			user.setActive(true);
+			user.setCreationDate(new Date());
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been created successfully");
 			List<User> users = userService.getAll();
