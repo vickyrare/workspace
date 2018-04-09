@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 
 /**
  * Created by waqqas on 4/1/2018.
@@ -35,7 +36,7 @@ public class GuiClient extends JFrame {
 
     private JButton btnSendMessage;
 
-    private Socket clientSocket;
+    SocketChannel socketChannel;
 
     private BufferedInputStream in;
 
@@ -140,11 +141,13 @@ public class GuiClient extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!txtServerPort.getText().isEmpty() && !isConnected()) {
                     startConnection("127.0.0.1", Integer.parseInt(txtServerPort.getText()));
-                    connected = true;
-                    btnDisconnect.setEnabled(connected);
-                    btnConnect.setEnabled(!connected);
-                    btnSendMessage.setEnabled(connected);
-                    txtServerPort.setEnabled(false);
+                    if(socketChannel != null && socketChannel.isConnected()) {
+                        connected = true;
+                        btnDisconnect.setEnabled(connected);
+                        btnConnect.setEnabled(!connected);
+                        btnSendMessage.setEnabled(connected);
+                        txtServerPort.setEnabled(false);
+                    }
                 }
             }
         });
@@ -152,92 +155,118 @@ public class GuiClient extends JFrame {
         btnDisconnect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (isConnected()) {
-                        stopConnection();
-                        connected = false;
-                        btnDisconnect.setEnabled(connected);
-                        btnConnect.setEnabled(!connected);
-                        btnSendMessage.setEnabled(connected);
-                        txtServerPort.setEnabled(true);
-                    }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+            if (isConnected()) {
+                stopConnection();
             }
+                   }
         });
+
         btnSendMessage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (connected) {
-                    sendMessage(txtMessage.getText());
-                    txtMessage.setText("");
-                }
+            if (connected) {
+                send(txtMessage.getText());
+                txtMessage.setText("");
+            }
             }
         });
     }
 
     public void startConnection(String ip, int port) {
+        InetSocketAddress hostAddress = new InetSocketAddress(ip, port);
         try {
-            clientSocket = new Socket(ip, port);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Server is currently unavailable.");
-            return;
-        }
-        try {
-            clientSocket.setSoTimeout(1000);
-            clientSocket.setKeepAlive(true);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
+            socketChannel = SocketChannel.open(hostAddress);
 
-        try {
-            out = new BufferedOutputStream(clientSocket.getOutputStream());
-            in = new BufferedInputStream(clientSocket.getInputStream());
+            if (!socketChannel.isConnected()) {
+                System.out.println("Server is currently unavailable");
+                JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");
+                return;
+            }
+
+            setConnected(true);
+            Thread clientThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    if(socketChannel.isConnected()) {
+                        while(true) {
+                            ByteBuffer buffer = ByteBuffer.allocate(1024);
+                            int numRead = -1;
+                            try {
+                                System.out.println("Waiting for data from server.");
+                                numRead = socketChannel.read(buffer);
+                            } catch (IOException e) {
+                                stopConnection();
+                                return;
+                            }
+
+                            if (numRead == -1) {
+                                stopConnection();
+                                System.out.println("Server is currently unavailable");
+                                JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");
+                                return;
+                            }
+
+                            byte[] data = new byte[numRead];
+                            System.arraycopy(buffer.array(), 0, data, 0, numRead);
+                            String dataStr = new String(data);
+                            System.out.println("Got from server: " + dataStr);
+                            receivedMessages.addElement(dataStr);
+                        }
+                    }
+                }
+            });
+            clientThread.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            stopConnection();
+            System.out.println("Server is currently unavailable");
+            JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");;
         }
     }
 
-    public String sendMessage(String msg) {
-        try {
-            out.write(msg.getBytes(), 0, msg.length());
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void stopConnection() {
+        if(socketChannel != null) {
+            try {
+                socketChannel.close();
+                setConnected(false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            connected = false;
+            btnDisconnect.setEnabled(connected);
+            btnConnect.setEnabled(!connected);
+            btnSendMessage.setEnabled(connected);
+            txtServerPort.setEnabled(true);
         }
-        String resp = null;
-        byte[] buffer = new byte[BUFFER_SIZE];
-
-        int nofBytesRead;
-        try {
-            in.read(buffer, 0, BUFFER_SIZE);
-            resp = new String(buffer);
-            receivedMessages.addElement(resp);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return resp;
     }
 
-    public void stopConnection() throws IOException {
-        if (in != null) {
-            in.close();
+    public void send(String msg) {
+        // Send messages to server
+        ByteBuffer buffer = ByteBuffer.allocate(74);
+        buffer.put(msg.getBytes());
+        buffer.flip();
+        try {
+            socketChannel.write(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        if (out != null) {
-            out.close();
-        }
-
-        clientSocket.close();
+        System.out.println(msg);
+        buffer.clear();
     }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    GuiClient frame = new GuiClient();
-                    frame.setVisible(true);
+                    final GuiClient clientFrame = new GuiClient();
+                    clientFrame.setVisible(true);
+                    clientFrame.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                            if(clientFrame.isConnected()) {
+                                clientFrame.stopConnection();
+                            }
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

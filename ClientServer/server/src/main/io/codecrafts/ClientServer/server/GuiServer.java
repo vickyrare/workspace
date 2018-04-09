@@ -6,16 +6,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.util.*;
 
 /**
  * Created by waqqas on 4/1/2018.
  */
-public class GuiServer extends JFrame{
+public class GuiServer extends JFrame {
     private JPanel contentPane;
 
     private JTextField txtServerPort;
@@ -36,9 +37,11 @@ public class GuiServer extends JFrame{
 
     private Thread serverThread;
 
-    private ServerSocket serverSocket;
+    private Selector selector;
 
-    Thread connectionWatcherThread;
+    ServerSocketChannel serverChannel;
+
+    private InetSocketAddress listenAddress;
 
     private boolean serverRunning;
 
@@ -47,7 +50,7 @@ public class GuiServer extends JFrame{
     public static DefaultListModel<Integer> connectedClients = new DefaultListModel<Integer>();
 
     public void addClient(int port, Socket clientSocket) {
-        if(!connectedClients.contains(port)) {
+        if (!connectedClients.contains(port)) {
             System.out.println("Client connected on port " + port);
             connectedClients.addElement(port);
         }
@@ -58,12 +61,13 @@ public class GuiServer extends JFrame{
     }
 
     public void removeClient(int port) {
-        for(int i = 0; i < connectedClients.getSize(); i++) {
-            if(port == connectedClients.get(i)) {
+        for (int i = 0; i < connectedClients.getSize(); i++) {
+            if (port == connectedClients.get(i)) {
                 connectedClients.remove(i);
                 break;
             }
         }
+
         if (clientConnections.containsKey(port)) {
             Socket clientSocket = clientConnections.remove(port);
             try {
@@ -75,7 +79,7 @@ public class GuiServer extends JFrame{
     }
 
     public void removeAllClients() {
-        if(connectedClients != null && !connectedClients.isEmpty()) {
+        if (connectedClients != null && !connectedClients.isEmpty()) {
             connectedClients.removeAllElements();
         }
 
@@ -85,9 +89,6 @@ public class GuiServer extends JFrame{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        if(clientConnections != null) {
-            clientConnections.clear();
         }
     }
 
@@ -166,9 +167,9 @@ public class GuiServer extends JFrame{
         btnStartServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!txtServerPort.getText().isEmpty() && !isServerRunning()) {
+                if (!txtServerPort.getText().isEmpty() && !isServerRunning()) {
                     try {
-                        start(Integer.parseInt(txtServerPort.getText()));
+                        startServer(Integer.parseInt(txtServerPort.getText()));
                         removeAllClients();
                         serverRunning = true;
                         btnStopServer.setEnabled(serverRunning);
@@ -184,60 +185,64 @@ public class GuiServer extends JFrame{
         btnStopServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (isServerRunning()) {
-                        stop();
-                        removeAllClients();
-                        serverRunning = false;
-                        btnStopServer.setEnabled(serverRunning);
-                        btnStartServer.setEnabled(!serverRunning);
-                        txtServerPort.setEnabled(true);
-                    }
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+            if (isServerRunning()) {
+                stopServer();
+                removeAllClients();
+                serverRunning = false;
+                btnStopServer.setEnabled(serverRunning);
+                btnStartServer.setEnabled(!serverRunning);
+                txtServerPort.setEnabled(true);
+            }
             }
         });
     }
 
-    public void start(int port) throws IOException {
-        clientConnection = new ClientConnection(this, serverSocket, port);
+    private void startServer(int port) throws IOException {
+        listenAddress = new InetSocketAddress("127.0.0.1", port);
+        try {
+            selector = Selector.open();
+            serverChannel = ServerSocketChannel.open();
+            serverChannel.configureBlocking(false);
+
+            // bind server socket channel to port
+            serverChannel.socket().bind(listenAddress);
+            serverChannel.register(this.selector, SelectionKey.OP_ACCEPT);
+
+            System.out.println("Server started on port >> " + port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        clientConnection = new ClientConnection(this, selector);
         serverThread = new Thread(clientConnection);
         serverThread.start();
+    }
 
-        connectionWatcherThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    try {
-                        Thread.sleep(500);
-                        for(Socket clientSocket: clientConnections.values()) {
-                            if(clientSocket.isClosed()) {
-                                removeClient(clientSocket.getPort());
-                            }
-                        }
-                    } catch (InterruptedException e) {
-                        return;
-                    }
-                }
+    public void stopServer() {
+        if(serverChannel != null && serverChannel.isOpen()) {
+            try {
+                serverChannel.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+        }
 
-        connectionWatcherThread.start();
+        if(selector != null && selector.isOpen()) {
+            try {
+                selector.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            serverThread.interrupt();
+        }
+        System.out.println("Server stopped on port >> " + serverChannel.socket().getLocalPort());
     }
 
-    public void stop() throws IOException {
-        clientConnection.stopClientConnections();
-        serverThread.interrupt();
-        connectionWatcherThread.interrupt();
-    }
-
-    public static void main(String []args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    GuiServer frame = new GuiServer();
-                    frame.setVisible(true);
+                    GuiServer serverFrame = new GuiServer();
+                    serverFrame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
