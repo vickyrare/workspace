@@ -5,17 +5,14 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 
 /**
  * Created by waqqas on 4/1/2018.
  */
-public class GuiClient extends JFrame{
+public class GuiClient extends JFrame {
     private JPanel contentPane;
 
     private JTextField txtServerPort;
@@ -40,9 +37,11 @@ public class GuiClient extends JFrame{
 
     private Socket clientSocket;
 
-    private PrintWriter out;
+    private BufferedInputStream in;
 
-    private BufferedReader in;
+    private BufferedOutputStream out;
+
+    private static final int BUFFER_SIZE = 1024;
 
     private boolean connected;
 
@@ -139,7 +138,7 @@ public class GuiClient extends JFrame{
         btnConnect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!txtServerPort.getText().isEmpty() && !isConnected()) {
+                if (!txtServerPort.getText().isEmpty() && !isConnected()) {
                     startConnection("127.0.0.1", Integer.parseInt(txtServerPort.getText()));
                     connected = true;
                     btnDisconnect.setEnabled(connected);
@@ -170,7 +169,7 @@ public class GuiClient extends JFrame{
         btnSendMessage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(connected) {
+                if (connected) {
                     sendMessage(txtMessage.getText());
                     txtMessage.setText("");
                 }
@@ -193,18 +192,27 @@ public class GuiClient extends JFrame{
         }
 
         try {
-            out = new PrintWriter(clientSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new BufferedOutputStream(clientSocket.getOutputStream());
+            in = new BufferedInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String sendMessage(String msg) {
-        out.println(msg);
-        String resp = null;
         try {
-            resp = in.readLine();
+            out.write(msg.getBytes(), 0, msg.length());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String resp = null;
+        byte[] buffer = new byte[BUFFER_SIZE];
+
+        int nofBytesRead;
+        try {
+            in.read(buffer, 0, BUFFER_SIZE);
+            resp = new String(buffer);
             receivedMessages.addElement(resp);
         } catch (IOException e) {
             e.printStackTrace();
@@ -213,17 +221,18 @@ public class GuiClient extends JFrame{
     }
 
     public void stopConnection() throws IOException {
-        if(in != null) {
+        if (in != null) {
             in.close();
         }
 
-        if(out != null) {
+        if (out != null) {
             out.close();
         }
+
         clientSocket.close();
     }
 
-    public static void main(String []args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {

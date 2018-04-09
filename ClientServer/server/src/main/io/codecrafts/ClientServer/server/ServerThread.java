@@ -1,17 +1,13 @@
 package io.codecrafts.ClientServer.server;
 
-import io.codecrafts.ClientServer.server.GuiServer;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerThread implements Runnable {
 	
-	private PrintWriter out;
-	private BufferedReader in;
+	private BufferedInputStream in;
+	private BufferedOutputStream out;
+	private static final int BUFFER_SIZE = 1024;
 	private Socket clientSocket;
 	
 	public ServerThread(Socket clientSocket) {
@@ -21,39 +17,54 @@ public class ServerThread implements Runnable {
 	@Override
 	public void run() {
 		try {
-			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			out = new BufferedOutputStream(clientSocket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			in = new BufferedInputStream(clientSocket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		String greeting = null;
 		while(clientSocket.isConnected() && !clientSocket.isClosed()) {
+			int nofBytesRead;
+			byte[] buffer = new byte[BUFFER_SIZE];
+
 			try {
-				greeting = in.readLine();
-				if(greeting == null) {
-					System.out.println("Client on port " + clientSocket.getPort() + " disconnected");
-					break;
+				nofBytesRead = in.read(buffer, 0, BUFFER_SIZE);
+				if(nofBytesRead == -1) {
+					clientSocket.close();
+					return;
 				}
+
+				greeting = new String(buffer, 0, nofBytesRead);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			if ("hello server".equals(greeting)) {
-				out.println("hello client");
+				try {
+					out.write("hello client".getBytes());
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else {
-				out.println("unrecognised greeting");
+				try {
+					out.write("unrecognised greeting".getBytes());
+					out.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
 		try {
 			in.close();
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		out.close();
 	}
-
 }
