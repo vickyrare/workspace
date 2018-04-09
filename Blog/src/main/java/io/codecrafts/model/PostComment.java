@@ -3,6 +3,7 @@ package io.codecrafts.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class PostComment {
 
 	@Column(name="post_date")
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
 	private
 	Date postDate;
 
