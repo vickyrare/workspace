@@ -39,9 +39,17 @@
 							<td th:if="${!user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/enable'}"><span class="glyphicon glyphicon-ok-sign"></span>Enable</a></td>
 						</tr>
 					</table>
-					<ul class="pagination" th:if="${totalPages &gt; 1}">
+					<ul class="pagination" th:if="${totalPages > 1}">
+						<li th:classappend="${page - 1 < 1} ? 'disabled'">
+							<a th:if="${page - 1 >= 1}" th:href="@{/admin/users/(page=${page - 1})}" class="page-link">&laquo;</a>
+							<a th:if="${page - 1 < 1}" class="page-link">&laquo;</a>
+						</li>
 						<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}" th:classappend="${page == i} ? 'active'">
 							<a th:href="@{/admin/users/(page=${i})}" th:text="${i}" class="page-link"></a>
+						</li>
+						<li th:classappend="${page + 1 > totalPages} ? 'disabled'">
+							<a th:if="${page + 1 <= totalPages}" th:href="@{/admin/users/(page=${page + 1})}" class="page-link">&raquo;</a>
+							<a th:if="${page + 1 > totalPages}" class="page-link">&raquo;</a>
 						</li>
 					</ul>
 				</div>
