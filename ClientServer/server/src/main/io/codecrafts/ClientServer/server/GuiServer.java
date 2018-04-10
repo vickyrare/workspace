@@ -1,22 +1,24 @@
 package io.codecrafts.ClientServer.server;
 
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.util.*;
 
 /**
  * Created by waqqas on 4/1/2018.
  */
-public class GuiServer extends JFrame {
+public class GuiServer extends JFrame implements ServerSocketListener {
     private JPanel contentPane;
 
     private JTextField txtServerPort;
@@ -33,47 +35,33 @@ public class GuiServer extends JFrame {
 
     private JButton btnStopServer;
 
-    ClientConnection clientConnection;
-
-    private Thread serverThread;
-
-    private Selector selector;
-
-    ServerSocketChannel serverChannel;
-
-    private InetSocketAddress listenAddress;
-
     private boolean serverRunning;
 
-    private Map<Integer, Socket> clientConnections = new HashMap<Integer, Socket>();
+    ServerBootstrap serverBootstrap;
 
-    public static DefaultListModel<Integer> connectedClients = new DefaultListModel<Integer>();
+    EventLoopGroup bossGroup;
 
-    public void addClient(int port, Socket clientSocket) {
-        if (!connectedClients.contains(port)) {
-            System.out.println("Client connected on port " + port);
-            connectedClients.addElement(port);
-        }
+    EventLoopGroup workerGroup;
 
-        if(!clientConnections.containsKey(port)) {
-            clientConnections.put(port, clientSocket);
+    Thread serverThread;
+
+    private static DefaultListModel<String> connectedClients = new DefaultListModel<String>();
+
+    public DefaultListModel<String> getConnectedClients() {
+        return connectedClients;
+    }
+
+    public void addClient(String clientAddress) {
+        if (!connectedClients.contains(clientAddress)) {
+            connectedClients.addElement(clientAddress);
         }
     }
 
-    public void removeClient(int port) {
+    public void removeClient(String clientAddress) {
         for (int i = 0; i < connectedClients.getSize(); i++) {
-            if (port == connectedClients.get(i)) {
-                connectedClients.remove(i);
+            if(connectedClients.contains(clientAddress)) {
+                connectedClients.removeElement(clientAddress);
                 break;
-            }
-        }
-
-        if (clientConnections.containsKey(port)) {
-            Socket clientSocket = clientConnections.remove(port);
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -81,14 +69,6 @@ public class GuiServer extends JFrame {
     public void removeAllClients() {
         if (connectedClients != null && !connectedClients.isEmpty()) {
             connectedClients.removeAllElements();
-        }
-
-        for(Socket clientSocket: clientConnections.values()) {
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -197,44 +177,34 @@ public class GuiServer extends JFrame {
         });
     }
 
-    private void startServer(int port) throws IOException {
-        listenAddress = new InetSocketAddress("127.0.0.1", port);
-        try {
-            selector = Selector.open();
-            serverChannel = ServerSocketChannel.open();
-            serverChannel.configureBlocking(false);
-
-            // bind server socket channel to port
-            serverChannel.socket().bind(listenAddress);
-            serverChannel.register(this.selector, SelectionKey.OP_ACCEPT);
-
-            System.out.println("Server started on port >> " + port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clientConnection = new ClientConnection(this, selector);
-        serverThread = new Thread(clientConnection);
+    private void startServer(final int port) throws IOException {
+        final GuiServer guiServer = this;
+        serverThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                bossGroup = new NioEventLoopGroup(1);
+                workerGroup = new NioEventLoopGroup();
+                try {
+                    serverBootstrap = new ServerBootstrap();
+                    serverBootstrap.group(bossGroup, workerGroup)
+                            .channel(NioServerSocketChannel.class)
+                            .handler(new LoggingHandler(LogLevel.INFO))
+                            .childHandler(new ServerInitializer(guiServer));
+                    System.out.println("Server started on port >> " + port);
+                    serverBootstrap.bind(port).sync().channel().closeFuture().sync();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         serverThread.start();
     }
 
     public void stopServer() {
-        if(serverChannel != null && serverChannel.isOpen()) {
-            try {
-                serverChannel.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if(selector != null && selector.isOpen()) {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            serverThread.interrupt();
-        }
-        System.out.println("Server stopped on port >> " + serverChannel.socket().getLocalPort());
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
+        serverThread.interrupt();
+        System.out.println("Server stopped on port >> " + txtServerPort.getText());
     }
 
     public static void main(String[] args) {
@@ -256,5 +226,15 @@ public class GuiServer extends JFrame {
 
     private void setServerRunning(boolean serverRunning) {
         this.serverRunning = serverRunning;
+    }
+
+    @Override
+    public void onConnect(String clientAddress) {
+        addClient(clientAddress);
+    }
+
+    @Override
+    public void onDisconnect(String clientAddress) {
+        removeClient(clientAddress);
     }
 }

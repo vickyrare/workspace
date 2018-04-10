@@ -1,19 +1,22 @@
 package io.codecrafts.ClientServer.client;
 
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
 
 /**
  * Created by waqqas on 4/1/2018.
  */
-public class GuiClient extends JFrame {
+public class GuiClient extends JFrame implements ClientSocketListener {
     private JPanel contentPane;
 
     private JTextField txtServerPort;
@@ -36,17 +39,17 @@ public class GuiClient extends JFrame {
 
     private JButton btnSendMessage;
 
-    SocketChannel socketChannel;
+    Bootstrap bootstrap;
 
-    private BufferedInputStream in;
+    EventLoopGroup group;
 
-    private BufferedOutputStream out;
+    Channel channel;
 
-    private static final int BUFFER_SIZE = 1024;
+    ChannelFuture lastWriteFuture;
 
     private boolean connected;
 
-    public static DefaultListModel<String> receivedMessages = new DefaultListModel<String>();
+    private static DefaultListModel<String> receivedMessages = new DefaultListModel<String>();
 
     public GuiClient() {
         setTitle("GUI Client");
@@ -141,13 +144,10 @@ public class GuiClient extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!txtServerPort.getText().isEmpty() && !isConnected()) {
                     startConnection("127.0.0.1", Integer.parseInt(txtServerPort.getText()));
-                    if(socketChannel != null && socketChannel.isConnected()) {
-                        connected = true;
-                        btnDisconnect.setEnabled(connected);
-                        btnConnect.setEnabled(!connected);
-                        btnSendMessage.setEnabled(connected);
-                        txtServerPort.setEnabled(false);
-                    }
+                    btnDisconnect.setEnabled(connected);
+                    btnConnect.setEnabled(!connected);
+                    btnSendMessage.setEnabled(connected);
+                    txtServerPort.setEnabled(false);
                 }
             }
         });
@@ -173,84 +173,48 @@ public class GuiClient extends JFrame {
     }
 
     public void startConnection(String ip, int port) {
-        InetSocketAddress hostAddress = new InetSocketAddress(ip, port);
+        group = new NioEventLoopGroup();
         try {
-            socketChannel = SocketChannel.open(hostAddress);
+            bootstrap = new Bootstrap();
+            bootstrap.group(group)
+                    .channel(NioSocketChannel.class)
+                    .handler(new ClientInitializer(this));
 
-            if (!socketChannel.isConnected()) {
-                System.out.println("Server is currently unavailable");
-                JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");
-                return;
-            }
-
-            setConnected(true);
-            Thread clientThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    if(socketChannel.isConnected()) {
-                        while(true) {
-                            ByteBuffer buffer = ByteBuffer.allocate(1024);
-                            int numRead = -1;
-                            try {
-                                System.out.println("Waiting for data from server.");
-                                numRead = socketChannel.read(buffer);
-                            } catch (IOException e) {
-                                stopConnection();
-                                return;
-                            }
-
-                            if (numRead == -1) {
-                                stopConnection();
-                                System.out.println("Server is currently unavailable");
-                                JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");
-                                return;
-                            }
-
-                            byte[] data = new byte[numRead];
-                            System.arraycopy(buffer.array(), 0, data, 0, numRead);
-                            String dataStr = new String(data);
-                            System.out.println("Got from server: " + dataStr);
-                            receivedMessages.addElement(dataStr);
-                        }
-                    }
-                }
-            });
-            clientThread.start();
-        } catch (IOException e) {
+            // Start the connection attempt.
+            channel = bootstrap.connect(ip, port).sync().channel();
+            connected = true;
+        } catch (Exception e) {
             stopConnection();
             System.out.println("Server is currently unavailable");
-            JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");;
+            JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Server is currently unavailable.");
         }
     }
 
     public void stopConnection() {
-        if(socketChannel != null) {
+        // Wait until all messages are flushed before closing the channel.
+        if (lastWriteFuture != null) {
             try {
-                socketChannel.close();
-                setConnected(false);
-            } catch (IOException e) {
+                lastWriteFuture.sync();
+                lastWriteFuture = null;
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            connected = false;
-            btnDisconnect.setEnabled(connected);
-            btnConnect.setEnabled(!connected);
-            btnSendMessage.setEnabled(connected);
-            txtServerPort.setEnabled(true);
         }
+
+        if(group != null) {
+            group.shutdownGracefully();
+            group = null;
+        }
+        connected = false;
+        btnDisconnect.setEnabled(connected);
+        btnConnect.setEnabled(!connected);
+        btnSendMessage.setEnabled(connected);
+        txtServerPort.setEnabled(true);
     }
 
     public void send(String msg) {
-        // Send messages to server
-        ByteBuffer buffer = ByteBuffer.allocate(74);
-        buffer.put(msg.getBytes());
-        buffer.flip();
-        try {
-            socketChannel.write(buffer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(msg);
-        buffer.clear();
+        // Send message to server
+        lastWriteFuture = channel.writeAndFlush(msg);
     }
 
     public static void main(String[] args) {
@@ -280,5 +244,21 @@ public class GuiClient extends JFrame {
 
     private void setConnected(boolean connected) {
         this.connected = connected;
+    }
+
+    @Override
+    public void onConnect(int port) {
+    }
+
+    @Override
+    public void onDisconnect(int port) {
+        System.out.println("Connection closed");
+        JOptionPane.showMessageDialog(txtMessage.getRootPane(), "Connection closed.");
+        stopConnection();
+    }
+
+    @Override
+    public void onDataReceive(String msg) {
+        receivedMessages.addElement(msg);
     }
 }
