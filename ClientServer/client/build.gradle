@@ -1,31 +1,42 @@
 apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
-   jcenter()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.3'
+    }
 }
 
 sourceSets {
-   main {
-      java {
-         srcDir 'src'
-      }
-   }
-	
-   test {
-      java {
-         srcDir 'test'
-      }
-   }
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'test'
+        }
+    }
 }
 
 dependencies {
-   compile 'org.slf4j:slf4j-api:1.7.12'
-   testCompile 'junit:junit:4.12'
-   compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    testCompile 'junit:junit:4.12'
+    compile group: 'io.netty', name: 'netty-all', version: '4.0.4.Final'
 }
 
 jar {
-   manifest {
-      attributes 'Main-Class': 'io.codecrafts.ClientServer.client.GuiClient'
-   }
+    manifest {
+        attributes 'Main-Class': 'io.codecrafts.ClientServer.client.GuiClient'
+    }
 }
