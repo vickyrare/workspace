@@ -6,17 +6,22 @@ import io.codecrafts.model.Post;
 import io.codecrafts.model.User;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -27,6 +32,12 @@ public class LoginController {
 
 	@Autowired
 	private PostService postService;
+
+	@Autowired
+	private StorageService storageService;
+
+	@Value("${upload.file.directory}")
+	private String uploadDirectory;
 
 	@GetMapping(value={"/", "/login"})
 	public ModelAndView login(){
@@ -48,7 +59,12 @@ public class LoginController {
 	}
 	
 	@PostMapping(value = "/registration")
-	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
+	public ModelAndView createNewUser(@Valid User user, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
+		Path uploadDirectoryPath = Paths.get(uploadDirectory);
+		if (!Files.exists(uploadDirectoryPath)) {
+			Files.createDirectory(uploadDirectoryPath);
+		}
+
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
@@ -60,7 +76,14 @@ public class LoginController {
 			modelAndView.setViewName("registration");
 		} else {
 			user.setActive(true);
+			storageService.store(file);
+			user.setProfilePicture(file.getOriginalFilename());
 			userService.saveUser(user);
+			File dir = new File(uploadDirectoryPath.toFile(), user.getId().toString());
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			file.transferTo(new File(dir, file.getOriginalFilename()));
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
 			modelAndView.addObject("title", "Posts");

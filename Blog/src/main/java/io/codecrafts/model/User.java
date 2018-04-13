@@ -50,6 +50,10 @@ public class User {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date creationDate;
 
+	@Column(name = "profile_picture")
+	@NotEmpty(message = "*Please provide a profile pic")
+	private String profilePicture;
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
@@ -125,5 +129,13 @@ public class User {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 }
