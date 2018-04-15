@@ -29,7 +29,7 @@
 								<table class="table table-condensed table-borderless">
 									<tr>
 										<td>
-											<img th:src="@{/images/avatar.png}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
+											<img th:src="@{'/uploads/' + ${comment.getUser().getId()} + '/' + ${comment.getUser().getProfilePicture()}}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
 											<figcaption class="figure-caption text-center"><small th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">John Doe</small></figcaption>
 											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(new java.util.Date(comment.getPostDate()), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
 										</td>
