@@ -3,7 +3,9 @@ package io.codecrafts.controller;
 import javax.validation.Valid;
 
 import io.codecrafts.model.Post;
+import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
+import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
 import io.codecrafts.storage.StorageService;
@@ -22,7 +24,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -32,7 +36,7 @@ public class LoginController {
 	private UserService userService;
 
 	@Autowired
-	private PostService postService;
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private StorageService storageService;
@@ -80,6 +84,8 @@ public class LoginController {
 			storageService.store(file);
 			user.setProfilePicture(file.getOriginalFilename());
 			user.setCreationDate(new Date());
+			Role userRole = roleRepository.findByRole("USER");
+			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			userService.saveUser(user);
 			File dir = new File(uploadDirectoryPath.toFile(), user.getId().toString());
 			if(!dir.exists()) {
