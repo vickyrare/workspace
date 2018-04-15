@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -78,6 +79,7 @@ public class LoginController {
 			user.setActive(true);
 			storageService.store(file);
 			user.setProfilePicture(file.getOriginalFilename());
+			user.setCreationDate(new Date());
 			userService.saveUser(user);
 			File dir = new File(uploadDirectoryPath.toFile(), user.getId().toString());
 			if(!dir.exists()) {
