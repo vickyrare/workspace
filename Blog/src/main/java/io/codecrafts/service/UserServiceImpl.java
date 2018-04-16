@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(userName);
 		if(user == null) {
-			return null;
+			throw new UsernameNotFoundException(userName);
 		}
 		List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
 		return buildUserForAuthentication(user, authorities);

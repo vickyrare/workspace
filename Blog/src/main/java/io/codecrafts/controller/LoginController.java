@@ -64,7 +64,7 @@ public class LoginController {
 	}
 	
 	@PostMapping(value = "/registration")
-	public ModelAndView createNewUser(@Valid User user, @RequestParam("file") MultipartFile file, BindingResult bindingResult) throws IOException {
+	public ModelAndView createNewUser(@Valid @ModelAttribute User user, BindingResult bindingResult , @RequestParam("file") MultipartFile file) throws IOException {
 		Path uploadDirectoryPath = Paths.get(uploadDirectory);
 		if (!Files.exists(uploadDirectoryPath)) {
 			Files.createDirectory(uploadDirectoryPath);
@@ -73,17 +73,21 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
-			bindingResult
-					.rejectValue("email", "error.user",
-							"There is already a user registered with the email provided");
+			bindingResult.rejectValue("email", "error.user","There is already a user registered with the email provided");
 		}
+
+		if (file == null || file.isEmpty()) {
+			bindingResult.rejectValue("profilePicture", "error.user","Please provide a profile picture");
+		}
+
 		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("title", "Registration");
 			modelAndView.setViewName("registration");
 		} else {
 			user.setActive(true);
 			storageService.store(file);
-			user.setProfilePicture(file.getOriginalFilename());
 			user.setCreationDate(new Date());
+			user.setProfilePicture(file.getOriginalFilename());
 			Role userRole = roleRepository.findByRole("USER");
 			user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 			userService.saveUser(user);
@@ -94,7 +98,7 @@ public class LoginController {
 			file.transferTo(new File(dir, file.getOriginalFilename()));
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			modelAndView.addObject("title", "Posts");
+			modelAndView.addObject("title", "Registration");
 			modelAndView.setViewName("registration");
 		}
 		return modelAndView;

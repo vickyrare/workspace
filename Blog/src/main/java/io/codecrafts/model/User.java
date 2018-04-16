@@ -51,7 +51,6 @@ public class User {
 	private Date creationDate;
 
 	@Column(name = "profile_picture")
-	@NotEmpty(message = "*Please provide a profile pic")
 	private String profilePicture;
 
 	@ManyToMany(cascade = CascadeType.ALL)
