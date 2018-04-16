@@ -21,6 +21,12 @@
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
 							</div>
+							<br>
+							<br>
+							<div class="col-sm-9">
+								<label th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="validation-message"></label>
+								<textarea th:field="*{description}" placeholder="Please type your description here" class="form-control" rows="5"></textarea>
+							</div>
 						</div>
 						<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk"></span>Save Thread</button>
 					</form>

@@ -24,6 +24,30 @@
 							<col class="col-md-10">
 						</colgroup>
 						<tbody>
+						<tr>
+							<td>
+								<table class="table table-condensed table-borderless">
+									<tr>
+										<td>
+											<img th:src="@{'/uploads/' + ${post.getUser().getId()} + '/' + ${post.getUser().getProfilePicture()}}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
+											<figcaption class="figure-caption text-center"><small th:text="${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()}">John Doe</small></figcaption>
+											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(new java.util.Date(post.getCreationDate()), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td>
+								<table class="table table-condensed table-borderless">
+									<tr>
+										<td>
+											<div class="panel panel-default">
+												<div class="panel-body" th:text="${post.getDescription()}">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
 						<tr th:each="comment : ${comments}">
 							<td>
 								<table class="table table-condensed table-borderless">

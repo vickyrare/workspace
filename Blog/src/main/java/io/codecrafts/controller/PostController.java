@@ -80,6 +80,7 @@ public class PostController {
 		} else {
 			Post newPost = new Post();
 			newPost.setTitle(post.getTitle());
+			newPost.setDescription(post.getDescription());
 			newPost.setUser(loggedInUser);
 			newPost.setCreationDate(new Date());
 			newPost.setLastModified(newPost.getCreationDate());
@@ -135,6 +136,7 @@ public class PostController {
         } else {
             Post editPost = postService.findPost(post.getId());
             editPost.setTitle(post.getTitle());
+			editPost.setDescription(post.getDescription());
 			editPost.setLastModified(new Date());
             postService.savePost(editPost);
 			List<Post> posts = postService.getAll();

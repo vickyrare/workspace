@@ -21,6 +21,8 @@
 								<input type="hidden" th:field="*{id}" th:value="${post.id}" class="form-control" />
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
+								<br>
+								<textarea th:field="*{description}" placeholder="Please type your description here" class="form-control" rows="5"></textarea>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>

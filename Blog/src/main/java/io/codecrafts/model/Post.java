@@ -26,6 +26,11 @@ public class Post {
 	@NotEmpty(message = "*Please provide a Title")
 	private String title;
 
+	@Column(name = "description", columnDefinition="TEXT")
+	@Length(min=3, max = 500)
+	@NotEmpty(message = "*Please provide description")
+	private String description;
+
 	@Column(name="creation_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
@@ -63,6 +68,14 @@ public class Post {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	public void setTitle(String title) {
