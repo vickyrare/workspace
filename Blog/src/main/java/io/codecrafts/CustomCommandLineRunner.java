@@ -8,11 +8,14 @@ import io.codecrafts.repository.PostRepository;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -20,6 +23,7 @@ import java.util.HashSet;
 @Component
 public class CustomCommandLineRunner implements CommandLineRunner {
 
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -27,6 +31,9 @@ public class CustomCommandLineRunner implements CommandLineRunner {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Value("${upload.file.directory}")
+    private String uploadDirectory;
 
     public CustomCommandLineRunner(@Lazy UserService userService) {
         this.userService = userService;
@@ -43,7 +50,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         adminUser.setPassword("12345678");
         adminUser.setActive(true);
         adminUser.setCreationDate(new Date());
-        adminUser.setProfilePicture("profile.png");
+        adminUser.setProfilePicture("avatar.png");
 
         Role adminRole = roleRepository.findByRole("ADMIN");
         adminUser.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
@@ -57,7 +64,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         user.setPassword("12345678");
         user.setActive(true);
         user.setCreationDate(new Date());
-        user.setProfilePicture("profile.png");
+        user.setProfilePicture("avatar.png");
 
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
@@ -78,5 +85,14 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         postComment.setPostDate(new Date());
         post.addComment(postComment);
         postRepository.save(post);
+
+        String adminUserFolder = uploadDirectory + "/" + adminUser.getId();
+        String userFolder = uploadDirectory + "/" + user.getId();
+
+        Files.createDirectory(Paths.get(adminUserFolder));
+        Files.createDirectory(Paths.get(userFolder));
+
+        Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(adminUserFolder + "/avatar.png"));
+        Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(userFolder + "/avatar.png"));
     }
 }
