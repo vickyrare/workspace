@@ -18,12 +18,14 @@
 					<form th:object="${post}" th:action="@{'/posts'}" method="post" class="form-horizontal">
 						<div class="form-group">
 							<div class="col-sm-9">
+								<label for="title">Title</label>
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-9">
+								<label for="description">Description</label>
 								<label th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="validation-message"></label>
 								<textarea th:field="*{description}" placeholder="Please type your description here" class="form-control" rows="5"></textarea>
 							</div>

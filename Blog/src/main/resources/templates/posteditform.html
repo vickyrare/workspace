@@ -19,9 +19,11 @@
 						<div class="form-group">
 							<div class="col-sm-9">
 								<input type="hidden" th:field="*{id}" th:value="${post.id}" class="form-control" />
+								<label for="title">Title</label>
 								<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-message"></label>
 								<input type="text" th:field="*{title}" placeholder="title" class="form-control" />
 								<br>
+								<label for="description">Description</label>
 								<textarea th:field="*{description}" placeholder="Please type your description here" class="form-control" rows="5"></textarea>
 							</div>
 						</div>
