@@ -65,7 +65,7 @@ public class RegistrationController {
 		}
 
 		if(user.getPassword() != null && user.getConfirmPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
-			bindingResult.rejectValue("matchingPassword", "error.user","Passwords don't match");
+			bindingResult.rejectValue("confirmPassword", "error.user","Passwords don't match");
 		}
 
 		if (file == null || file.isEmpty()) {
