@@ -64,6 +64,10 @@ public class RegistrationController {
 			bindingResult.rejectValue("email", "error.user","There is already a user registered with the email provided");
 		}
 
+		if(user.getPassword() != null && user.getConfirmPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
+			bindingResult.rejectValue("matchingPassword", "error.user","Passwords don't match");
+		}
+
 		if (file == null || file.isEmpty()) {
 			bindingResult.rejectValue("profilePicture", "error.user","Please provide a profile picture");
 		}
