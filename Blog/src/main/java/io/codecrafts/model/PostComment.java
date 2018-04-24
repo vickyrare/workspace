@@ -1,5 +1,6 @@
 package io.codecrafts.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,6 +22,7 @@ public class PostComment {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 
 	@Column(name = "content", columnDefinition="TEXT")
@@ -36,6 +38,7 @@ public class PostComment {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id")
+	@JsonIgnore
 	private Post post;
 
 	public UUID getId() {

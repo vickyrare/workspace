@@ -1,5 +1,6 @@
 package io.codecrafts.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -43,9 +44,11 @@ public class Post {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<PostComment> postComments = new ArrayList<>();
 
 	public void addComment(PostComment comment) {
