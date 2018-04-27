@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import io.codecrafts.model.Post;
 import io.codecrafts.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -43,7 +44,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Override
 	public List<User> findAllInRange(int page, int numItems) {
 		List<User> users = new ArrayList<User>();
-		userRepository.findAll(new PageRequest(page, numItems)).forEach(users::add);
+		Page<User> pages = userRepository.findAll(new PageRequest(page, numItems));
+		for(User user: pages) {
+			users.add(user);
+		}
 		return users;
 	}
 
@@ -54,9 +58,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
+		return userRepository.save(user);
 	}
 
 	@Override
