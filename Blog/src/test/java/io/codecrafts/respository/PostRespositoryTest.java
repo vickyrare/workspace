@@ -11,11 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -57,5 +56,17 @@ public class PostRespositoryTest {
         Post found = postRepository.findOne(post.getId());
 
         assertThat(found).isEqualTo(null);
+    }
+
+    @Test
+    public void whenFindAllPostDesc_thenReturnAllPostDesc() {
+        Post post = testHelper.createPost(userRepository, roleRepository, postRepository);
+        Post post2 = testHelper.createPost(userRepository, roleRepository, postRepository);
+
+        List<Post> posts = new ArrayList<Post>();
+        postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(0, 2)).forEach(posts::add);
+
+        assertThat(posts.get(0).getId()).isEqualTo(post2.getId());
+        assertThat(posts.get(1).getId()).isEqualTo(post.getId());
     }
 }

@@ -42,12 +42,6 @@ public class PostServiceImplTest {
         public PostService postService() {
             return new PostServiceImpl();
         }
-
-        @Bean
-        public BCryptPasswordEncoder passwordEncoder() {
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            return bCryptPasswordEncoder;
-        }
     }
 
     @Autowired

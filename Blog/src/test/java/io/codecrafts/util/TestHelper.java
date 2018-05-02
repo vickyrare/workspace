@@ -62,9 +62,18 @@ public class TestHelper {
         return post;
     }
 
-
     public PostComment createPostComment(UserRepository userRepository, RoleRepository roleRepository, PostRepository postRepository, PostCommentRepository postCommentRepository) {
         Post post = createPost(userRepository, roleRepository, postRepository);
+        PostComment postComment = new PostComment();
+        postComment.setContent("Visit http://www.wiiu.guide.org");
+        postComment.setUser(post.getUser());
+        postComment.setPostDate(new Date());
+        post.addComment(postComment);
+        postCommentRepository.save(postComment);
+        return postComment;
+    }
+
+    public PostComment createAnotherPostCommentForTheSamePost(Post post, PostCommentRepository postCommentRepository) {
         PostComment postComment = new PostComment();
         postComment.setContent("Visit http://www.wiiu.guide.org");
         postComment.setUser(post.getUser());

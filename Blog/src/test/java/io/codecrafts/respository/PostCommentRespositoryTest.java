@@ -11,7 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
@@ -56,5 +60,21 @@ public class PostCommentRespositoryTest {
         PostComment found = postCommentRepository.findOne(postComment.getId());
 
         assertThat(found).isEqualTo(null);
+    }
+
+    @Test
+    public void whenFindAllPostCommentsAsc_thenReturnAllPostCommentsAsc() throws InterruptedException {
+        PostComment postComment = testHelper.createPostComment(userRepository, roleRepository, postRepository, postCommentRepository);
+
+        //making sure that the two postComments has a time between inserts otherwise sometimes the findByPostIdOrderByPostDateAsc fails
+        Thread.sleep(5);
+
+        PostComment postComment2 = testHelper.createAnotherPostCommentForTheSamePost(postComment.getPost(), postCommentRepository);
+
+        List<PostComment> postComments = new ArrayList<>();
+        postCommentRepository.findByPostIdOrderByPostDateAsc(postComment.getPost().getId(), new PageRequest( 0, 2)).forEach(postComments::add);
+
+        assertThat(postComments.get(0).getId()).isEqualTo(postComment.getId());
+        assertThat(postComments.get(1).getId()).isEqualTo(postComment2.getId());
     }
 }
