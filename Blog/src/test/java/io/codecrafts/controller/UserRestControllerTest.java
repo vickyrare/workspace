@@ -51,8 +51,6 @@ public class UserRestControllerTest {
         Role role = new Role();
         role.setRole("USER");
 
-        given(roleRepository.findByRole("USER")).willReturn(role);
-
         User user = new User();
         user.setFirstName("Waqqas");
         user.setLastName("Sharif");
@@ -61,9 +59,7 @@ public class UserRestControllerTest {
         user.setActive(true);
         user.setCreationDate(new Date());
         user.setProfilePicture("avatar.png");
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(role)));
 
         List<User> allUsers = Arrays.asList(user);
 
@@ -81,8 +77,6 @@ public class UserRestControllerTest {
         Role role = new Role();
         role.setRole("USER");
 
-        given(roleRepository.findByRole("USER")).willReturn(role);
-
         User user = new User();
         user.setFirstName("Waqqas");
         user.setLastName("Sharif");
@@ -91,12 +85,7 @@ public class UserRestControllerTest {
         user.setActive(true);
         user.setCreationDate(new Date());
         user.setProfilePicture("avatar.png");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(role)));
 
         mvc.perform(post("/api/users")
                             .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(user)))
@@ -110,8 +99,6 @@ public class UserRestControllerTest {
         Role role = new Role();
         role.setRole("USER");
 
-        given(roleRepository.findByRole("USER")).willReturn(role);
-
         User user = new User();
         user.setId(id);
         user.setFirstName("Waqqas");
@@ -121,9 +108,7 @@ public class UserRestControllerTest {
         user.setActive(true);
         user.setCreationDate(new Date());
         user.setProfilePicture("avatar.png");
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Arrays.asList(role)));
 
         given(userService.findUserById(id)).willReturn(user);
 

@@ -42,12 +42,10 @@ public class PostRestController {
 
     @PostMapping(value="/posts")
     public Post addNewPost(@RequestBody Post post){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User loggedInUser = userService.findUserByEmail(auth.getName());
         Post newPost = new Post();
         newPost.setTitle(post.getTitle());
         newPost.setDescription(post.getDescription());
-        newPost.setUser(loggedInUser);
+        newPost.setUser(post.getUser());
         newPost.setCreationDate(new Date());
         newPost.setLastModified(newPost.getCreationDate());
         postService.savePost(newPost);
