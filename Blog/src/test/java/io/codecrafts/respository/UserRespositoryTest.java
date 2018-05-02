@@ -4,6 +4,7 @@ import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.repository.UserRepository;
+import io.codecrafts.util.TestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +30,11 @@ public class UserRespositoryTest {
     @Autowired
     private RoleRepository roleRepository;
 
+    private TestHelper testHelper = new TestHelper();
+
     @Test
     public void whenFindByEmail_thenReturnUser() {
-        User user = new User();
-        user.setFirstName("Waqqas");
-        user.setLastName("Sharif");
-        user.setEmail("vickyrare@yahoo.com");
-        user.setPassword("12345678");
-        user.setActive(true);
-        user.setCreationDate(new Date());
-        user.setProfilePicture("avatar.png");
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
-        userRepository.save(user);
-
+        User user = testHelper.createUser(userRepository, roleRepository);
         User found = userRepository.findByEmail(user.getEmail());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -60,20 +50,7 @@ public class UserRespositoryTest {
 
     @Test
     public void whenFindById_thenReturnUser() {
-        User user = new User();
-        user.setFirstName("Waqqas");
-        user.setLastName("Sharif");
-        user.setEmail("vickyrare@yahoo.com");
-        user.setPassword("12345678");
-        user.setActive(false);
-        user.setCreationDate(new Date());
-        user.setProfilePicture("avatar.png");
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
-        userRepository.save(user);
-
+        User user = testHelper.createUser(userRepository, roleRepository);
         User found = userRepository.findOne(user.getId());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -89,20 +66,7 @@ public class UserRespositoryTest {
 
     @Test
     public void whenAdminFindByEmail_thenReturnUser() {
-        User adminUser = new User();
-        adminUser.setFirstName("Waqqas");
-        adminUser.setLastName("Sharif");
-        adminUser.setEmail("vickyrare@gmail.com");
-        adminUser.setPassword("12345678");
-        adminUser.setActive(true);
-        adminUser.setCreationDate(new Date());
-        adminUser.setProfilePicture("avatar.png");
-
-        Role adminRole = roleRepository.findByRole("ADMIN");
-        adminUser.setRoles(new HashSet<Role>(Arrays.asList(adminRole)));
-
-        userRepository.save(adminUser);
-
+        User adminUser = testHelper.createAdminUser(userRepository, roleRepository);
         User found = userRepository.findOne(adminUser.getId());
 
         assertThat(found.getFirstName()).isEqualTo(adminUser.getFirstName());

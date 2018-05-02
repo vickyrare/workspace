@@ -71,7 +71,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
 
         userService.saveUser(user);
         
-        Post post =  new Post();
+        Post post = new Post();
         post.setTitle("How to hack Wii U");
         post.setDescription("I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version.");
         post.setUser(user);
