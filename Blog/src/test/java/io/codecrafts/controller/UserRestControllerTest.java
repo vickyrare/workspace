@@ -5,12 +5,9 @@ import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.rest.UserRestController;
-import io.codecrafts.service.UserRestService;
 import io.codecrafts.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.internal.verification.VerificationModeFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,7 +20,6 @@ import java.util.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -70,6 +66,7 @@ public class UserRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].firstName", is(user.getFirstName())));
+        verify(userService).findAllInRange(0, 10);
     }
 
     @Test
@@ -94,13 +91,13 @@ public class UserRestControllerTest {
 
     @Test
     public void whenFindUser_thenReturnUser() throws Exception {
-        UUID id = UUID.fromString("3ca1e527-d84b-49fc-a033-e27c59780556");
+        UUID userId = UUID.fromString("3ca1e527-d84b-49fc-a033-e27c59780556");
 
         Role role = new Role();
         role.setRole("USER");
 
         User user = new User();
-        user.setId(id);
+        user.setId(userId);
         user.setFirstName("Waqqas");
         user.setLastName("Sharif");
         user.setEmail("vickyrare@yahoo.com");
@@ -110,12 +107,13 @@ public class UserRestControllerTest {
         user.setProfilePicture("avatar.png");
         user.setRoles(new HashSet<>(Arrays.asList(role)));
 
-        given(userService.findUserById(id)).willReturn(user);
+        given(userService.findUserById(userId)).willReturn(user);
 
-        mvc.perform(get("/api/users/" + id)
+        mvc.perform(get("/api/users/" + userId)
                             .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstName", is(user.getFirstName())));
+        verify(userService).findUserById(userId);
     }
 
 }
