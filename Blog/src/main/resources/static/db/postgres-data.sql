@@ -1,5 +1,5 @@
-INSERT INTO "role"( role_id, role ) VALUES ( 1, 'ADMIN' );
-INSERT INTO "role"( role_id, role ) VALUES ( 2, 'USER' );
+INSERT INTO role( role_id, role ) VALUES ( 1, 'ADMIN' );
+INSERT INTO role( role_id, role ) VALUES ( 2, 'USER' );
 
 INSERT INTO users( user_id, active, creation_date, email, first_name, last_name, password, profile_picture ) VALUES ( '79a5bd3f-1ec2-46cf-94b6-8ac23df3f3c9', TRUE , '2018-05-03 21:52:00.937', 'vickyrare@gmail.com', 'Waqqas', 'Sharif', '$2a$10$HM9usyc3rr.G.9KoNqyOJeRun6Fw5tZDvFC85edoLa2BZYE8NKiaC', 'avatar.png' );
 INSERT INTO users( user_id, active, creation_date, email, first_name, last_name, password, profile_picture ) VALUES ( 'f9d98297-9db9-41a3-86e6-25ab0480fcd8', TRUE, '2018-05-03 21:52:01.24', 'vickyrare@yahoo.com', 'Waqqas', 'Sharif', '$2a$10$4zIuOPVOZlx.h8SzjchyUebMN3FCl/ZKgWkAeHEApiQA960l.1QNm', 'avatar.png' );

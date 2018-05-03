@@ -42,7 +42,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenFindPostCommentByPostId_thenReturnPostComment() {
-        PostComment postComment = testHelper.createPostComment(userRepository, roleRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         Post post = postComment.getPost();
         Post found = postRepository.findOne(post.getId());
@@ -53,7 +53,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenDeleteCommentById_thenReturnDeletePost() {
-        PostComment postComment = testHelper.createPostComment(userRepository, roleRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         postCommentRepository.delete(postComment.getId());
 
@@ -64,7 +64,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenFindAllPostCommentsAsc_thenReturnAllPostCommentsAsc() throws InterruptedException {
-        PostComment postComment = testHelper.createPostComment(userRepository, roleRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         //making sure that the two postComments has a time between inserts otherwise sometimes the findByPostIdOrderByPostDateAsc fails
         Thread.sleep(5);

@@ -20,9 +20,9 @@ public class TestHelper {
         role.setRole("USER");
 
         User user = new User();
-        user.setFirstName("Waqqas");
+        user.setFirstName("Mohammad");
         user.setLastName("Sharif");
-        user.setEmail("vickyrare@yahoo.com");
+        user.setEmail("mohammad@yahoo.com");
         user.setPassword("12345678");
         user.setActive(true);
         user.setCreationDate(new Date());
@@ -39,7 +39,7 @@ public class TestHelper {
         User user = new User();
         user.setFirstName("Waqqas");
         user.setLastName("Sharif");
-        user.setEmail("vickyrare@yahoo.com");
+        user.setEmail("vickyrare@gmail.com");
         user.setPassword("12345678");
         user.setActive(true);
         user.setCreationDate(new Date());
@@ -64,30 +64,30 @@ public class TestHelper {
         return postComment;
     }
 
-    public User createUser(UserRepository userRepository, RoleRepository roleRepository) {
+    public User createUser(UserRepository userRepository) {
         User user = getUser();
 
         user = userRepository.save(user);
         return user;
     }
 
-    public User createAdminUser(UserRepository userRepository, RoleRepository roleRepository) {
+    public User createAdminUser(UserRepository userRepository) {
         User adminUser = getAdminUser();
 
         adminUser = userRepository.save(adminUser);
         return adminUser;
     }
 
-    public Post createPost(UserRepository userRepository, RoleRepository roleRepository, PostRepository postRepository) {
-        User user = createUser(userRepository, roleRepository);
+    public Post createPost(UserRepository userRepository, PostRepository postRepository) {
+        User user = createUser(userRepository);
         Post post =  getPost();
         post.setUser(user);
         post = postRepository.save(post);
         return post;
     }
 
-    public PostComment createPostComment(UserRepository userRepository, RoleRepository roleRepository, PostRepository postRepository, PostCommentRepository postCommentRepository) {
-        Post post = createPost(userRepository, roleRepository, postRepository);
+    public PostComment createPostComment(UserRepository userRepository, PostRepository postRepository, PostCommentRepository postCommentRepository) {
+        Post post = createPost(userRepository, postRepository);
         PostComment postComment = getPostComment();
         postComment.setUser(post.getUser());
         postComment.setPostDate(new Date());

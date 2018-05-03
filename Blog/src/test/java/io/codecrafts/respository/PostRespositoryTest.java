@@ -38,7 +38,7 @@ public class PostRespositoryTest {
 
     @Test
     public void whenFindById_thenReturnPost() {
-        Post post = testHelper.createPost(userRepository, roleRepository, postRepository);
+        Post post = testHelper.createPost(userRepository, postRepository);
         Post found = postRepository.findOne(post.getId());
 
         assertThat(found.getTitle()).isEqualTo(post.getTitle());
@@ -50,7 +50,7 @@ public class PostRespositoryTest {
 
     @Test
     public void whenDeleteById_thenReturnDeletePost() {
-        Post post = testHelper.createPost(userRepository, roleRepository, postRepository);
+        Post post = testHelper.createPost(userRepository, postRepository);
         postRepository.delete(post.getId());
 
         Post found = postRepository.findOne(post.getId());
@@ -60,8 +60,8 @@ public class PostRespositoryTest {
 
     @Test
     public void whenFindAllPostDesc_thenReturnAllPostDesc() {
-        Post post = testHelper.createPost(userRepository, roleRepository, postRepository);
-        Post post2 = testHelper.createPost(userRepository, roleRepository, postRepository);
+        Post post = testHelper.createPost(userRepository, postRepository);
+        Post post2 = testHelper.createPost(userRepository, postRepository);
 
         List<Post> posts = new ArrayList<Post>();
         postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(0, 2)).forEach(posts::add);

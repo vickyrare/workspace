@@ -34,7 +34,7 @@ public class UserRespositoryTest {
 
     @Test
     public void whenFindByEmail_thenReturnUser() {
-        User user = testHelper.createUser(userRepository, roleRepository);
+        User user = testHelper.createUser(userRepository);
         User found = userRepository.findByEmail(user.getEmail());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -50,7 +50,7 @@ public class UserRespositoryTest {
 
     @Test
     public void whenFindById_thenReturnUser() {
-        User user = testHelper.createUser(userRepository, roleRepository);
+        User user = testHelper.createUser(userRepository);
         User found = userRepository.findOne(user.getId());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -66,7 +66,7 @@ public class UserRespositoryTest {
 
     @Test
     public void whenAdminFindByEmail_thenReturnUser() {
-        User adminUser = testHelper.createAdminUser(userRepository, roleRepository);
+        User adminUser = testHelper.createAdminUser(userRepository);
         User found = userRepository.findOne(adminUser.getId());
 
         assertThat(found.getFirstName()).isEqualTo(adminUser.getFirstName());
