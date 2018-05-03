@@ -43,7 +43,7 @@ public class CustomCommandLineRunner implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
-        User adminUser = new User();
+        /*User adminUser = new User();
         adminUser.setFirstName("Waqqas");
         adminUser.setLastName("Sharif");
         adminUser.setEmail("vickyrare@gmail.com");
@@ -85,9 +85,9 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         postComment.setPostDate(new Date());
         post.addComment(postComment);
         postRepository.save(post);
-
-        String adminUserFolder = uploadDirectory + "/" + adminUser.getId();
-        String userFolder = uploadDirectory + "/" + user.getId();
+        */
+        String adminUserFolder = uploadDirectory + "/79a5bd3f-1ec2-46cf-94b6-8ac23df3f3c9";
+        String userFolder = uploadDirectory + "/f9d98297-9db9-41a3-86e6-25ab0480fcd8";
 
         Files.createDirectory(Paths.get(adminUserFolder));
         Files.createDirectory(Paths.get(userFolder));

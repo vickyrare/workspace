@@ -71,12 +71,11 @@ public class PostControllerTest {
     @Test
     @WithUserDetails("vickyrare@yahoo.com")
     public void testEditPost() throws Exception{
-        this.mockMvc.perform(get("/posts/3ca1e527-d84b-49fc-a033-e27c59780556/edit"))
+        this.mockMvc.perform(get("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/edit"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posteditform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")))
                 .andDo(print());
     }
-
 }
