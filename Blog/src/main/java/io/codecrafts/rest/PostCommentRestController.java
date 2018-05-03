@@ -45,12 +45,10 @@ public class PostCommentRestController {
 
     @PostMapping(value="/posts/{postId}/comments")
     public void addPostComment(@RequestBody PostComment postComment, @PathVariable UUID postId){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User loggedInUser = userService.findUserByEmail(auth.getName());
         Post post = postService.findPost(postId);
         PostComment newPostComment = new PostComment();
         newPostComment.setContent(postComment.getContent());
-        newPostComment.setUser(loggedInUser);
+        newPostComment.setUser(postComment.getUser());
         newPostComment.setPostDate(new Date());
         post.addComment(newPostComment);
         post.setLastModified(newPostComment.getPostDate());
