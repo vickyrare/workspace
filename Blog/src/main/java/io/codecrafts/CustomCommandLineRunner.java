@@ -89,10 +89,14 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         String adminUserFolder = uploadDirectory + "/79a5bd3f-1ec2-46cf-94b6-8ac23df3f3c9";
         String userFolder = uploadDirectory + "/f9d98297-9db9-41a3-86e6-25ab0480fcd8";
 
-        Files.createDirectory(Paths.get(adminUserFolder));
-        Files.createDirectory(Paths.get(userFolder));
+        if (!Files.exists(Paths.get(adminUserFolder))) {
+            Files.createDirectory(Paths.get(adminUserFolder));
+            Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(adminUserFolder + "/avatar.png"));
+        }
 
-        Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(adminUserFolder + "/avatar.png"));
-        Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(userFolder + "/avatar.png"));
+        if (!Files.exists(Paths.get(userFolder))) {
+            Files.createDirectory(Paths.get(userFolder));
+            Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(userFolder + "/avatar.png"));
+        }
     }
 }
