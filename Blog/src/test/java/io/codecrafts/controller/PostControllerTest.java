@@ -94,26 +94,52 @@ public class PostControllerTest {
 
     @Test
     @WithUserDetails("vickyrare@yahoo.com")
-    public void testEditPost() throws Exception{
-        this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
-                                     .param("title", "Modified How to hack Wii U")
+    public void testUserTriesToEditItsOwnPost() throws Exception{
+        this.mockMvc.perform(post("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
+                                     .param("title", "How to hack Wii U Modified")
                                      .param("description", "I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version."))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("Modified How to hack Wii U")))
+                .andExpect(content().string(Matchers.containsString("How to hack Wii U Modified")))
                 .andDo(print());
     }
 
     @Test
     @WithUserDetails("vickyrare@yahoo.com")
-    public void testDeletePost() throws Exception{
-        this.mockMvc.perform(get("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/delete"))
+    public void testUserTriesToEditOtherUserPost() throws Exception{
+        this.mockMvc.perform(post("/posts/f63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
+                                     .param("title", "How Modified to hack PS3")
+                                     .param("description", "I am wondering whether anyone can help me hack my PS3. My PS3 is currently running 1.5 firmware version."))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("How to hack PS3")))
+                .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testUserTriesToDeleteItsOwnPost() throws Exception{
+        this.mockMvc.perform(get("/posts/e73d1cf0-b70e-43f1-bf4c-5f562d1c5a59/delete"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testUserTriesToDeleteOtherUserPost() throws Exception{
+        this.mockMvc.perform(get("/posts/f63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/delete"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("How to hack PS3")))
                 .andDo(print());
     }
 }
