@@ -1,7 +1,6 @@
 package io.codecrafts.controller;
 
-import io.codecrafts.model.Post;
-import io.codecrafts.service.PostService;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,13 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-
-import java.util.List;
-
 import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -54,12 +52,13 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("How to hack Wii U")))
                 .andDo(print());
     }
 
     @Test
     @WithUserDetails("vickyrare@yahoo.com")
-    public void testNewPost() throws Exception{
+    public void testNewPostForm() throws Exception{
         this.mockMvc.perform(get("/posts/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("postform"))
@@ -70,12 +69,51 @@ public class PostControllerTest {
 
     @Test
     @WithUserDetails("vickyrare@yahoo.com")
-    public void testEditPost() throws Exception{
-        this.mockMvc.perform(get("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/edit"))
+    public void testNewPost() throws Exception{
+        this.mockMvc.perform(post("/posts")
+                                     .param("title", "test title")
+                                     .param("description", "test description"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("test title")))
+                .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@gmail.com")
+    public void testEditPostForm() throws Exception{
+        this.mockMvc.perform(get("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/edit"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posteditform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")))
+                .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testEditPost() throws Exception{
+        this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
+                                     .param("title", "test title")
+                                     .param("description", "I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version."))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("test title")))
+                .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testDeletePost() throws Exception{
+        this.mockMvc.perform(get("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/delete"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
                 .andDo(print());
     }
 }
