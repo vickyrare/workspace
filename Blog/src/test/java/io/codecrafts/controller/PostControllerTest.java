@@ -71,13 +71,13 @@ public class PostControllerTest {
     @WithUserDetails("vickyrare@yahoo.com")
     public void testNewPost() throws Exception{
         this.mockMvc.perform(post("/posts")
-                                     .param("title", "test title")
-                                     .param("description", "test description"))
+                                     .param("title", "New Post Title")
+                                     .param("description", "New Post Description"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("test title")))
+                .andExpect(content().string(Matchers.containsString("New Post Title")))
                 .andDo(print());
     }
 
@@ -96,13 +96,13 @@ public class PostControllerTest {
     @WithUserDetails("vickyrare@yahoo.com")
     public void testEditPost() throws Exception{
         this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
-                                     .param("title", "test title")
+                                     .param("title", "Modified How to hack Wii U")
                                      .param("description", "I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version."))
                 .andExpect(status().isOk())
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("test title")))
+                .andExpect(content().string(Matchers.containsString("Modified How to hack Wii U")))
                 .andDo(print());
     }
 

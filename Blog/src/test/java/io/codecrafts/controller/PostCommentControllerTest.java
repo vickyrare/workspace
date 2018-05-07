@@ -57,12 +57,12 @@ public class PostCommentControllerTest {
     @WithUserDetails("vickyrare@yahoo.com")
     public void testNewPostComment() throws Exception{
         this.mockMvc.perform(post("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/comments")
-                                     .param("content", "test content"))
+                                     .param("content", "Modified Visit http://www.wiiu.guide.org"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("test content")))
+                .andExpect(content().string(Matchers.containsString("Modified Visit http://www.wiiu.guide.org")))
                 .andDo(print());
     }
 
@@ -81,12 +81,12 @@ public class PostCommentControllerTest {
     @WithUserDetails("vickyrare@gmail.com")
     public void testEditPostComment() throws Exception{
         this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/comments/dfdaf9b9-75f9-4ebe-ab6d-307f315cef65")
-                                     .param("content", "test content"))
+                                     .param("content", "Modified Try IGN"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("test content")))
+                .andExpect(content().string(Matchers.containsString("Modified Try IGN")))
                 .andDo(print());
     }
 
