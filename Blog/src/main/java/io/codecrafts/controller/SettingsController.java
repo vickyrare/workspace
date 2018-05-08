@@ -44,19 +44,25 @@ public class SettingsController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		modelAndView.addObject("user", user);
+		User loggedInUser = userService.findUserByEmail(authentication.getName());
+		modelAndView.addObject("user", loggedInUser);
+
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("title", "Settings");
 			modelAndView.setViewName("settings");
 		} else {
-			User updatedUser = userService.findUserByEmail(user.getEmail());
-			updatedUser.setFirstName(user.getFirstName());
-			updatedUser.setLastName(user.getLastName());
-			updatedUser.setPassword(user.getPassword());
-			userService.saveUser(updatedUser);
-			modelAndView.addObject("successMessage", "User settings has been changed successfully");
+			User updatedUser = null;
+			if(user.getEmail().equals(loggedInUser.getEmail())) {
+				updatedUser = userService.findUserByEmail(user.getEmail());
+				updatedUser.setFirstName(user.getFirstName());
+				updatedUser.setLastName(user.getLastName());
+				updatedUser.setPassword(user.getPassword());
+				userService.saveUser(updatedUser);
+				modelAndView.addObject("user", updatedUser);
+				modelAndView.addObject("successMessage", "User settings has been changed successfully");
+			}
+
 			List<Post> posts = postService.getAll();
-			modelAndView.addObject("user", updatedUser);
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("title", "Posts");
 			modelAndView.setViewName("posts");
