@@ -50,7 +50,7 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testRegistrationForm() throws Exception{
+    public void testRegistrationForm() throws Exception {
         this.mockMvc.perform(get("/registration"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("registration"))
@@ -60,7 +60,7 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testRegistrationWithAllInformation() throws Exception{
+    public void testRegistrationWithAllInformation() throws Exception {
         MockMultipartFile mockMultipartFile = getMockMultipartFile();
         this.mockMvc.perform(MockMvcRequestBuilders.fileUpload("/registration")
                                 .file(mockMultipartFile)
@@ -74,7 +74,7 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testRegistrationEmptyFirstNameLastNameEmptyPasswordEmptyEmail() throws Exception{
+    public void testRegistrationEmptyFirstNameLastNameEmptyPasswordEmptyEmail() throws Exception {
         MockMultipartFile mockMultipartFile = getMockMultipartFile();
         this.mockMvc.perform(MockMvcRequestBuilders.fileUpload("/registration")
                                      .file(mockMultipartFile)
@@ -91,7 +91,7 @@ public class RegistrationControllerTest {
     }
 
     @Test
-    public void testRegistrationEmailAlreadyInUse() throws Exception{
+    public void testRegistrationEmailAlreadyInUse() throws Exception {
         MockMultipartFile mockMultipartFile = getMockMultipartFile();
         this.mockMvc.perform(MockMvcRequestBuilders.fileUpload("/registration")
                                      .file(mockMultipartFile)
