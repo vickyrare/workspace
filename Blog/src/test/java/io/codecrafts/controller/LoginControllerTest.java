@@ -52,7 +52,7 @@ public class LoginControllerTest {
     @Test
     public void testUserLoginWithCorrectCredentials() throws Exception{
         this.mockMvc.perform(post("/signin")
-                                     .param("email", "vickyrare@yahoo.com")
+                                     .param("email", "qirrat@yahoo.com")
                                      .param("password", "12345678"))
                 .andExpect(redirectedUrl("posts"));
     }
@@ -60,9 +60,24 @@ public class LoginControllerTest {
     @Test
     public void testUserLoginWithIncorrectCredentials() throws Exception{
         this.mockMvc.perform(post("/signin")
-                                     .param("email", "vickyrare@yahoo.com")
-                                     .param("password", "123456781"))
+                                     .param("email", "qirrat@gmail.com")
+                                     .param("password", "123456"))
                 .andExpect(redirectedUrl("/login?error=true"));
     }
 
+    @Test
+    public void testAdminLoginWithCorrectCredentials() throws Exception{
+        this.mockMvc.perform(post("/signin")
+                                     .param("email", "vickyrare@gmail.com")
+                                     .param("password", "12345678"))
+                .andExpect(redirectedUrl("/admin/users"));
+    }
+
+    @Test
+    public void testAdminLoginWithIncorrectCredentials() throws Exception{
+        this.mockMvc.perform(post("/signin")
+                                     .param("email", "vickyrare@gmail.com")
+                                     .param("password", "123456"))
+                .andExpect(redirectedUrl("/login?error=true"));
+    }
 }
