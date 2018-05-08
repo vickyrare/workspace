@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -52,8 +51,7 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("How to hack Wii U")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("How to hack Wii U")));
     }
 
     @Test
@@ -63,8 +61,7 @@ public class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("postform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
-                .andExpect(MockMvcResultMatchers.model().attribute("title", is("New Post")))
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("New Post")));
     }
 
     @Test
@@ -77,8 +74,7 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("New Post Title")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("New Post Title")));
     }
 
     @Test
@@ -88,8 +84,7 @@ public class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("posteditform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
-                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")))
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")));
     }
 
     @Test
@@ -102,8 +97,7 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("How to hack Wii U Modified")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("How to hack Wii U Modified")));
     }
 
     @Test
@@ -116,8 +110,7 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("How to hack PS3")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("How to hack PS3")));
     }
 
     @Test
@@ -127,8 +120,7 @@ public class PostControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
-                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")));
     }
 
     @Test
@@ -139,7 +131,6 @@ public class PostControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("How to hack PS3")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("How to hack PS3")));
     }
 }

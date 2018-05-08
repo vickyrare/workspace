@@ -27,8 +27,6 @@ import java.io.IOException;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -60,8 +58,7 @@ public class SettingsControllerTest {
                 .andExpect(view().name("settings"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Settings")))
-                .andExpect(content().string(Matchers.containsString("vickyrare@yahoo.com")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("vickyrare@yahoo.com")));
     }
 
     @Test
@@ -79,8 +76,7 @@ public class SettingsControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
                 .andExpect(content().string(Matchers.containsString("Omair")))
-                .andExpect(content().string(Matchers.containsString("login.jpg")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("login.jpg")));
     }
 
     @Test
@@ -97,8 +93,7 @@ public class SettingsControllerTest {
                 .andExpect(view().name("posts"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
-                .andExpect(content().string(Matchers.containsString("Waqqas")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("Waqqas")));
     }
 
     private MockMultipartFile getMockMultipartFile() throws IOException {

@@ -19,7 +19,6 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,8 +48,7 @@ public class PostCommentControllerTest {
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version.")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version.")));
     }
 
     @Test
@@ -62,8 +60,7 @@ public class PostCommentControllerTest {
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("Visit Modified http://www.wiiu.guide.org")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("Visit Modified http://www.wiiu.guide.org")));
     }
 
     @Test
@@ -73,8 +70,7 @@ public class PostCommentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("commenteditform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
-                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Comment")))
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Comment")));
     }
 
     @Test
@@ -86,8 +82,7 @@ public class PostCommentControllerTest {
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("Try modified IGN")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("Try modified IGN")));
     }
 
     @Test
@@ -99,8 +94,7 @@ public class PostCommentControllerTest {
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("Try IGN")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("Try IGN")));
     }
 
     @Test
@@ -110,8 +104,7 @@ public class PostCommentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
-                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")));
     }
 
     @Test
@@ -122,7 +115,6 @@ public class PostCommentControllerTest {
                 .andExpect(view().name("comments"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Comments")))
-                .andExpect(content().string(Matchers.containsString("Try Gamespot")))
-                .andDo(print());
+                .andExpect(content().string(Matchers.containsString("Try Gamespot")));
     }
 }
