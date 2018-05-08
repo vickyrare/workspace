@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -89,14 +92,17 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         String adminUserFolder = uploadDirectory + "/79a5bd3f-1ec2-46cf-94b6-8ac23df3f3c9";
         String userFolder = uploadDirectory + "/f9d98297-9db9-41a3-86e6-25ab0480fcd8";
 
+        Resource resource = new ClassPathResource("/static/images/avatar.png");
+        File file = resource.getFile();
+
         if (!Files.exists(Paths.get(adminUserFolder))) {
             Files.createDirectory(Paths.get(adminUserFolder));
-            Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(adminUserFolder + "/avatar.png"));
+            Files.copy(Paths.get(file.getAbsolutePath()), Paths.get(adminUserFolder + "/avatar.png"));
         }
 
         if (!Files.exists(Paths.get(userFolder))) {
             Files.createDirectory(Paths.get(userFolder));
-            Files.copy(Paths.get(uploadDirectory + "/../images/avatar.png"), Paths.get(userFolder + "/avatar.png"));
+            Files.copy(Paths.get(file.getAbsolutePath()), Paths.get(userFolder + "/avatar.png"));
         }
     }
 }
