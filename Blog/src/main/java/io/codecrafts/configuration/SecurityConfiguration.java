@@ -39,6 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.
 			authorizeRequests()
 				.antMatchers("/").permitAll()
+				.antMatchers("/signin").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/api/**").permitAll()
 				.antMatchers("/registration").permitAll()
@@ -46,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/post/**").hasAnyAuthority("ADMIN", "USER").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true").successHandler(successHandler)
+				.loginProcessingUrl("/signin")
 				//.defaultSuccessUrl("/admin/home")
 				.usernameParameter("email")
 				.passwordParameter("password")
