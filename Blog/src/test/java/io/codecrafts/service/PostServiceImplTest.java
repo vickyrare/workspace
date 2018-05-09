@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -88,6 +89,10 @@ public class PostServiceImplTest {
         Page<Post> pages = new PageImpl<>(list);
 
         when(postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(0, 2))).thenReturn(pages);
+
+        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack")).thenReturn(list);
+
+        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1")).thenReturn(null);
     }
 
     @Test
@@ -108,5 +113,25 @@ public class PostServiceImplTest {
         assertThat(posts.get(1).getTitle()).isEqualTo("How to hack Wii U");
 
         verify(postRepository).findAllByOrderByLastModifiedDesc(new PageRequest(0, 2));
+    }
+
+
+    @Test
+    public void whenFindByKeyword_thenPostsShouldBeFound() {
+        List<Post> posts = postService.searchByKeyword("hack");
+
+        assertThat(posts.get(0).getTitle()).isEqualTo("How to hack 3DS");
+        assertThat(posts.get(1).getTitle()).isEqualTo("How to hack Wii U");
+
+        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack");
+    }
+
+    @Test
+    public void whenFindByKeyword_thenNoMatch() {
+        List<Post> posts = postService.searchByKeyword("hack1");
+
+        assertTrue(posts == null);
+
+        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1");
     }
 }

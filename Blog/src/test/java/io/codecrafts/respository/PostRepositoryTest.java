@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class PostRespositoryTest {
+public class PostRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -39,6 +39,7 @@ public class PostRespositoryTest {
 
     @Test
     public void whenFindById_thenReturnPost() {
+        emptyDatabase();
         Post post = testHelper.createPost(userRepository, postRepository);
         Post found = postRepository.findOne(post.getId());
 
@@ -51,6 +52,7 @@ public class PostRespositoryTest {
 
     @Test
     public void whenDeleteById_thenReturnDeletePost() {
+        emptyDatabase();
         Post post = testHelper.createPost(userRepository, postRepository);
         postRepository.delete(post.getId());
 
@@ -61,6 +63,7 @@ public class PostRespositoryTest {
 
     @Test
     public void whenFindAllPostDesc_thenReturnAllPostDesc() {
+        emptyDatabase();
         Post post = testHelper.createPost(userRepository, postRepository);
         Post post2 = testHelper.createPost(userRepository, postRepository);
 
@@ -73,18 +76,26 @@ public class PostRespositoryTest {
 
     @Test
     public void whenFindByKeyword_thenReturnPosts() {
+        emptyDatabase();
         testHelper.createPost(userRepository, postRepository);
 
         List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack");
         assertTrue(posts.size() == 1);
-        assertThat(posts.get(0).getTitle()).isEqualTo("Waqqas");
+        assertThat(posts.get(0).getTitle()).isEqualTo("How to hack Wii U");
     }
 
     @Test
     public void whenFindByKeyword_NoMatch() {
+        emptyDatabase();
         testHelper.createPost(userRepository, postRepository);
 
         List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1");
         assertTrue(posts.size() == 0);
+    }
+
+    private void emptyDatabase() {
+        postRepository.deleteAll();
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
     }
 }

@@ -13,7 +13,19 @@
 		<div class="panel-group">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					<a class="btn btn-default" href="#" th:href="@{'/posts/new'}" role="button"><span class="glyphicon glyphicon-plus"></span>New Thread</a>
+					<form th:action="@{'/searchPost'}" method="post" class="form-inline">
+						<div class="form-group">
+							<a class="btn btn-default" href="#" th:href="@{'/posts/new'}" role="button">
+								<span class="glyphicon glyphicon-plus"></span>New Thread
+							</a>
+						</div>
+						<div class="form-group pull-right">
+							<input type="text" name="keyword" class="form-control" placeholder="Search..">
+							<button type="submit" class="btn btn-default center">
+								<span class="glyphicon glyphicon-search"></span>Search
+							</button>
+						</div>
+					</form>
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive" th:if="${not #lists.isEmpty(posts)}">

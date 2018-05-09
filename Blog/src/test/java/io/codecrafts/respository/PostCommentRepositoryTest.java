@@ -24,7 +24,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class PostCommentRespositoryTest {
+public class PostCommentRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -42,6 +42,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenFindPostCommentByPostId_thenReturnPostComment() {
+        emptyDatabase();
         PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         Post post = postComment.getPost();
@@ -53,6 +54,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenDeleteCommentById_thenReturnDeletePost() {
+        emptyDatabase();
         PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         postCommentRepository.delete(postComment.getId());
@@ -64,6 +66,7 @@ public class PostCommentRespositoryTest {
 
     @Test
     public void whenFindAllPostCommentsAsc_thenReturnAllPostCommentsAsc() throws InterruptedException {
+        emptyDatabase();
         PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
 
         //making sure that the two postComments has a time between inserts otherwise sometimes the findByPostIdOrderByPostDateAsc fails
@@ -76,5 +79,12 @@ public class PostCommentRespositoryTest {
 
         assertThat(postComments.get(0).getId()).isEqualTo(postComment.getId());
         assertThat(postComments.get(1).getId()).isEqualTo(postComment2.getId());
+    }
+
+    private void emptyDatabase() {
+        postCommentRepository.deleteAll();
+        postRepository.deleteAll();
+        userRepository.deleteAll();
+        roleRepository.deleteAll();
     }
 }

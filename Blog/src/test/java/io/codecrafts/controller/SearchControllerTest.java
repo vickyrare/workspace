@@ -51,4 +51,18 @@ public class SearchControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("User Administration")))
                 .andExpect(content().string(Matchers.containsString("vickyrare@gmail.com")));
     }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testSearchPostsByKeyword() throws Exception{
+        this.mockMvc.perform(post("/searchPost")
+                .param("keyword", "hack"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posts"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("How to hack Wii U Modified")))
+                .andExpect(content().string(Matchers.containsString("How to hack 3DS")))
+                .andExpect(content().string(Matchers.containsString("How to hack PS3")));
+    }
 }
