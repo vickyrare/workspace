@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-	public User findUserById(UUID id);
-	public List<User> getAll();
-	public List<User> findAllInRange(int page, int numItems);
-	public User findUserByEmail(String email);
-	public User saveUser(User user);
-	public void updateUser(User user);
-	public void deleteUser(UUID id);
+	User findUserById(UUID id);
+	List<User> getAll();
+	List<User> findAllInRange(int page, int numItems);
+	User findUserByEmail(String email);
+	User saveUser(User user);
+	void updateUser(User user);
+	void deleteUser(UUID id);
+	List<User> searchByKeyword(String keyword);
 }

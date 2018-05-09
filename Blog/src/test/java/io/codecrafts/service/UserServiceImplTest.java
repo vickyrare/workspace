@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.*;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 /**
@@ -71,8 +72,8 @@ public class UserServiceImplTest {
         User adminUser = new User();
 
         adminUser.setId(UUID.fromString("3ca1e527-d84b-49fc-a033-e27c59780556"));
-        adminUser.setFirstName("Waqqas");
-        adminUser.setLastName("Sharif");
+        adminUser.setFirstName("Admin");
+        adminUser.setLastName("User");
         adminUser.setEmail("vickyrare@gmail.com");
         adminUser.setPassword("12345678");
         adminUser.setActive(true);
@@ -90,6 +91,12 @@ public class UserServiceImplTest {
         Role userRole = roleRepository.findByRole("USER");
 
         when(roleRepository.findByRole("USER")).thenReturn(userRole);
+
+        List<User> list2 = new ArrayList<>();
+        list2.add(adminUser);
+
+        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin")).thenReturn(list2);
+        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1")).thenReturn(null);
     }
 
     @Test
@@ -120,5 +127,24 @@ public class UserServiceImplTest {
         assertThat(users.get(1).getEmail()).isEqualTo("vickyrare@gmail.com");
 
         verify(userRepository).findAll(new PageRequest(0, 2));
+    }
+
+    @Test
+    public void whenFindAllByKeyword_thenUsersShouldBeFound() {
+        List<User> users = userService.searchByKeyword("admin");
+
+        assertThat(users.get(0).getFirstName()).isEqualTo("Admin");
+        assertThat(users.get(0).getEmail()).isEqualTo("vickyrare@gmail.com");
+
+        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin");
+    }
+
+    @Test
+    public void whenFindAllByKeyword_thenNoMatch() {
+        List<User> users = userService.searchByKeyword("admin1");
+
+        assertTrue(users == null);
+
+        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1");
     }
 }

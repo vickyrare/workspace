@@ -37,8 +37,8 @@ public class TestHelper {
         role.setRole("ADMIN");
 
         User user = new User();
-        user.setFirstName("Waqqas");
-        user.setLastName("Sharif");
+        user.setFirstName("Admin");
+        user.setLastName("User");
         user.setEmail("vickyrare@gmail.com");
         user.setPassword("12345678");
         user.setActive(true);

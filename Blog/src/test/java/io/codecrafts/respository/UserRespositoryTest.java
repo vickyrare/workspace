@@ -14,8 +14,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by waqqas on 4/25/2018.
@@ -78,5 +80,26 @@ public class UserRespositoryTest {
         assertThat(found.getCreationDate()).isEqualTo(adminUser.getCreationDate());
         assertThat(found.getRoles()).isEqualTo(adminUser.getRoles());
         assertThat(found.isAdmin()).isEqualTo(adminUser.isAdmin());
+    }
+
+    @Test
+    public void whenFindByKeyword_thenReturnUsers() {
+        testHelper.createUser(userRepository);
+        testHelper.createAdminUser(userRepository);
+
+        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqas", "waqqas", "WaqqaS");
+        assertTrue(users.size() == 3);
+        assertThat(users.get(0).getFirstName()).isEqualTo("Waqqas");
+        assertThat(users.get(1).getLastName()).isEqualTo("Waqqas");
+        assertThat(users.get(2).getLastName()).isEqualTo("Waqqas");
+    }
+
+    @Test
+    public void whenFindByKeyword_NoMatch() {
+        testHelper.createUser(userRepository);
+        testHelper.createAdminUser(userRepository);
+
+        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqass", "waqqass", "WaqqaSs");
+        assertTrue(users.size() == 0);
     }
 }
