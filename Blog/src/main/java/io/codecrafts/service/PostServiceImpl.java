@@ -1,6 +1,7 @@
 package io.codecrafts.service;
 
 import io.codecrafts.model.Post;
+import io.codecrafts.model.User;
 import io.codecrafts.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -41,5 +42,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void deletePost(UUID id) {
 		postRepository.delete(id);
+	}
+
+	@Override
+	public List<Post> searchByKeyword(String keyword) {
+		return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword,keyword);
 	}
 }

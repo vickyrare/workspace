@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.*;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by waqqas on 4/25/2018.
@@ -68,5 +69,22 @@ public class PostRespositoryTest {
 
         assertThat(posts.get(0).getId()).isEqualTo(post2.getId());
         assertThat(posts.get(1).getId()).isEqualTo(post.getId());
+    }
+
+    @Test
+    public void whenFindByKeyword_thenReturnPosts() {
+        testHelper.createPost(userRepository, postRepository);
+
+        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack");
+        assertTrue(posts.size() == 1);
+        assertThat(posts.get(0).getTitle()).isEqualTo("Waqqas");
+    }
+
+    @Test
+    public void whenFindByKeyword_NoMatch() {
+        testHelper.createPost(userRepository, postRepository);
+
+        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1");
+        assertTrue(posts.size() == 0);
     }
 }
