@@ -47,6 +47,9 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public List<Post> searchByKeyword(String keyword, Pageable pageable) {
-		return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword, keyword, new PageRequest(0, 3));
+		if(pageable == null) {
+			return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword, keyword);
+		}
+		return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword, keyword, pageable);
 	}
 }

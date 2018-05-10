@@ -40,6 +40,7 @@ public class AdminController {
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("title", "User Administration");
+		modelAndView.addObject("url", "/admin/users/?page=");
 		modelAndView.setViewName("/admin/users");
 
 		return modelAndView;

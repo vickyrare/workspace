@@ -20,7 +20,7 @@
 							</a>
 						</div>
 						<div class="form-group pull-right">
-							<input type="text" name="keyword" class="form-control" placeholder="Search..">
+							<input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search..">
 							<button type="submit" class="btn btn-default center">
 								<span class="glyphicon glyphicon-search"></span>Search
 							</button>
@@ -86,14 +86,14 @@
 						</table>
 						<ul class="pagination" th:if="${totalPages > 1}">
 							<li th:classappend="${page - 1 < 1} ? 'disabled'">
-								<a th:if="${page - 1 >= 1}" th:href="@{/posts/(page=${page - 1})}" class="page-link">&laquo;</a>
+								<a th:if="${page - 1 >= 1}" th:href="${url} + ${page - 1}" class="page-link">&laquo;</a>
 								<a th:if="${page - 1 < 1}" class="page-link">&laquo;</a>
 							</li>
 							<li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}" th:classappend="${page == i} ? 'active'">
-								<a th:href="@{/posts/(page=${i})}" th:text="${i}" class="page-link"></a>
+								<a th:href="${url} + ${i}" th:text="${i}" class="page-link"></a>
 							</li>
 							<li th:classappend="${page + 1 > totalPages} ? 'disabled'">
-								<a th:if="${page + 1 <= totalPages}" th:href="@{/posts/(page=${page + 1})}" class="page-link">&raquo;</a>
+								<a th:if="${page + 1 <= totalPages}" th:href="${url} + ${page + 1}" class="page-link">&raquo;</a>
 								<a th:if="${page + 1 > totalPages}" class="page-link">&raquo;</a>
 							</li>
 						</ul>

@@ -15,5 +15,6 @@ import java.util.UUID;
 public interface PostRepository extends JpaRepository<Post, UUID> {
 	Post findByTitle(String title);
 	Page<Post> findAllByOrderByLastModifiedDesc(Pageable pageable);
+	List<Post> findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(String title, String description);
 	List<Post> findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(String title, String description, Pageable pageable);
 }
