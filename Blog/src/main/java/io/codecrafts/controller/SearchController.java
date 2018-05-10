@@ -35,17 +35,28 @@ public class SearchController {
     public ModelAndView searchUserByKeyword(@RequestParam String keyword, @RequestParam(defaultValue = "1")int page){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<User> users = userService.searchByKeyword(keyword, null);
+        List<User> users = null;
+        if(keyword == null || keyword.equals("")) {
+            users = userService.getAll();
+        } else {
+            users = userService.searchByKeyword(keyword, null);
+        }
+
         int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
         if(users.size() % ITEMS_PER_PAGE == 0) {
             totalPages -= 1;
         }
 
-        users = userService.searchByKeyword(keyword, new PageRequest(0, ITEMS_PER_PAGE));
+        if(keyword == null || keyword.equals("")) {
+            users = userService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+        } else {
+            users = userService.searchByKeyword(keyword, new PageRequest(0, ITEMS_PER_PAGE));
+        }
 
         modelAndView.addObject("users", users);
         modelAndView.addObject("totalPages", totalPages);
         modelAndView.addObject("page", page);
+        modelAndView.addObject("keyword", keyword);
         modelAndView.addObject("title", "User Administration");
         modelAndView.setViewName("/admin/users");
 
