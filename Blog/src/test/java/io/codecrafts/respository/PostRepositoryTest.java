@@ -79,7 +79,7 @@ public class PostRepositoryTest {
         emptyDatabase();
         testHelper.createPost(userRepository, postRepository);
 
-        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack");
+        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack", new PageRequest(0, 3));
         assertTrue(posts.size() == 1);
         assertThat(posts.get(0).getTitle()).isEqualTo("How to hack Wii U");
     }
@@ -89,7 +89,7 @@ public class PostRepositoryTest {
         emptyDatabase();
         testHelper.createPost(userRepository, postRepository);
 
-        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1");
+        List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1", new PageRequest(0, 3));
         assertTrue(posts.size() == 0);
     }
 

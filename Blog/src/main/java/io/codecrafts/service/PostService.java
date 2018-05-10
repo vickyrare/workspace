@@ -1,6 +1,7 @@
 package io.codecrafts.service;
 
 import io.codecrafts.model.Post;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,5 +12,5 @@ public interface PostService {
 	Post findPost(UUID id);
 	void savePost(Post post);
 	void deletePost(UUID id);
-	List<Post> searchByKeyword(String keyword);
+	List<Post> searchByKeyword(String keyword, Pageable pageable);
 }

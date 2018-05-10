@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
@@ -87,7 +88,7 @@ public class UserRepositoryTest {
         testHelper.createUser(userRepository);
         testHelper.createAdminUser(userRepository);
 
-        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqas", "waqqas", "WaqqaS");
+        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqas", "waqqas", "WaqqaS", new PageRequest(0, 3));
         assertTrue(users.size() == 3);
         assertThat(users.get(0).getFirstName()).isEqualTo("Waqqas");
         assertThat(users.get(1).getLastName()).isEqualTo("Waqqas");
@@ -99,7 +100,7 @@ public class UserRepositoryTest {
         testHelper.createUser(userRepository);
         testHelper.createAdminUser(userRepository);
 
-        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqass", "waqqass", "WaqqaSs");
+        List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqass", "waqqass", "WaqqaSs", new PageRequest(0, 3));
         assertTrue(users.size() == 0);
     }
 }

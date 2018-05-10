@@ -5,6 +5,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -45,7 +46,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<Post> searchByKeyword(String keyword) {
-		return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword,keyword);
+	public List<Post> searchByKeyword(String keyword, Pageable pageable) {
+		return postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining(keyword, keyword, new PageRequest(0, 3));
 	}
 }

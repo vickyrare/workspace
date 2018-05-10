@@ -90,9 +90,9 @@ public class PostServiceImplTest {
 
         when(postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(0, 2))).thenReturn(pages);
 
-        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack")).thenReturn(list);
+        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack", new PageRequest(0, 3))).thenReturn(list);
 
-        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1")).thenReturn(null);
+        when(postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1", new PageRequest(0, 3))).thenReturn(null);
     }
 
     @Test
@@ -118,20 +118,20 @@ public class PostServiceImplTest {
 
     @Test
     public void whenFindByKeyword_thenPostsShouldBeFound() {
-        List<Post> posts = postService.searchByKeyword("hack");
+        List<Post> posts = postService.searchByKeyword("hack", new PageRequest(0, 3));
 
         assertThat(posts.get(0).getTitle()).isEqualTo("How to hack 3DS");
         assertThat(posts.get(1).getTitle()).isEqualTo("How to hack Wii U");
 
-        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack");
+        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack", new PageRequest(0, 3));
     }
 
     @Test
     public void whenFindByKeyword_thenNoMatch() {
-        List<Post> posts = postService.searchByKeyword("hack1");
+        List<Post> posts = postService.searchByKeyword("hack1", new PageRequest(0, 3));
 
         assertTrue(posts == null);
 
-        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1");
+        verify(postRepository).findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1", new PageRequest(0, 3));
     }
 }

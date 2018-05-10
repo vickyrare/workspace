@@ -95,8 +95,8 @@ public class UserServiceImplTest {
         List<User> list2 = new ArrayList<>();
         list2.add(adminUser);
 
-        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin")).thenReturn(list2);
-        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1")).thenReturn(null);
+        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin", new PageRequest(0, 3))).thenReturn(list2);
+        when(userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1", new PageRequest(0, 3))).thenReturn(null);
     }
 
     @Test
@@ -131,20 +131,20 @@ public class UserServiceImplTest {
 
     @Test
     public void whenFindAllByKeyword_thenUsersShouldBeFound() {
-        List<User> users = userService.searchByKeyword("admin");
+        List<User> users = userService.searchByKeyword("admin", new PageRequest(0, 3));
 
         assertThat(users.get(0).getFirstName()).isEqualTo("Admin");
         assertThat(users.get(0).getEmail()).isEqualTo("vickyrare@gmail.com");
 
-        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin");
+        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin", "admin", "admin", new PageRequest(0, 3));
     }
 
     @Test
     public void whenFindAllByKeyword_thenNoMatch() {
-        List<User> users = userService.searchByKeyword("admin1");
+        List<User> users = userService.searchByKeyword("admin1", new PageRequest(0, 3));
 
         assertTrue(users == null);
 
-        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1");
+        verify(userRepository).findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("admin1", "admin1", "admin1", new PageRequest(0, 3));
     }
 }
