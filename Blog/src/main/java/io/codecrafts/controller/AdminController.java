@@ -1,12 +1,10 @@
 package io.codecrafts.controller;
 
-import io.codecrafts.model.Post;
 import io.codecrafts.model.User;
-import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +18,6 @@ import java.util.UUID;
 @Controller
 public class AdminController {
 
-	static int ITEMS_PER_PAGE = 10;
-	
 	@Autowired
 	private UserService userService;
 
@@ -30,12 +26,12 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		List<User> users = userService.getAll();
-		int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
-		if(users.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(users.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		users = userService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+		users = userService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", page);
@@ -74,16 +70,16 @@ public class AdminController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been created successfully");
 			List<User> users = userService.getAll();
-			int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
+			int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
 			int currentPage;
-			if(users.size() % ITEMS_PER_PAGE == 0) {
+			if(users.size() % Util.ITEMS_PER_PAGE == 0) {
 				totalPages -= 1;
-				currentPage = (users.size() / ITEMS_PER_PAGE) - 1;
+				currentPage = (users.size() / Util.ITEMS_PER_PAGE) - 1;
 			} else {
-				currentPage = (users.size() / ITEMS_PER_PAGE);
+				currentPage = (users.size() / Util.ITEMS_PER_PAGE);
 			}
 
-			users = userService.findAllInRange(currentPage, ITEMS_PER_PAGE);
+			users = userService.findAllInRange(currentPage, Util.ITEMS_PER_PAGE);
 			modelAndView.addObject("users", users);
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("page", currentPage + 1);
@@ -117,12 +113,12 @@ public class AdminController {
 			userService.saveUser(updatedUser);
 			modelAndView.addObject("successMessage", "User has been changed successfully");
 			List<User> users = userService.getAll();
-			int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
-			if(users.size() % ITEMS_PER_PAGE == 0) {
+			int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
+			if(users.size() % Util.ITEMS_PER_PAGE == 0) {
 				totalPages -= 1;
 			}
 
-			users = userService.findAllInRange(0, ITEMS_PER_PAGE);
+			users = userService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 			modelAndView.addObject("users", users);
 			modelAndView.addObject("title", "User Administration");
 			modelAndView.addObject("totalPages", totalPages);
@@ -137,12 +133,12 @@ public class AdminController {
 		userService.deleteUser(id);
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> users = userService.getAll();
-		int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
-		if(users.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(users.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		users = userService.findAllInRange(0, ITEMS_PER_PAGE);
+		users = userService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", 1);
@@ -167,12 +163,12 @@ public class AdminController {
 		userService.updateUser(user);
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> users = userService.getAll();
-		int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
-		if(users.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(users.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		users = userService.findAllInRange(0, ITEMS_PER_PAGE);
+		users = userService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 		modelAndView.addObject("users", users);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", 1);

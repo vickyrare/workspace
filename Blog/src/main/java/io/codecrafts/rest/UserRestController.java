@@ -6,6 +6,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.rest.annotations.RestApiController;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +21,6 @@ import java.util.*;
 @RestApiController
 public class UserRestController {
 
-    static int ITEMS_PER_PAGE = 10;
-
     @Autowired
     private UserService userService;
 
@@ -30,7 +29,7 @@ public class UserRestController {
 
     @GetMapping(value="/users")
     public List<User> findAll(@RequestParam(defaultValue = "1")int page){
-        List<User> users = userService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+        List<User> users = userService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
         return users;
     }
 

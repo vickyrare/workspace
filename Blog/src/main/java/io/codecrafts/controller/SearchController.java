@@ -4,6 +4,7 @@ import io.codecrafts.model.Post;
 import io.codecrafts.model.User;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -22,8 +23,6 @@ import java.util.List;
 
 @Controller
 public class SearchController {
-
-    static int ITEMS_PER_PAGE = 10;
 
     @Autowired
     private UserService userService;
@@ -51,15 +50,15 @@ public class SearchController {
             users = userService.searchByKeyword(keyword, null);
         }
 
-        int totalPages = (users.size() / ITEMS_PER_PAGE) + 1;
-        if(users.size() % ITEMS_PER_PAGE == 0) {
+        int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
+        if(users.size() % Util.ITEMS_PER_PAGE == 0) {
             totalPages -= 1;
         }
 
         if(keyword == null || keyword.equals("")) {
-            users = userService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+            users = userService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
         } else {
-            users = userService.searchByKeyword(keyword, new PageRequest(page - 1, ITEMS_PER_PAGE));
+            users = userService.searchByKeyword(keyword, new PageRequest(page - 1, Util.ITEMS_PER_PAGE));
         }
 
         modelAndView.addObject("users", users);
@@ -97,15 +96,15 @@ public class SearchController {
             posts = postService.searchByKeyword(keyword, null);
         }
 
-        int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-        if(posts.size() % ITEMS_PER_PAGE == 0) {
+        int totalPages = (posts.size() / Util.ITEMS_PER_PAGE) + 1;
+        if(posts.size() % Util.ITEMS_PER_PAGE == 0) {
             totalPages -= 1;
         }
 
         if(keyword == null || keyword.equals("")) {
-            posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+            posts = postService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
         } else {
-            posts = postService.searchByKeyword(keyword, new PageRequest(page - 1, ITEMS_PER_PAGE));
+            posts = postService.searchByKeyword(keyword, new PageRequest(page - 1, Util.ITEMS_PER_PAGE));
         }
 
         modelAndView.addObject("posts", posts);

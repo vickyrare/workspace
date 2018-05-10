@@ -4,6 +4,7 @@ import io.codecrafts.model.Post;
 import io.codecrafts.model.User;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +21,6 @@ import java.util.UUID;
 @Controller
 public class PostController {
 
-	static int ITEMS_PER_PAGE = 10;
-	
 	@Autowired
 	private UserService userService;
 
@@ -37,11 +36,11 @@ public class PostController {
 		modelAndView.addObject("user", loggedInUser);
 
 		List<Post> posts = postService.getAll();
-		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-		if(posts.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (posts.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(posts.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
-		posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+		posts = postService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", page);
@@ -87,12 +86,12 @@ public class PostController {
 			postService.savePost(newPost);
 
 			List<Post> posts = postService.getAll();
-			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-			if(posts.size() % ITEMS_PER_PAGE == 0) {
+			int totalPages = (posts.size() / Util.ITEMS_PER_PAGE) + 1;
+			if(posts.size() % Util.ITEMS_PER_PAGE == 0) {
 				totalPages -= 1;
 			}
 
-			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
+			posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("page", 1);
@@ -143,11 +142,11 @@ public class PostController {
 			}
 
 			List<Post> posts = postService.getAll();
-			int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-			if (posts.size() % ITEMS_PER_PAGE == 0) {
+			int totalPages = (posts.size() / Util.ITEMS_PER_PAGE) + 1;
+			if (posts.size() % Util.ITEMS_PER_PAGE == 0) {
 				totalPages -= 1;
 			}
-			posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
+			posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("title", "Posts");
@@ -179,12 +178,12 @@ public class PostController {
 		modelAndView.addObject("user", loggedInUser);
 
 		List<Post> posts = postService.getAll();
-		int totalPages = (posts.size() / ITEMS_PER_PAGE) + 1;
-		if(posts.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (posts.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(posts.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		posts = postService.findAllInRange(0, ITEMS_PER_PAGE);
+		posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 		modelAndView.addObject("posts", posts);
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", 1);

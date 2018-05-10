@@ -6,6 +6,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.service.PostCommentService;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +23,6 @@ import java.util.UUID;
 @Controller
 public class PostCommentController {
 
-	static int ITEMS_PER_PAGE = 10;
-	
 	@Autowired
 	private UserService userService;
 
@@ -42,12 +41,12 @@ public class PostCommentController {
 		modelAndView.addObject("user", loggedInUser);
 
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
-		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (postComments.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(postComments.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		postComments = postCommentService.findAllInRange(postId, page - 1, ITEMS_PER_PAGE);
+		postComments = postCommentService.findAllInRange(postId, page - 1, Util.ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		PostComment postComment = new PostComment();
@@ -83,12 +82,12 @@ public class PostCommentController {
 		}
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 
-		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (postComments.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(postComments.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
+		postComments = postCommentService.findAllInRange(postId, 0, Util.ITEMS_PER_PAGE);
 
 		modelAndView.addObject("post", post);
 		modelAndView.addObject("comments", postComments);
@@ -142,12 +141,12 @@ public class PostCommentController {
 				postCommentService.updateComment(editPostComment);
 				List<PostComment> postComments = postCommentService.getAllComments(postId);
 
-				int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-				if (postComments.size() % ITEMS_PER_PAGE == 0) {
+				int totalPages = (postComments.size() / Util.ITEMS_PER_PAGE) + 1;
+				if (postComments.size() % Util.ITEMS_PER_PAGE == 0) {
 					totalPages -= 1;
 				}
 
-				postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
+				postComments = postCommentService.findAllInRange(postId, 0, Util.ITEMS_PER_PAGE);
 				Post post = postService.findPost(postId);
 				post.setLastModified(editPostComment.getPostDate());
 				postService.savePost(post);
@@ -186,12 +185,12 @@ public class PostCommentController {
 		modelAndView.addObject("user", loggedInUser);
 		List<PostComment> postComments = postCommentService.getAllComments(postId);
 
-		int totalPages = (postComments.size() / ITEMS_PER_PAGE) + 1;
-		if(postComments.size() % ITEMS_PER_PAGE == 0) {
+		int totalPages = (postComments.size() / Util.ITEMS_PER_PAGE) + 1;
+		if(postComments.size() % Util.ITEMS_PER_PAGE == 0) {
 			totalPages -= 1;
 		}
 
-		postComments = postCommentService.findAllInRange(postId, 0, ITEMS_PER_PAGE);
+		postComments = postCommentService.findAllInRange(postId, 0, Util.ITEMS_PER_PAGE);
 		Post post = postService.findPost(postId);
 		modelAndView.addObject("post", post);
 		PostComment postComment = new PostComment();

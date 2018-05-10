@@ -5,6 +5,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.rest.annotations.RestApiController;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,8 +21,6 @@ import java.util.UUID;
 @RestApiController
 public class PostRestController {
 
-    static int ITEMS_PER_PAGE = 10;
-
     @Autowired
     private PostService postService;
 
@@ -30,7 +29,7 @@ public class PostRestController {
 
     @GetMapping(value="/posts")
     public List<Post> findAll(@RequestParam(defaultValue = "1")int page){
-        List<Post> posts = postService.findAllInRange(page - 1, ITEMS_PER_PAGE);
+        List<Post> posts = postService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
         return posts;
     }
 
