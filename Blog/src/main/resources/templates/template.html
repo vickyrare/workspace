@@ -10,37 +10,33 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
-    <div th:fragment="header">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand">Blog</a>
-                </div>
-                <ul class="nav navbar-nav" th:if="${#authorization.expression('isAuthenticated()')}">
-                    <li><a href="/posts"><span class="glyphicon glyphicon-home"></span>Home</a></li>
-                    <li th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}"><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>User Administration</a></li>
-                    <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${title.equals('Registration')}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${title.equals('Login')}"><a href="/registration"><span class="glyphicon glyphicon-log-in"></span>Register</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-                </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand">Blog</a>
             </div>
-        </nav>
-    </div>
+            <ul class="nav navbar-nav" th:if="${#authorization.expression('isAuthenticated()')}">
+                <li><a href="/posts"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                <li th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}"><a href="/admin/users"><span class="glyphicon glyphicon-user"></span>User Administration</a></li>
+                <li><a href="/settings"><span class="glyphicon glyphicon-cog"></span>Settings</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${title.equals('Registration')}"><a href="/login"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${title.equals('Login')}"><a href="/registration"><span class="glyphicon glyphicon-log-in"></span>Register</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${#authorization.expression('isAuthenticated()')}"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <div th:fragment="footer">
-        <nav class="navbar navbar-inverse navbar-fixed-bottom">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="http://codecrafts.io/">Copyright &copy; CodeCrafts 2018</a>
-                </div>
+    <nav class="navbar navbar-inverse navbar-fixed-bottom" th:fragment="footer">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="http://codecrafts.io/">Copyright &copy; CodeCrafts 2018</a>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </html>

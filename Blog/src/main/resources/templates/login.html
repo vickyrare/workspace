@@ -7,7 +7,7 @@
 
 <body>
 	<div class="container">
-		<div th:replace="template :: header"></div>
+		<nav th:replace="template :: header"></nav>
 		<div class="panel-group">
 			<img th:src="@{/images/login.jpg}" class="img-responsive center-block" width="300" height="300" alt="Logo" />
 			<form th:action="@{/signin}" method="POST" class="form-signin">
@@ -24,7 +24,7 @@
 				</div>
 				<button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit" th:text="Login"></button>
 			</form>
-			<div th:replace="template :: footer"></div>
+			<nav th:replace="template :: footer"></nav>
 		</div>
 	</div>
 </body>
