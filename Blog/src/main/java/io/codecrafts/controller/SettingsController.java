@@ -5,6 +5,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
 import io.codecrafts.storage.StorageService;
+import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -31,6 +32,12 @@ public class SettingsController {
 	@Autowired
 	private PostService postService;
 
+	@Autowired
+	private StorageService storageService;
+
+	@Value("${upload.file.directory}")
+	private String uploadDirectory;
+
 	@GetMapping(value="/settings")
 	public ModelAndView settings(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -42,12 +49,6 @@ public class SettingsController {
 		modelAndView.setViewName("settings");
 		return modelAndView;
 	}
-
-	@Autowired
-	private StorageService storageService;
-
-	@Value("${upload.file.directory}")
-	private String uploadDirectory;
 	
 	@PostMapping(value = "/settings")
 	public ModelAndView updateUser(@Valid User user, BindingResult bindingResult, @RequestParam("file") MultipartFile file) throws IOException {
@@ -86,7 +87,7 @@ public class SettingsController {
 				modelAndView.addObject("successMessage", "User settings has been changed successfully");
 			}
 
-			List<Post> posts = postService.getAll();
+			List<Post> posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
 			modelAndView.addObject("posts", posts);
 			modelAndView.addObject("title", "Posts");
 			modelAndView.setViewName("posts");
