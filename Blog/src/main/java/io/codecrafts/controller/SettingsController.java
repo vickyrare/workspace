@@ -70,20 +70,27 @@ public class SettingsController {
 				updatedUser.setFirstName(user.getFirstName());
 				updatedUser.setLastName(user.getLastName());
 				updatedUser.setPassword(user.getPassword());
-				storageService.store(file);
-				String previousProfilePictureName = updatedUser.getProfilePicture();
-				updatedUser.setProfilePicture(file.getOriginalFilename());
+
+				String previousProfilePictureName = null;
+				if(!file.getOriginalFilename().isEmpty()) {
+					storageService.store(file);
+					previousProfilePictureName = updatedUser.getProfilePicture();
+					updatedUser.setProfilePicture(file.getOriginalFilename());
+				}
+
 				userService.saveUser(updatedUser);
 				File dir = new File(uploadDirectoryPath.toFile(), updatedUser.getId().toString());
 				modelAndView.addObject("user", updatedUser);
 
-				//remove previous profile picture
-				File previousProfilePicture = new File(dir, previousProfilePictureName);
-				if (previousProfilePicture.exists()) {
-					previousProfilePicture.delete();
-				}
+				if(!file.getOriginalFilename().isEmpty()) {
+					//remove previous profile picture
+					File previousProfilePicture = new File(dir, previousProfilePictureName);
+					if (previousProfilePicture.exists()) {
+						previousProfilePicture.delete();
+					}
 
-				file.transferTo(new File(dir, file.getOriginalFilename()));
+					file.transferTo(new File(dir, file.getOriginalFilename()));
+				}
 				modelAndView.addObject("successMessage", "User settings has been changed successfully");
 			}
 
