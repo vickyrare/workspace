@@ -1,6 +1,8 @@
 package io.codecrafts.controller;
 
+import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
+import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.service.UserService;
 import io.codecrafts.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class AdminController {
+
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Autowired
 	private UserService userService;
@@ -57,17 +60,24 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
 		if (userExists != null) {
-			bindingResult
-					.rejectValue("email", "error.user",
-								 "There is already a user registered with the email provided");
+			bindingResult.rejectValue("email", "error.user","There is already a user registered with the email provided");
 		}
+
+		if(user.getPassword() != null && user.getConfirmPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
+			bindingResult.rejectValue("confirmPassword", "error.user","Passwords don't match");
+		}
+
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("title", "New User");
 			modelAndView.setViewName("/admin/userform");
 		} else {
+			Role userRole = roleRepository.findByRole("USER");
+
 			user.setActive(true);
 			user.setCreationDate(new Date());
+			user.setRoles(new HashSet<>(Arrays.asList(userRole)));
 			userService.saveUser(user);
+
 			modelAndView.addObject("successMessage", "User has been created successfully");
 			List<User> users = userService.getAll();
 			int totalPages = (users.size() / Util.ITEMS_PER_PAGE) + 1;
