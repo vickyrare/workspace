@@ -10,3 +10,4 @@ ClientServer/server/build/*
 ClientServer/server/out/*
 ClientServer/client/build/*
 ClientServer/client/out/*
+soap-webservice-spring-example/target/*
