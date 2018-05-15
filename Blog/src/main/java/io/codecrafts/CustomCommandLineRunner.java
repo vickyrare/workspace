@@ -26,7 +26,7 @@ import java.util.HashSet;
 @Component
 public class CustomCommandLineRunner implements CommandLineRunner {
 
-    @Autowired
+    //don't add @Autowired as it causes circular dependency on Mac OS and Linux
     private UserService userService;
 
     @Autowired
