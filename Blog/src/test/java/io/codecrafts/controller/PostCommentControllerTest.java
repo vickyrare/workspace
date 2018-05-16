@@ -75,6 +75,18 @@ public class PostCommentControllerTest {
 
     @Test
     @WithUserDetails("vickyrare@gmail.com")
+    public void testUserTriesToEditItsOwnPostCommentWithWithoutProvidingContent() throws Exception{
+        this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/comments/dfdaf9b9-75f9-4ebe-ab6d-307f315cef65")
+                .param("content", ""))
+                .andExpect(status().isOk())
+                .andExpect(view().name("commenteditform"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Comment")))
+                .andExpect(content().string(Matchers.containsString("Please provide content")));
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@gmail.com")
     public void testUserTriesToEditItsOwnPostComment() throws Exception{
         this.mockMvc.perform(post("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/comments/dfdaf9b9-75f9-4ebe-ab6d-307f315cef65")
                                      .param("content", "Try modified IGN"))

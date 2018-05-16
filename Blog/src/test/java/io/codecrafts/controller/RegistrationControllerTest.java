@@ -63,11 +63,28 @@ public class RegistrationControllerTest {
                                 .param("firstName","Test")
                                 .param("lastName","User")
                                 .param("email", "test@yahoo.com")
-                                .param("password", "12345"))
+                                .param("password", "12345")
+                                .param("confirmPassword", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("registration"))
                 .andExpect(content().string(Matchers.containsString("User has been registered successfully")));
     }
+
+    @Test
+    public void testRegistrationWithAllInformationButPasswordDontMatch() throws Exception {
+        MockMultipartFile mockMultipartFile = getMockMultipartFile();
+        this.mockMvc.perform(MockMvcRequestBuilders.fileUpload("/registration")
+                .file(mockMultipartFile)
+                .param("firstName","Test")
+                .param("lastName","User")
+                .param("email", "test@yahoo.com")
+                .param("password", "12345")
+                .param("confirmPassword", "123456"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("registration"))
+                .andExpect(content().string(Matchers.containsString("Passwords don&#39;t match")));
+    }
+
 
     @Test
     public void testRegistrationEmptyFirstNameLastNameEmptyPasswordEmptyEmail() throws Exception {

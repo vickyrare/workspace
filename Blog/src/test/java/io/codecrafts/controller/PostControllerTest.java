@@ -78,6 +78,19 @@ public class PostControllerTest {
     }
 
     @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testNewPostWithoutProvidingTitle() throws Exception{
+        this.mockMvc.perform(post("/posts")
+                .param("title", "")
+                .param("description", "New Post Description"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("postform"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
+                .andExpect(content().string(Matchers.containsString("Please provide a Title")));
+    }
+
+    @Test
     @WithUserDetails("vickyrare@gmail.com")
     public void testEditPostForm() throws Exception{
         this.mockMvc.perform(get("/posts/d63d1cf0-b70e-43f1-bf4c-5f562d1c5a59/edit"))
@@ -85,6 +98,19 @@ public class PostControllerTest {
                 .andExpect(view().name("posteditform"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")));
+    }
+
+    @Test
+    @WithUserDetails("vickyrare@yahoo.com")
+    public void testUserTriesToEditItsOwnPostWithoutProvidingTitle() throws Exception{
+        this.mockMvc.perform(post("/posts/e63d1cf0-b70e-43f1-bf4c-5f562d1c5a59")
+                .param("title", "")
+                .param("description", "I am wondering whether anyone can help me hack my Wii U. My Wii U is currently running 1.5 firmware version."))
+                .andExpect(status().isOk())
+                .andExpect(view().name("posteditform"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
+                .andExpect(MockMvcResultMatchers.model().attribute("title", is("Edit Post")))
+                .andExpect(content().string(Matchers.containsString("Please provide a Title")));
     }
 
     @Test
