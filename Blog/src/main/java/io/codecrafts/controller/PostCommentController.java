@@ -132,6 +132,7 @@ public class PostCommentController {
 		if(loggedInUser.getId() == editPostComment.getUser().getId()) {
 			if (bindingResult.hasErrors()) {
 				postComment.setId(commentId);
+				modelAndView.addObject("post", editPostComment.getPost());
 				modelAndView.addObject("postid", postId);
 				modelAndView.addObject("comment", postComment);
 				modelAndView.addObject("title", "Edit Comment");
