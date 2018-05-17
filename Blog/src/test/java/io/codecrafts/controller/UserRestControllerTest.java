@@ -86,7 +86,7 @@ public class UserRestControllerTest {
 
         mvc.perform(post("/api/users")
                             .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(user)))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
