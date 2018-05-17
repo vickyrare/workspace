@@ -26,8 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -78,18 +77,35 @@ public class PostRestControllerTest {
 
         mvc.perform(post("/api/posts")
                             .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(post)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(post.getTitle())))
+                .andExpect(jsonPath("$.description", is(post.getDescription())));
+    }
+
+    @Test
+    public void whenEditPost_thenEditPost() throws Exception {
+        UUID postId = UUID.fromString("3ca1e527-d84b-49fc-a033-e27c59780556");
+
+        Post post = new Post();
+        post.setTitle("Test Post");
+        post.setDescription("Test Post Description");
+
+        given(postService.findPost(postId)).willReturn(post);
+
+        mvc.perform(put("/api/posts/" + postId)
+                .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(post)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title", is(post.getTitle())));
+
+        verify(postService).findPost(postId);
     }
 
     @Test
     public void whenFindPost_thenReturnPost() throws Exception {
         UUID postId = UUID.fromString("3ca1e527-d84b-49fc-a033-e27c59780556");
 
-        User user = testHelper.getUser();
         Post post = testHelper.getPost();
-        post.setUser(user);
-        post.setLastModified(post.getCreationDate());
-        
+
         given(postService.findPost(postId)).willReturn(post);
 
         mvc.perform(get("/api/posts/" + postId)
