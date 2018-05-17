@@ -77,9 +77,7 @@ public class PostRestControllerTest {
 
         mvc.perform(post("/api/posts")
                             .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(post)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title", is(post.getTitle())))
-                .andExpect(jsonPath("$.description", is(post.getDescription())));
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test

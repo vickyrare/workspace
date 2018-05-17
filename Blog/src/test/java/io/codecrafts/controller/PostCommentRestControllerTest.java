@@ -100,7 +100,7 @@ public class PostCommentRestControllerTest {
 
         mvc.perform(post("/api/posts/" + postId + "/comments")
                             .contentType(MediaType.APPLICATION_JSON).content(JsonUtil.toJson(post)))
-                .andExpect(status().isOk());
+                .andExpect(status().is2xxSuccessful());
         verify(postService).findPost(postId);
     }
 

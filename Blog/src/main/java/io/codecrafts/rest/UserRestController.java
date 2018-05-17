@@ -28,15 +28,18 @@ public class UserRestController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping(value="/users")
-    public List<User> findAll(@RequestParam(defaultValue = "1")int page){
+    @GetMapping(value = "/users")
+    public ResponseEntity<List<User>> listAllUsers(@RequestParam(defaultValue = "1")int page) {
         List<User> users = userService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
-        return users;
+        if (users.isEmpty()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
     @PostMapping(value = "/users")
     public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {
-
         if (userService.findUserByEmail(user.getEmail()) != null) {
             return new ResponseEntity(new CustomErrorType("Unable to create. A User with email " + user.getEmail() + " already exist."),HttpStatus.CONFLICT);
         }
