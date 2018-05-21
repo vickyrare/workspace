@@ -9,9 +9,11 @@ Prerequisites:
 
 You need to install MySQL and then create a database called blog.
 
-Open Blog\src\main\resources\application.properties and provide user name and password for MySQL.
+Open Blog\src\main\resources\config\application.properties and provide a profile(prod or dev).
 
-By default the application is running on port 4000 which can be changed by modifying the property server.port=4000 in the Blog\src\main\resources\application.properties file.
+Open Blog\src\main\resources\application-(prod, dev).properties and provide user name and password for Postgres.
+
+By default the application is running on port 4000 which can be changed by modifying the property server.port=4000 in the Blog\src\main\resources\application-(prod, dev).properties file.
 
 Install Java 8 and Maven.
 
@@ -25,4 +27,4 @@ The application comes with two builtin users.
 Admin (username: vickyrare@gmail.com, password: 12345678)
 User (username: vickyrare@yahoo.com, password: 12345678)
 
-They can be changed in the CustomCommandLineRunner.java file.
+They can be changed in the src/main/resources/static/db/postgres-data.sql file.
