@@ -1,6 +1,5 @@
 package io.codecrafts.respository;
 
-import io.codecrafts.model.Role;
 import io.codecrafts.model.User;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.repository.UserRepository;
@@ -12,9 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;

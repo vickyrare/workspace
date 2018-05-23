@@ -50,6 +50,29 @@ public class LoginControllerTest {
     }
 
     @Test
+    public void tryToAccessSystemWithoutLogin() throws Exception{
+        this.mockMvc.perform(get("/posts"))
+                .andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+    @Test
+    public void testLogout() throws Exception{
+        //signin
+        this.mockMvc.perform(post("/signin")
+                .param("email", "qirrat@yahoo.com")
+                .param("password", "12345678"))
+                .andExpect(redirectedUrl("posts"));
+
+        //logout
+        this.mockMvc.perform(post("/logout"))
+                .andExpect(redirectedUrl("/"));
+
+        //try to access system after logout
+        this.mockMvc.perform(get("/posts"))
+                .andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+    @Test
     public void testUserLoginWithCorrectCredentials() throws Exception{
         this.mockMvc.perform(post("/signin")
                                      .param("email", "qirrat@yahoo.com")
