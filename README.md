@@ -3,11 +3,11 @@ A common workground for learning new technlogies
 
 Blog application:
 
-This application is built using Spring Boot and Thymeleafs.
+This application is built using Spring Boot, Thymeleafs and Bootstrap.
 
 Prerequisites:
 
-You need to install MySQL and then create a database called blog.
+You need to install Postgres and then create a database called blog.
 
 Open Blog\src\main\resources\config\application.properties and provide a profile(prod or dev).
 
