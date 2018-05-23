@@ -37,7 +37,7 @@ public class UserRepositoryTest {
 
     @Test
     public void whenFindByEmail_thenReturnUser() {
-        User user = testHelper.createUser(userRepository);
+        User user = testHelper.createUser(roleRepository, userRepository);
         User found = userRepository.findByEmail(user.getEmail());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -53,7 +53,7 @@ public class UserRepositoryTest {
 
     @Test
     public void whenFindById_thenReturnUser() {
-        User user = testHelper.createUser(userRepository);
+        User user = testHelper.createUser(roleRepository, userRepository);
         User found = userRepository.findOne(user.getId());
 
         assertThat(found.getFirstName()).isEqualTo(user.getFirstName());
@@ -69,7 +69,7 @@ public class UserRepositoryTest {
 
     @Test
     public void whenAdminFindByEmail_thenReturnUser() {
-        User adminUser = testHelper.createAdminUser(userRepository);
+        User adminUser = testHelper.createAdminUser(roleRepository, userRepository);
         User found = userRepository.findOne(adminUser.getId());
 
         assertThat(found.getFirstName()).isEqualTo(adminUser.getFirstName());
@@ -85,8 +85,8 @@ public class UserRepositoryTest {
 
     @Test
     public void whenFindByKeyword_thenReturnUsers() {
-        testHelper.createUser(userRepository);
-        testHelper.createAdminUser(userRepository);
+        testHelper.createUser(roleRepository, userRepository);
+        testHelper.createAdminUser(roleRepository, userRepository);
 
         List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqas", "waqqas", "WaqqaS", new PageRequest(0, 3));
         assertTrue(users.size() == 3);
@@ -97,8 +97,8 @@ public class UserRepositoryTest {
 
     @Test
     public void whenFindByKeyword_NoMatch() {
-        testHelper.createUser(userRepository);
-        testHelper.createAdminUser(userRepository);
+        testHelper.createUser(roleRepository, userRepository);
+        testHelper.createAdminUser(roleRepository, userRepository);
 
         List<User> users = userRepository.findAllByFirstNameIgnoreCaseContainingOrLastNameIgnoreCaseContainingOrEmailIgnoreCaseContaining("Waqqass", "waqqass", "WaqqaSs", new PageRequest(0, 3));
         assertTrue(users.size() == 0);
