@@ -11,3 +11,6 @@ ClientServer/server/out/*
 ClientServer/client/build/*
 ClientServer/client/out/*
 soap-webservice-spring-example/target/*
+soap-webservice-spring-example/.idea/*
+soap-webservice-axis-maven/target/*
+soap-webservice-axis-maven/.idea/*

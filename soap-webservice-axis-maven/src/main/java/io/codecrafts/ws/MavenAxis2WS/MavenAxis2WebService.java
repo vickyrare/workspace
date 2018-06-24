@@ -7,4 +7,8 @@ public class MavenAxis2WebService {
         }
         return "Service is up and available, message: " + text;
     }
+
+    public int sum(int x, int y) {
+        return x + y;
+    }
 }

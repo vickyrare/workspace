@@ -6,5 +6,8 @@
         <operation name="ping">
             <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
         </operation>
+        <operation name="sum">
+            <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        </operation>
     </service>
 </serviceGroup>
