@@ -49,6 +49,12 @@
                         <port>8080</port>
                         <maxIdleTime>60000</maxIdleTime>
                     </connector>
+						<connector implementation="org.mortbay.jetty.security.SslSocketConnector">
+						<port>8443</port>
+						<keystore>${project.build.directory}/keystore.jks</keystore>
+						<keyPassword>password</keyPassword>
+						<password>password</password>
+					</connector>
                 </connectors>
             </configuration>
         </plugin>
