@@ -64,30 +64,34 @@ public class TestHelper {
         return postComment;
     }
 
-    public User createUser(UserRepository userRepository) {
+    public User createUser(RoleRepository roleRepository, UserRepository userRepository) {
+        Role role = roleRepository.findByRole("USER");
         User user = getUser();
+        user.setRoles(new HashSet<>(Arrays.asList(role)));
 
         user = userRepository.save(user);
         return user;
     }
 
-    public User createAdminUser(UserRepository userRepository) {
+    public User createAdminUser(RoleRepository roleRepository, UserRepository userRepository) {
+        Role role = roleRepository.findByRole("ADMIN");
         User adminUser = getAdminUser();
+        adminUser.setRoles(new HashSet<>(Arrays.asList(role)));
 
         adminUser = userRepository.save(adminUser);
         return adminUser;
     }
 
-    public Post createPost(UserRepository userRepository, PostRepository postRepository) {
-        User user = createUser(userRepository);
+    public Post createPost(RoleRepository roleRepository, UserRepository userRepository, PostRepository postRepository) {
+        User user = createUser(roleRepository, userRepository);
         Post post =  getPost();
         post.setUser(user);
         post = postRepository.save(post);
         return post;
     }
 
-    public PostComment createPostComment(UserRepository userRepository, PostRepository postRepository, PostCommentRepository postCommentRepository) {
-        Post post = createPost(userRepository, postRepository);
+    public PostComment createPostComment(RoleRepository roleRepository, UserRepository userRepository, PostRepository postRepository, PostCommentRepository postCommentRepository) {
+        Post post = createPost(roleRepository, userRepository, postRepository);
         PostComment postComment = getPostComment();
         postComment.setUser(post.getUser());
         postComment.setPostDate(new Date());

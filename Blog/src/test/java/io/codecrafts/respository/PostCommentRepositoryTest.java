@@ -43,7 +43,7 @@ public class PostCommentRepositoryTest {
     @Test
     public void whenFindPostCommentByPostId_thenReturnPostComment() {
         emptyDatabase();
-        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(roleRepository, userRepository, postRepository, postCommentRepository);
 
         Post post = postComment.getPost();
         Post found = postRepository.findOne(post.getId());
@@ -55,7 +55,7 @@ public class PostCommentRepositoryTest {
     @Test
     public void whenDeleteCommentById_thenReturnDeletePost() {
         emptyDatabase();
-        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(roleRepository, userRepository, postRepository, postCommentRepository);
 
         postCommentRepository.delete(postComment.getId());
 
@@ -67,7 +67,7 @@ public class PostCommentRepositoryTest {
     @Test
     public void whenFindAllPostCommentsAsc_thenReturnAllPostCommentsAsc() throws InterruptedException {
         emptyDatabase();
-        PostComment postComment = testHelper.createPostComment(userRepository, postRepository, postCommentRepository);
+        PostComment postComment = testHelper.createPostComment(roleRepository, userRepository, postRepository, postCommentRepository);
 
         //making sure that the two postComments has a time between inserts otherwise sometimes the findByPostIdOrderByPostDateAsc fails
         Thread.sleep(5);
@@ -85,6 +85,5 @@ public class PostCommentRepositoryTest {
         postCommentRepository.deleteAll();
         postRepository.deleteAll();
         userRepository.deleteAll();
-        roleRepository.deleteAll();
     }
 }

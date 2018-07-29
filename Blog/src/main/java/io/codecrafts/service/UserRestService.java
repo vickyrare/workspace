@@ -19,14 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserRestService {
 
-    private final RestTemplate restTemplate;
-
-    @Autowired
-    public UserRestService(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
-    }
-
     public List<User> findAll() {
+        RestTemplate restTemplate = new RestTemplate();
         return Arrays.stream(restTemplate.getForObject("http://localhost:5000/api/users", User[].class)).collect(Collectors.toList());
     }
 }

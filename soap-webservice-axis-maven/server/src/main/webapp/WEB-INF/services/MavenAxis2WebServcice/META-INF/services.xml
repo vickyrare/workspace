@@ -1,0 +1,13 @@
+<serviceGroup>
+    <service name="MavenAxis2WebService" targetNamespace="http://MavenAxis2WS.ws.codecrafts.io">
+        <description>JNLPGenerator service</description>
+        <schema schemaNamespace="http://MavenAxis2WS.ws.codecrafts.io" />
+        <parameter name="ServiceClass" locked="false">io.codecrafts.ws.MavenAxis2WS.MavenAxis2WebService</parameter>
+        <operation name="ping">
+            <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        </operation>
+        <operation name="sum">
+            <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+        </operation>
+    </service>
+</serviceGroup>

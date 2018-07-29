@@ -40,7 +40,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindById_thenReturnPost() {
         emptyDatabase();
-        Post post = testHelper.createPost(userRepository, postRepository);
+        Post post = testHelper.createPost(roleRepository, userRepository, postRepository);
         Post found = postRepository.findOne(post.getId());
 
         assertThat(found.getTitle()).isEqualTo(post.getTitle());
@@ -53,7 +53,7 @@ public class PostRepositoryTest {
     @Test
     public void whenDeleteById_thenReturnDeletePost() {
         emptyDatabase();
-        Post post = testHelper.createPost(userRepository, postRepository);
+        Post post = testHelper.createPost(roleRepository, userRepository, postRepository);
         postRepository.delete(post.getId());
 
         Post found = postRepository.findOne(post.getId());
@@ -64,8 +64,8 @@ public class PostRepositoryTest {
     @Test
     public void whenFindAllPostDesc_thenReturnAllPostDesc() {
         emptyDatabase();
-        Post post = testHelper.createPost(userRepository, postRepository);
-        Post post2 = testHelper.createPost(userRepository, postRepository);
+        Post post = testHelper.createPost(roleRepository, userRepository, postRepository);
+        Post post2 = testHelper.createPost(roleRepository, userRepository, postRepository);
 
         List<Post> posts = new ArrayList<Post>();
         postRepository.findAllByOrderByLastModifiedDesc(new PageRequest(0, 2)).forEach(posts::add);
@@ -77,7 +77,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByKeyword_thenReturnPosts() {
         emptyDatabase();
-        testHelper.createPost(userRepository, postRepository);
+        testHelper.createPost(roleRepository, userRepository, postRepository);
 
         List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack", "hack", new PageRequest(0, 3));
         assertTrue(posts.size() == 1);
@@ -87,7 +87,7 @@ public class PostRepositoryTest {
     @Test
     public void whenFindByKeyword_NoMatch() {
         emptyDatabase();
-        testHelper.createPost(userRepository, postRepository);
+        testHelper.createPost(roleRepository, userRepository, postRepository);
 
         List<Post> posts = postRepository.findAllByTitleIgnoreCaseContainingOrDescriptionIgnoreCaseContaining("hack1", "hack1", new PageRequest(0, 3));
         assertTrue(posts.size() == 0);
@@ -96,6 +96,5 @@ public class PostRepositoryTest {
     private void emptyDatabase() {
         postRepository.deleteAll();
         userRepository.deleteAll();
-        roleRepository.deleteAll();
     }
 }
