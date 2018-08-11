@@ -1,0 +1,2125 @@
+Question)When considering risks, which describes an opportunity in a project?
+Choice)A. An uncertain event that could have a negative impact on objectives
+Choice)B. An uncertain event that could have a favourable impact on objectives
+Choice)C. An event that has occurred resulting in a negative impact on objectives
+Choice)D. An event that has occurred resulting in a favourable impact on objectives
+Answer)Correct Answer: B
+
+Question)Which of the following statements about lines of authority and reporting are true?
+Question)1. The Project Manager has day-to-day control for a management stage within the limits laid down by the Project Board.
+Question)2. If a Team Manager forecasts a deviation beyond Work Package tolerances, this should be referred to the Project Manager down by the Project Board.
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: C
+
+Question)Which may be funded from a risk budget?
+Choice)A. Corrections due to off-specifications
+Choice)B. Impact analysis of requests for change
+Choice)C. Implementation of a fallback plan
+Choice)D. Preparation of the Risk Management Strategy
+Answer)Correct Answer: C
+
+Question)What is the first task of product-based planning?
+Choice)A. Produce the Initiation Stage Plan
+Choice)B. Write the Project Product Description
+Choice)C. Identify dependencies
+Choice)D. Create the product breakdown structure
+Answer)Correct Answer: B
+
+Question)How many tasks does the product-based planning technique describe?
+Choice)A. One
+Choice)B. Two
+Choice)C. Three
+Choice)D. Four
+Answer)Correct Answer: D
+
+Question)Which is an objective of the quality review technique?
+Choice)A. To identify a product’s quality criteria
+Choice)B. To provide assurance that the project is being conducted properly
+Choice)C. To assess that a product conforms to set criteria
+Choice)D. To ensure that staff are properly trained in the quality methods
+Answer)Correct Answer: C
+
+Question)Which of the following refers to the actions identified to bring a situation to a level where exposure to a risk is acceptable?
+Choice)A. Risk category
+Choice)B. Risk description
+Choice)C. Risk response
+Choice)D. Risk status
+Answer)Correct Answer: C
+
+Question)If an informal issue is defined as a problem or concern, where should it first be recorded?
+Choice)A. Issue Register
+Choice)B. Risk Register
+Choice)C. Daily Log
+Choice)D. Exception Report
+Answer)Correct Answer: C
+
+Question)Which of the following statements about the Project Initiation Documentation are true?
+Question)1. The Project Initiation Documentation is used to ensure that a sound basis exists exists before the Project Board authorizes a project.
+Question)2. The Project Initiation Documentation should be updated at the end of each stage to reflect the current
+Question)status of a project before the Project Board authorizes a project.
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: C
+
+Question)Which is the purpose of the Change theme?
+Choice)A. Prevent change to baselined products
+Choice)B. Identify, assess and control any potential and approved changes to baselined products
+Choice)C. Establish mechanisms to monitor and compare actual achievements against those planned
+Choice)D. Assess and control uncertainty
+Answer)Correct Answer: B
+
+Question)Why is a Project Brief produced?
+Choice)A. To act as a trigger for the Starting up a Project process
+Choice)B. To record the strategies and management controls to be used by a project
+Choice)C. To provide a full and firm foundation for the initiation of a project
+Choice)D. To be used by the Project Board as a basis for reviewing the progress of a project
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence. An objective of the Closing a Project process is to ensure that provision has been made to address [?] through follow-on action recommendations.
+Choice)A. the measurement of benefits NOT yet realized
+Choice)B. the handover of products
+Choice)C. open issues and risks
+Choice)D. the release of resources
+Answer)Correct Answer: C
+
+Question)In what process is the authorization to deliver the project’s products given?
+Choice)A. Starting up a Project
+Choice)B. Initiating a Project
+Choice)C. Managing a Stage Boundary
+Choice)D. Directing a Project
+Answer)Correct Answer: D
+
+Question)Which of the following is NOT part of quality planning?
+Choice)A. Define quality responsibilities
+Choice)B. Gain acceptance of the project product
+Choice)C. Agree acceptance criteria
+Choice)D. Set quality tolerances
+Answer)Correct Answer: B
+
+Question)Which should be provided by a project mandate?
+Choice)A. Terms of reference
+Choice)B. Detailed Business Case
+Choice)C. Stage tolerances
+Choice)D. Initiation Stage Plan
+Answer)Correct Answer: A
+
+Question)Which is an objective of the Starting up a Project process?
+Choice)A. Identify who will be responsible for creating the Project Plan
+Choice)B. Agree how the project will be monitored and controlled after initiation
+Choice)C. Authorize the Project Manager to proceed with the initiation stage
+Choice)D. Agree how issues and changes will be identified, assessed and controlled
+Answer)Correct Answer: A
+
+Question)Identify the missing word(s) in the following sentence, PRINCE2 recommends three levels of [?] to reflect the needs of the different levels of management involved in a project,
+Choice)A. Management strategies
+Choice)B. Plan
+Choice)C. Stakeholder interests
+Choice)D. Time-driven controls
+Answer)Correct Answer: B
+
+Question)If a project’s benefit tolerance is forecast to be exceeded, to whom should this be escalated to for a decision?
+Choice)A. Senior User
+Choice)B. Executive
+Choice)C. Corporate/programme management
+Choice)D. Senior Supplier
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Risk theme?
+Choice)A. Establish a procedure to ensure every change is agreed by the relevant authority before it takes place
+Choice)B. Establish a cost-effective procedure to identify, assess and control uncertainty
+Choice)C. Establish mechanisms to control any unacceptable deviations from plan
+Choice)D. Establish mechanisms to manage risks at the corporate or programme level of an organization
+Answer)Correct Answer: B
+
+Question)Which is part of the PRINCE2 definition of a project?
+Choice)A. An undertaking that consists of at least two management stages
+Choice)B. A description of what must be delivered in order to gain acceptance
+Choice)C. The total of a plan’s products
+Choice)D. A temporary organization that is created for the purpose of delivering business products
+Answer)Correct Answer: D
+
+Question)Which is a type of issue?
+Choice)A. A lesson
+Choice)B. A request for change
+Choice)C. An Exception Report
+Choice)D. A risk with an estimated high impact
+Answer)Correct Answer: B
+
+Question)Identify the missing words in the following sentence, The six aspects of project performance to be managed are [?] costs, timescales and scope.
+Choice)A. benefits, progress, risk,
+Choice)B. benefits, quality, risk,
+Choice)C. change, quality, progress,
+Choice)D. benefits, customers, quality,
+Answer)Correct Answer: B
+
+Question)Which task is performed by the Change Authority?
+Choice)A. Set a change budget
+Choice)B. Approve or reject a request for change within approved limits
+Choice)C. Refer changes that exceed budgetary limits to the Project Manager for approval
+Choice)D. Update the configuration management system when a change is approved
+Answer)Correct Answer: B
+
+Question)Identify the missing word in the following sentence, A project’s output is produced during a project but the [?] for the project are often only realized after the project has closed.
+Choice)A. costs
+Choice)B. risks
+Choice)C. benefits
+Choice)D. issues
+Answer)Correct Answer: C
+
+Question)Which process provides the Project Board with the information it requires in order to commit resources to the project?
+Choice)A. Managing Product Delivery
+Choice)B. Initiating a Project
+Choice)C. Controlling a Stage
+Choice)D. Directing a Project
+Answer)Correct Answer: B
+
+Question)Which PRINCE2 integrated element includes the good practices which determine whether a project is genuinely being managed using PRINCE2?
+Choice)A. Principles
+Choice)B. Processes
+Choice)C. Tailoring PRINCE2 to the project environment
+Choice)D. Themes
+Answer)Correct Answer: A
+
+Question)Which should be funded by a change budget?
+Choice)A. Increase in agreed scope
+Choice)B. Initiation stage
+Choice)C. Change Authority
+Choice)D. Handover activities
+Answer)Correct Answer: A
+
+Question)Which of the following describes a use of a Configuration Item Record?
+Choice)A. Define the identification scheme to be applied to the project
+Choice)B. Identify the techniques and procedures required within the Work Package
+Choice)C. Record the change in a product’s status
+Choice)D. Record the reporting requirements for the Work Package
+Answer)Correct Answer: C
+
+Question)Which characteristic distinguishes a project from regular business operations?
+Choice)A. Produces benefits
+Choice)B. Introduces business change
+Choice)C. Manages stakeholders
+Choice)D. Incurs cost
+Answer)Correct Answer: B
+
+Question)What process aims to ensure accurate progress information is provided to the Project Manager?
+Choice)A. Starting up a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Managing Product Delivery
+Choice)D. Directing a Project
+Answer)Correct Answer: C
+
+Question)Where should an off-specification be recorded?
+Choice)A. Risk Register
+Choice)B. Issue Register
+Choice)C. Work Package
+Choice)D. Configuration Management Strategy
+Answer)Correct Answer: B
+
+Question)During the Managing a Stage Boundary process what product is updated with estimated costs and time for the stage that is about to begin?
+Choice)A. End Stage Report
+Choice)B. Team Plan
+Choice)C. Work Package
+Choice)D. Project Plan
+Answer)Correct Answer: D
+
+Question)Which is a benefit of using PRINCE2?
+Choice)A. Provides a defined structure of accountability, delegation, authority and communication
+Choice)B. Includes techniques for critical path analysis and earned value analysis
+Choice)C. Enables a Project Manager to be accountable for the success of a project
+Choice)D. Prevents any changes once the scope of a project has been agreed
+Answer)Correct Answer: A
+
+Question)Which statement is FALSE?
+Choice)A. A project outcome perceived to be negative by one or more stakeholders is a dis-benefit
+Choice)B. A project’s output is any of the project’s specialist products
+Choice)C. A project benefit is only realized after the project has closed
+Choice)D. A project outcome is the result of the change derived from using the project’s outputs
+Answer)Correct Answer: C
+
+Question)Which is a responsibility of the managing level within the project management team?
+Choice)A. Set project tolerances
+Choice)B. Approve stage completion
+Choice)C. Ensure that the products are produced within the constraints agreed with the Project Board
+Choice)D. Appoint the project management team
+Answer)Correct Answer: C
+
+Question)Which of the following statements about stakeholders are true?
+Question)1. Someone who thinks they will be affected by a project is a stakeholder on that project
+Question)2. Stakeholders may be internal or external to the corporate organization
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: C
+
+Question)Which is a purpose of quality planning?
+Choice)A. Define the structure of the project management team
+Choice)B. Detail the acceptance criteria, in order for the Project Board to agree the level of quality expected of the project’s product
+Choice)C. Document approval records for those project products that have met their quality criteria
+Choice)D. Produce the Project Plan with resource and schedule information
+Answer)Correct Answer: B
+
+Question)Identify the missing word in the following sentence. The purpose of the [?] theme is to identify, assess and control uncertainty.
+Choice)A. Change
+Choice)B. Plans
+Choice)C. Quality
+Choice)D. Risk
+Answer)Correct Answer: D
+
+Question)Which product identifies the management stages and timescales of a project?
+Choice)A. Project Brief
+Choice)B. Project Product Description
+Choice)C. Project Plan
+Choice)D. Initiation Stage Plan
+Answer)Correct Answer: C
+
+Question)How should the Team Manager report that tolerances are forecast to be exceeded?
+Choice)A. Create an Exception Report
+Choice)B. Create a Highlight Report
+Choice)C. Raise an issue
+Choice)D. Grant a concession
+Answer)Correct Answer: C
+
+Question)Which is a purpose of a Project Product Description?
+Choice)A. Records the costs and timescales for delivery of the project’s final product
+Choice)B. Shows the dependencies between the project’s products to aid planning
+Choice)C. Provides a list of all the products to be delivered by the project
+Choice)D. Defines what the project must deliver in order to gain acceptance
+Answer)Correct Answer: D
+
+Question)Which is a purpose of a Product Description?
+Choice)A. Provide the cost tolerance available for individual products
+Choice)B. Define reporting frequency
+Choice)C. Record the quality checks completed for the End Stage Report
+Choice)D. Document the level of quality required of a product
+Answer)Correct Answer: D
+
+Question)Which is a purpose of the Business Case theme?
+Choice)A. Identify which role is responsible for producing the Business Case
+Choice)B. Identify the project’s outputs
+Choice)C. Establish the controls to manage changes that may impact the project benefits
+Choice)D. Establish a viable investment proposition
+Answer)
+Correct Answer: D
+
+Question)Who is the key project decision-maker in the project management team?
+Choice)A. Corporate management
+Choice)B. Executive
+Choice)C. Change Authority
+Choice)D. Project Manager
+Answer)Correct Answer: B
+
+Question)Which is a purpose of a Project Brief?
+Choice)A. Capture lessons from previous projects
+Choice)B. Ensure that there is a common understanding of the starting point for the project
+Choice)C. Confirm that the Project Plan is able to deliver the Business Case
+Choice)D. Define the quality techniques and standards to be applied during the project
+Answer)Correct Answer: B
+
+Question)Which is assumed to be a supplier’s responsibility in the PRINCE2 customer/supplier environment?
+Choice)A. Specify the desired result
+Choice)B. Provide the resources and skills to deliver the desired result
+Choice)C. Pay for the project
+Choice)D. Specify the benefits of the project
+Answer)Correct Answer: B
+
+Question)Which describes risk impact?
+Choice)A. Timeframe within which the risk might occur
+Choice)B. The trigger that occurred giving rise to the risk
+Choice)C. The effect of the risk on the delivery of project objectives
+Choice)D. How likely the risk is to occur in a given project situation
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Controlling a Stage process?
+Choice)A. Produce a Team Plan for the work to be assigned to a Team Manager
+Choice)B. Select and implement actions that will resolve deviations from a plan within tolerance
+Choice)C. Obtain approvals for products delivered in a Work Package
+Choice)D. Update a Project Plan to incorporate the actuals from a Stage Plan
+Answer)Correct Answer: B
+
+Question)Which of the following statements about customer’s quality expectations and acceptance criteria are true?
+Question)1.Customer’s quality expectations form a specific and precise list of Acceptance criteria are often expressed in broad terms as a means to gain common understanding of general quality requirements.
+Question)Question)2. Measurable criteria that a project product should meet in order to be acceptable to key stakeholders.
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: D
+
+Question)Which statement about stages is true?
+Choice)A. Management stages should be of the same duration
+Choice)B. The use of technical stages is mandatory
+Choice)C. The use of management stages is mandatory
+Choice)D. Management stages are driven by specialist teams
+Answer)Correct Answer: C
+
+Question)Who should act as the communication channel between a project and corporate or programme management?
+Choice)A. Project Board
+Choice)B. Project Assurance
+Choice)C. Project Manager
+Choice)D. Project Support
+Answer)Correct Answer: A
+
+Question)Who represents the three project interests on a project?
+Choice)A. Project Manager
+Choice)B. Project Support
+Choice)C. External project stakeholders
+Choice)D. Project Board
+Answer)Correct Answer: D
+
+Question)Which product summarizes progress and is used to decide whether to amend the project scope or stop the project?
+Choice)A. Checkpoint Report
+Choice)B. End Stage Report
+Choice)C. End Project Report
+Choice)D. Product Status Account
+Answer)Correct Answer: B
+
+Question)Which is a purpose of a Project Product Description?
+Choice)A. Form part of the Work Package for the project product
+Choice)B. Provide the initial project budget to be refined in the Business Case
+Choice)C. Document the project mandate and gain approval for the project from the Project Board
+Choice)D. Define the quality required of the project’s product
+Answer)Correct Answer: D
+
+Question)What process is used by the Project Manager to maintain focus on delivery of a stage’s products within agreed tolerances?
+Choice)A. Directing a Project
+Choice)B. Controlling a Stage
+Choice)C. Managing a Stage Boundary
+Choice)D. Managing Product Delivery
+Answer)Correct Answer: B
+
+Question)Which statement about the Directing a Project process is FALSE?
+Choice)A. Supports the PRINCE2 principle of manage by exception
+Choice)B. Is triggered by a request to initiate a project
+Choice)C. Covers the day-to-day activities of the Project Manager
+Choice)D. Provides a mechanism for the Project Board to assure that there is continued business justification
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Plans theme?
+Choice)A. Identify, assess and control any potential changes to the baseline
+Choice)B. Establish the project’s structure of accountability
+Choice)C. Assess and control uncertainty
+Choice)D. Understand whether the targets are achievable
+Answer)Correct Answer: D
+
+Question)Which of the following is NOT an event-driven control?
+Choice)A. Project mandate
+Choice)B. Checkpoint Report
+Choice)C. Exception Report
+Choice)D. End of a stage
+Answer)Correct Answer: B
+
+Question)Which is a responsibility of a risk owner?
+Choice)A. Identify risks to the project that might occur in their department
+Choice)B. Own and authorize the use of the risk budget to fund risk responses
+Choice)C. Manage, monitor and control all aspects of an assigned risk
+Choice)D. Determine project risk appetite
+Answer)Correct Answer: C
+
+Question)Which is a type of issue?
+Choice)A. An expected dis-benefit
+Choice)B. An off-specification
+Choice)C. A project outcome
+Choice)D. A scope tolerance
+Answer)Correct Answer: B
+
+Question)Which process provides the Project Board with sufficient information for it to review the success of a completed stage and confirm continued business justification?
+Choice)A. Controlling a Stage
+Choice)B. Closing a Project
+Choice)C. Directing a Project
+Choice)D. Managing a Stage Boundary
+Answer)Correct Answer: D
+
+Question)Identify the missing words in the following sentence.During the Initiating a Project process the [?] before a project is authorized.
+Choice)A. minimum necessary is done to decide if a project is worthwhile
+Choice)B. aim is to establish sound foundations to achieve a successful project
+Choice)C. Project Brief is assembled and approved
+Choice)D. project approach appropriate for delivering a project is selected
+Answer)Correct Answer: B
+
+Question)Which of the following is NOT a purpose of the Closing a Project process?
+Choice)A. Plan the activities required to close a project
+Choice)B. Enable a comparison of the original objectives of a project against what was actually achieved
+Choice)C. Enable premature closure if the Project Board request that a project should no longer continue
+Choice)D. Provide a fixed point at which acceptance for the project product is confirmed
+Answer)Correct Answer: A
+
+Question)Which is NOT a purpose of the Organization theme?
+Choice)A. Define a project management team structure
+Choice)B. Define the level of tolerance for each level of the project management team
+Choice)C. Define the Project Board’s responsibility for directing the project
+Choice)D. Define which role is accountable for the project’s success
+Answer)Correct Answer: B
+
+Question)Which of the following statements about the Closing a Project process are true?
+Question)1. The Closing a Project process provides a fixed point for the receipt of completed Work Packages for the
+work performed in the final stage.
+Question)Question)2. The Closing a Project process provides a fixed point to review if the objectives set out in the original Project
+Initiation Documentation have been achieved. Packages for the work performed in the final stage.
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: B
+
+Question)Which two roles are linked by the Managing Product Delivery process?
+Choice)A. Corporate or programme management and Project Board
+Choice)B. Project Board and Project Manager
+Choice)C. Project Manager and Team Manager
+Choice)D. Team Manager and external supplier
+Answer)Correct Answer: C
+
+Question)What process ensures focus on the delivery of a stage’s products and avoids uncontrolled change?
+Choice)A. Directing a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Controlling a Stage
+Choice)D. Starting up a Project
+Answer)Correct Answer: C
+
+Question)Where should a Team Manager look for information on the quality required for a product?
+Choice)A. Project Initiation Documentation
+Choice)B. Product Description
+Choice)C. Team Plan
+Choice)D. Quality Management Strategy
+Answer)Correct Answer: B
+
+Question)Which is a difference between management and technical stages?
+Choice)A. Management stages require planning and technical stages do not
+Choice)B. Technical stages can overlap and management stages cannot
+Choice)C. Management stages deliver products and technical stages do not
+Choice)D. Technical stages require resources and management stages do not
+Answer)Correct Answer: B
+
+Question)Which describes the ‘Identify Risks’ step within the recommended risk management procedure?
+Choice)A. Identify responses to risks documented in the Business Case
+Choice)B. Gather information about the project environment and objectives
+Choice)C. Identify the roles to be involved in risk management activities
+Choice)D. Identify uncertainties that may impact on the delivery of the project objectives
+Answer)Correct Answer: D
+
+Question)Which theme provides the controls to escalate any forecast beyond tolerance to the next management level?
+Choice)A. Business Case
+Choice)B. Plans
+Choice)C. Progress
+Choice)D. Quality
+Answer)Correct Answer: C
+
+Question)Which provides a single source of reference that may be used by people joining a project after it has been initiated so they can quickly and easily find out how the project is being managed?
+Choice)A. Project Brief
+Choice)B. Project Initiation Documentation
+Choice)C. Project mandate
+Choice)D. Project Product Description
+Answer)Correct Answer: B
+
+Question)Which principle helps to define what should be included and what should be excluded from a project?
+Choice)A. Defined roles and responsibilities
+Choice)B. Focus on products
+Choice)C. Manage by stages
+Choice)D. Continued business justification
+Answer)Correct Answer: B
+
+Question)Which of the following is the Business Case used for during the Managing a Stage Boundary process?
+Choice)A. Enable the Project Board to decide whether or not to authorize the project
+Choice)B. Justify the continuing viability of the project
+Choice)C. Enable the Project Board to decide whether or not to authorize project closure
+Choice)D. Justify the initiation of a project
+Answer)Correct Answer: B
+
+Question)Which statement defines a risk?
+Choice)A. A certain event occurring in the future that will have a negative impact on the project’s objectives
+Choice)B. An event that has already occurred that the Project Manager must deal with immediately
+Choice)C. An uncertain event, or set of events that, should it or they occur, will have an effect on the achievement of
+objectives
+Choice)D. An uncertain event, or set of events that, should it or they occur, will be automatically escalated to the Project Board for a response
+Answer)Correct Answer: C
+
+Question)Which describes the ‘Implement’ step within the recommended risk management procedure?
+Choice)A. Project Support will allocate the risk budget to fund the selected risk responses
+Choice)B. The risk owner will decide the best response to control the risk
+Choice)C. The risk owner and the risk actionee will carry out activities to control and deal with the risk
+Choice)D. The Project Manager will formulate the Risk Management Strategy
+Answer)Correct Answer: C
+
+Question)Which regular report provides the Project Board with a summary of stage status?
+Choice)A. Communication Management Strategy
+Choice)B. Project Brief
+Choice)C. Highlight Report
+Choice)D. Checkpoint Report
+Answer)Correct Answer: C
+
+Question)Which statement describes the Implement’ step within the recommended risk management procedure?
+Choice)A. Take planned action to respond to a risk
+Choice)B. Implement the responsibilities for risks defined in the Risk Management Strategy
+Choice)C. Assess the proximity of a risk
+Choice)D. Identify the level of risks that can be tolerated by the project
+Answer)Correct Answer: A
+
+Question)Upon what environment is PRINCE2 based?
+Question)C. 
+Choice)A. Operational
+Choice)B. Configuration
+Choice)C. Programme
+Choice)D. Customer/supplier
+Answer)Correct Answer: D
+
+Question)What process is used by the Project Board to respond to an Exception Report?
+Choice)A. Controlling a Stage
+Choice)B. Managing a Stage Boundary
+Choice)C. Managing Product Delivery
+Choice)D. Directing a Project
+Answer)Correct Answer: D
+
+Question)When are tolerances for a Work Package agreed?
+Choice)A. When accepting a Work Package
+Choice)B. As work on each product within the Work Package begins
+Choice)C. Once ail products have been developed and approved
+Choice)D. When the Stage Plan is authorized by the Project Board
+Answer)Correct Answer: A
+
+Question)Which risk response type is appropriate to respond to an opportunity?
+Question)C. 
+Choice)A. Accept
+Choice)B. Fallback
+Choice)C. Exploit
+Choice)D. Transfer
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Managing Product Delivery process?
+Choice)A. Sign-off completed Work Packages
+Choice)B. Ensure the Business Case is kept under review
+Choice)C. Report progress to the Project Board
+Choice)D. Ensure that work on products is authorized and agreed with the team
+Answer)Correct Answer: D
+
+Question)Which product is NOT created in the Managing a Stage Boundary process?
+Choice)A. Benefits Review Plan
+Choice)B. End Stage Report
+Choice)C. Lessons Report
+Choice)D. Exception Plan
+Answer)Correct Answer: A
+
+Question)Which is NOT an objective of the Controlling a Stage process?
+Choice)A. Implement actions to control the impact of risks that occur during the stage
+Choice)B. Review the Business Case at regular intervals to assess the impact of changes that occur during the stage
+Choice)C. Update the Business Case with any changes agreed with the Project Board
+Choice)D. Coordinate the delivery of products as agreed in the Stage Plan
+Answer)Correct Answer: C
+
+Question)If the Project Board instructs the Project Manager to implement a request for change, which document would contain details of that change?
+Choice)A. Checkpoint Report
+Choice)B. Highlight Report
+Choice)C. Issue Report
+Choice)D. Product Status Account
+Answer)Correct Answer: C
+
+Question)Which is an objective of the quality review technique?
+Choice)A. To baseline a product
+Choice)B. To provide a common understanding of what products a project will create
+Choice)C. To define the quality methods required within a project
+Choice)D. To determine the quality responsibilities of a project team
+Answer)Correct Answer: A
+
+Question)Which is NOT a type of issue?
+Choice)A. A problem/concern
+Choice)B. A constraint
+Choice)C. An off-specification
+Choice)D. A request for change
+Answer)Correct Answer: B
+
+Question)Which role is responsible for the management of a risk assigned to it?
+Choice)A. Project Support
+Choice)B. Risk owner
+Choice)C. Risk actionee
+Choice)D. Project Assurance
+Answer)Correct Answer: B
+
+Question)What is the definition of a project outcome?
+Choice)A. A measurable improvement that is perceived as an advantage by one or more stakeholders
+Choice)B. The reason for the project
+Choice)C. The result of the change derived from using the project’s outputs
+Choice)D. The project’s specialist products.
+Answer)Correct Answer: C
+
+Question)What is defined as a temporary organization that is created for the purpose of delivering one or more business products?
+Choice)A. Corporate or programme management
+Choice)B. A project
+Choice)C. A product breakdown structure
+Choice)D. A user group
+Answer)Correct Answer: B
+
+Question)Why is the Initiating a Project process used?
+Choice)A. To decide which project approach is suitable for the project
+Choice)B. To fully understand how the project objectives will be achieved before committing significant resources
+Choice)C. To produce the required Work Packages
+Choice)D. To enable corporate or programme management to give authorization to deliver a project
+Answer)Correct Answer: B
+
+Question)Which is a purpose of the Project Product Description?
+Choice)A. Define the key responsibilities for delivering product quality
+Choice)B. Provide information about the state of products
+Choice)C. Define the quality anticipated by the customer
+Choice)D. Provide product cost input to the Business Case
+Answer)Correct Answer: C
+
+Question)Which is shown in a product breakdown structure?
+Choice)A. Management stages, major products and control points
+Choice)B. In which order the products should be created
+Choice)C. The major products that are to be developed in a plan
+Choice)D. What resources are required to develop the products
+Answer)Correct Answer: C
+
+Question)Identify the missing word in the following sentence. The [?] theme defines that the Project Board is responsible for the overall direction and management of the project
+Choice)A. Progress
+Choice)B. Plans
+Choice)C. Organization
+Choice)D. Business Case
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence. An objective of the Directing a Project process is to [?] throughout a project’s life,
+Choice)A. document how risks will be managed
+Choice)B. identify who will be responsible for quality
+Choice)C. provide management direction and control
+Choice)D. define the benefits to be realized
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Managing Product Delivery process?
+Choice)A. Enable the Senior Supplier to be provided with sufficient information by the Project Manager so that they can review the success of the current Work Package
+Choice)B. Provide a controlled link between the Project Manager and the Team Manager(s)
+Choice)C. Enable the Project Board to request updates to the current Team Plan
+Choice)D. Establish solid foundations for the project
+Answer)Correct Answer: B
+
+Question)Which statement describes the responsibilities of a risk actionee?
+Choice)A. Identifying risks to the project that might occur in their department
+Choice)B. Owning and authorizing the use of the risk budget to fund risk responses
+Choice)C. Managing, monitoring and controlling of all aspects of an assigned risk
+Choice)D. Carrying out a risk response action to respond to a particular risk
+Answer)Correct Answer: D
+
+Question)Which is a benefit of using PRINCE2?
+Choice)A. Is a method specifically designed for technical projects
+Choice)B. Provides for the efficient and economic use of management time
+Choice)C. Includes many of the proven planning techniques, such as critical path analysis
+Choice)D. Can be used to manage both projects and programmes
+Answer)Correct Answer: B
+
+Question)Which is a task of product-based planning?
+Choice)A. Design the plan
+Choice)B. Create the product flow diagram
+Choice)C. Analyze the risks
+Choice)D. Prepare the schedule
+Answer)Correct Answer: B
+
+Question)Which is assumed to be a customer’s responsibility in the PRINCE2 customer/supplier environment?
+Choice)A. Specify the desired result
+Choice)B. Provide the resources and skills to deliver the desired result
+Choice)C. Ensure the technical integrity of a project
+Choice)D. Develop a project’s products
+Answer)Correct Answer: A
+
+Question)Which is a typical core activity within configuration management?
+Choice)A. Quality assurance
+Choice)B. Risk management
+Choice)C. Verification and audit
+Choice)D. Progress reporting
+Answer)Correct Answer: C
+
+Question)Which process is triggered towards the end of the final stage when all the assigned work has been completed?
+Choice)A. Managing a Stage Boundary
+Choice)B. Managing Product Delivery
+Choice)C. Closing a Project
+Choice)D. Controlling a Stage
+Answer)Correct Answer: C
+
+Question)Which does NOT reflect the PRINCE2 principle of continued business justification?
+Choice)A. There must be a justifiable reason for starting a project
+Choice)B. The business justification drives decision making
+Choice)C. If a project is no longer forecast to deliver a financial benefit, it should be stopped.
+Choice)D. If a project can no longer be justified, it should be stopped
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Closing a Project process?
+Choice)A. Prepare the plan for the next stage
+Choice)B. Assess any benefits that have already been realized
+Choice)C. Produce a Benefits Review Plan to identify what benefits are expected
+Choice)D. Check that all benefits are realized before closing a project
+Answer)Correct Answer: B
+
+Question)Identify the missing word in the following sentence. A member of the Project Board is responsible for [ ? ] assurance.
+Choice)A. quality
+Choice)B. supplier
+Choice)C. risk
+Choice)D. product
+Answer)Correct Answer: B
+
+Question)Which statement about the Directing a Project process is true?
+Choice)A. Provides a mechanism for the Project Board to assure that there is continued business justification
+Choice)B. Covers the day-to-day activities of the Project Manager
+Choice)C. Ensures there are regular progress meetings
+Choice)D. Begins on completion of the Initiating a Project process
+Answer)Correct Answer: A
+
+Question)Who should act as the communication channel between a project and corporate or programme management?
+Choice)A. Project Board
+Choice)B. Project Assurance
+Choice)C. Project Manager
+Choice)D. Project Support
+Answer)Correct Answer: A
+
+Question)How many roles make up the Project Board?
+Choice)A. One
+Choice)B. Two
+Choice)C. Three
+Choice)D. Four
+Answer)Correct Answer: C
+
+Question)Which plan provides the Business Case with costs during the Initiating a Project process?
+Choice)A. Initiation Stage Plan
+Choice)B. Project Plan
+Choice)C. Stage Plan
+Choice)D. Team Plan
+Answer)Correct Answer: B
+
+Question)Which is a typical core activity within configuration management?
+Choice)A. Issue management
+Choice)B. Quality inspection
+Choice)C. Quality inspection
+Choice)D. Preparation
+Answer)Correct Answer: C
+
+Question)Which of the following can be done to control the size of the Project Board on a project that involves multiple users and suppliers?
+Choice)A. Create a separate Project Board to manage the supplier elements of the project
+Choice)B. Create multiple smaller Project Boards during the process of Starting up a Project, one for each of the project’s stages.
+Choice)C. Create user and supplier groups
+Choice)D. Appoint corporate quality assurance to perform the Project Assurance role for all members of the Project
+Board
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Directing a Project process?
+Question)C. 
+Choice)A. Create and authorize the project mandate
+Choice)B. Provide management control and direction
+Choice)C. Control the day-to-day running of the project
+Choice)D. Provide accurate progress information to the Project Manager
+Answer)Correct Answer: B
+
+Question)Which is the base product against which the Project Board can assess progress, issues and ongoing viability questions?
+Choice)A. Project Brief
+Choice)B. Project Initiation Documentation
+Choice)C. Project mandate
+Choice)D. Benefits Review Plan
+Answer)Correct Answer: B
+
+Question)Which is NOT a purpose of the Initiating a Project process?
+Choice)A. Enable a Project Board decision about the commitment of resources to a project
+Choice)B. Enable an organization to understand the work that needs to be done to deliver a project’s products before
+a project is approved
+Choice)C. Establish solid foundations for a project
+Choice)D. Enable the Project Board to decide whether it is worthwhile to initiate a project
+Answer)Correct Answer: D
+
+Question)Which is NOT represented by one of the three primary categories of stakeholder identified in PRINCE2?
+Choice)A. Those with a financial interest in the project
+Choice)B. Those who will manage the project on a day-to-day basis
+Choice)C. Those who will specify the desired outputs of the project
+Choice)D. Those who will create the project’s outputs
+Answer)Correct Answer: B
+
+Question)Which should be funded by a change budget?
+Choice)A. Increase in agreed scope
+Choice)B. Increase in agreed scope
+Choice)C. Increase in agreed scope
+Choice)D. Handover activities
+Question)Note: Options A,B, C are the same, and this is how I got it! Something is not ok in here for sure 🙂
+Answer)Correct Answer: A
+
+Question)What do acceptance criteria identify?
+Choice)A. The approach that will be used to prove whether the project’s products have been completed
+Choice)B. A measureable improvement resulting from a project outcome
+Choice)C. The measureable definitions of the attributes for a set of products to be acceptable to key stakeholders
+Choice)D. The project controls set up during the process Initiating a Project
+Answer)Correct Answer: C
+
+Question)What theme provides all management levels within the project management team with mechanisms for monitoring and control?
+Choice)A. Progress
+Choice)B. Change
+Choice)C. Organization
+Choice)D. Quality
+Answer)Correct Answer: A
+
+Question)Which is a responsibility of a Team Manager?
+Choice)A. Producing Highlight Reports for the Project Manager
+Choice)B. Reviewing the status of the stage
+Choice)C. Setting Work Package tolerances
+Choice)D. Ensuring delivery of products in the Managing Product Delivery process
+Answer)Correct Answer: D
+
+Question)Identify the missing word in the following sentence, A purpose of the [?] theme is to control any unacceptable deviations from the project’s objectives.
+Choice)A. Change
+Choice)B. Plans
+Choice)C. Progress
+Choice)D. Risk
+Answer)Correct Answer: C
+
+Question)How is a Benefits Review Plan used in the Closing a Project process?
+Choice)A. Checked for inclusion of activities to confirm those benefits which cannot be measured until after project closure
+Choice)B. To capture the baseline measures against which to assess benefits
+Choice)C. To capture side-effects (beneficial or adverse) identified during post-project benefits reviews
+Choice)D. To gain approval for the post-project activities and transfer responsibility to corporate or programme management
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence. A Change Authority may be given a [?] to enable it to finance new requirements.
+Choice)A. change budget
+Choice)B. cost tolerance
+Choice)C. risk budget
+Choice)D. scope tolerance
+Answer)Correct Answer: A
+
+Question)Which is a purpose of a Lessons Report?
+Choice)A. Improve the project management method for future projects
+Choice)B. Detail open issues and risks that need to be managed after the project has closed
+Choice)C. Compare the actual performance of the final stage against its plan
+Choice)D. Provide a summary of the benefits realized during the project
+Answer)Correct Answer: A
+
+Question)During the Initiating a Project process, which product is updated to incorporate the estimated time and costs from the Project Plan?
+Choice)A. Project Product Description
+Choice)B. Business Case
+Choice)C. Project Brief
+Choice)D. Project mandate
+Answer)Correct Answer: B
+
+Question)Which describes a risk event?
+Choice)A. The area of uncertainty in terms of the threat or opportunity
+Choice)B. The derivation or sources of a potential risk to the project
+Choice)C. The achievement of a milestone on the Project Plan
+Choice)D. The sequence of events and actions that will be put in place if a risk occurs
+Answer)Correct Answer: A
+
+Question)What product defines the reporting requirements between the Project Manager and Team Manager?
+Choice)A. Project Brief
+Choice)B. Product Description
+Choice)C. Team Plan
+Choice)D. Work Package
+Answer)Correct Answer: D
+
+Question)Which PRINCE2 principle helps to address a concern that the project team may NOT have worked on a similar project?
+Choice)A. Defined roles and responsibilities
+Choice)B. Learn from experience
+Choice)C. Manage by exception
+Choice)D. Focus on products
+Answer)Correct Answer: B
+
+Question)What product should be used to confirm the version number of ail products in a particular stage?
+Choice)A. Issue Register
+Choice)B. Product Status Account
+Choice)C. Product Description
+Choice)D. Configuration Item Record
+Answer)Correct Answer: B
+
+Question)In what product should the quality criteria for a specialist product be recorded?
+Choice)A. Quality Management Strategy
+Choice)B. Quality Register
+Choice)C. Product Description
+Choice)D. Project Product Description
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Risk theme?
+Choice)A. Establish a method for the implementation of continuous improvement during the project
+Choice)B. Identify, assess and control problems that have occurred
+Choice)C. Provide the Project Board with a time-driven control to capture all project risks
+Choice)D. Establish a cost-effective procedure to identify, assess and control risks
+Answer)Correct Answer: D
+
+Question)Which is a purpose of an Exception Plan?
+Choice)A. Show the reason for the tolerance deviation from a Stage Plan or Project Plan
+Choice)B. Reduce the number of exception assessments, by agreeing a budget to cover the costs of any requests for change
+Choice)C. Identify the actions required to recover from the effect of a tolerance deviation
+Choice)D. Define the changes which are within the scope of the change budget
+Answer)Correct Answer: C
+
+Question)Which is a true statement about management stages and technical stages?
+Choice)A. Technical stages can overlap but management stages CANNOT
+Choice)B. Management stages are the responsibility of the Project Manager, technical stages are NOT
+Choice)C. Technical stages create products, management stages do NOT
+Choice)D. Management stages require quality control, technical stages do NOT
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence. The purpose of the Starting up a Project process is as much about [?] as it is about requesting authorization to initiate viable projects,
+Choice)A. producing an achievable Project Plan
+Choice)B. preventing poorly-conceived projects from ever being initiated
+Choice)C. obtaining approval from all stakeholders
+Choice)D. setting up the required project controls
+Answer)Correct Answer: B
+
+Question)Which role is responsible for specifying the project benefits?
+Choice)A. Corporate or programme management
+Choice)B. Executive
+Choice)C. Senior User(s)
+Choice)D. Project Manager
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Controlling a Stage process?
+Choice)A. Prepare a Stage Plan for the next stage
+Choice)B. Obtain approvals for completed products
+Choice)C. Prevent scope creep’ by monitoring products for uncontrolled change
+Choice)D. Make arrangements to address all open issues and risks, with follow-on action recommendations
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Starting up a Project process?
+Choice)A. Approve all Product Descriptions prior to project initiation
+Choice)B. Obtain approval from corporate or programme management for the Communication Management Strategy
+Choice)C. Prevent projects with unrealistic delivery dates from being initiated
+Choice)D. Confirm that there is a valid method in place to measure the expected project benefits
+Answer)Correct Answer: C
+
+Question)Which is a purpose of a Risk Register?
+Choice)A. Capture risks that may occur during the project
+Choice)B. Record how risk management activities will be undertaken on the project
+Choice)C. Record the risk tolerance for the project
+Choice)D. Capture issues which are impacting on the delivery of the project objectives
+Answer)Correct Answer: A
+
+Question)What product forms the contract’ between the Project Board and the Project Manager?
+Choice)A. Project Brief
+Choice)B. Project Initiation Documentation
+Choice)C. Project mandate
+Choice)D. Project Plan
+Answer)Correct Answer: B
+
+Question)Which activity takes place within the Managing a Stage Boundary process?
+Choice)A. Produce Highlight Reports
+Choice)B. Take corrective action within the limits of a stage’s tolerance
+Choice)C. Produce an Exception Plan
+Choice)D. Authorize a Stage Plan for the next stage
+Answer)Correct Answer: C
+
+Question)Which is created during the Starting up a Project process?
+Choice)A. Project mandate
+Choice)B. Project management team role descriptions
+Choice)C. Communication Management Strategy
+Choice)D. Quality Register
+Answer)Correct Answer: B
+
+Question)Which is a purpose of a Configuration Management Strategy?
+Choice)A. Provide a record of each configuration item and any important relationships between them
+Choice)B. Define how the products and their versions will be identified
+Choice)C. Define whether a project will use a risk budget
+Choice)D. Identify who will set up the Quality Register
+Answer)Correct Answer: B
+
+Question)What takes place during the Closing a Project process?
+Choice)A. The post-project benefits reviews are performed
+Choice)B. Ownership of the project’s products is transferred to the customer
+Choice)C. An End Stage Report is prepared for the final stage
+Choice)D. The project closure notification is reviewed and approved
+Answer)Correct Answer: B
+
+Question)Which characteristic of a project reflects that there are different perspectives and motivations for customers and suppliers?
+Choice)A. Change
+Choice)B. Cross-functional
+Choice)C. Unique
+Choice)D. Risk
+Answer)Correct Answer: B
+
+Question)Which is a purpose of a Project Brief?
+Choice)A. Enable the assembly of the project mandate
+Choice)B. Describe the reporting requirements of the various layers of management involved with the project
+Choice)C. Describe how changes to products will be controlled
+Choice)D. Provide a solid basis for the initiation of the project
+Answer)Correct Answer: D
+
+Question)Who carries out audits that are independent of the project?
+Question)B. 
+Choice)A. Quality assurance
+Choice)B. Project Assurance
+Choice)C. Project Support
+Choice)D. Project Manager
+Answer)Correct Answer: A
+
+Question)Which is a typical core activity within configuration management?
+Choice)A. Assessment
+Choice)B. Communication
+Choice)C. Quality control
+Choice)D. Status accounting
+Answer)Correct Answer: D
+
+Question)Which is an objective of the Directing a Project process?
+Choice)A. Review and approve a project mandate
+Choice)B. Ensure corporate or programme management has an interface to the project
+Choice)C. Define how risks, issues and changes will be managed
+Choice)D. Obtain approval for completed products
+Answer)Correct Answer: B
+
+Question)Which is NOT undertaken during the Initiating a Project process?
+Choice)A. Review why the project is needed
+Choice)B. Identify if the project is sufficiently aligned with corporate objectives
+Choice)C. Show how the outcome is to be achieved
+Choice)D. Appoint an Executive and Project Manager
+Answer)Correct Answer: D
+
+Question)Which is an objective of the Managing a Stage Boundary process?
+Choice)A. Understand what has gone well and what can help the next stage
+Choice)B. Review and approve the next Stage Plan
+Choice)C. Assure the Project Board that all project products have been completed and approved
+Choice)D. Prepare an Exception Report to advise the Project Board of a forecast deviation from tolerance
+Answer)Correct Answer: A
+
+Question)Which is a purpose of an End Stage Report?
+Choice)A. Summarize progress to enable the Project Board to decide what action to take next
+Choice)B. Summarize how the project performed against the version of the Project Initiation Documentation used to
+authorize it
+Choice)C. Provide the detailed analysis of a deviation and offer options for the way to proceed
+Choice)D. Provide a plan for the next stage of the project
+Answer)Correct Answer: A
+
+Question)When should the Project Board refer to corporate or programme management for a decision?
+Choice)A. The stage requires resources
+Choice)B. It is forecast that project level tolerance will be exceeded
+Choice)C. The Senior Supplier or Senior User needs to be changed
+Choice)D. Any request for change needs to be approved
+Answer)Correct Answer: B
+
+Question)When considering how long the project stages should be, which might be a reason for one stage to be longer than others?
+Choice)A. A substantial amount of the project budget is to be spent
+Choice)B. More human resources are required than in other stages
+Choice)C. The risk is lower
+Choice)D. No changes to the project management team are envisaged
+Answer)Correct Answer: C
+
+Question)Which is NOT included in the PRINCE2 definition of a project?
+Choice)A. A project is a temporary organization
+Choice)B. A project’s purpose is to deliver one or more business products
+Choice)C. A project is part of business as usual’
+Choice)D. A project is based on an agreed Business Case
+Answer)Correct Answer: C
+
+Question)Identify the missing word(s) in the following sentence. Quality assurance provides assurance to the [?] that the project is being conducted appropriately whilst Project Assurance provides the same assurance to all the project’s stakeholders.
+Choice)A. Project Manager
+Choice)B. Executive
+Choice)C. corporate or programme management organization
+Choice)D. Supplier groups
+Answer)Correct Answer: C
+
+Question)Which does a Project Manager produce to define and control the work to be done?
+Choice)A. Configuration Item Record
+Choice)B. Stage scope tolerance
+Choice)C. Team Plan
+Choice)D. Work Package
+Answer)Correct Answer: D
+
+Question)What product identifies the management stages and other major control points in a project?
+Choice)A. Business Case
+Choice)B. Project Plan
+Choice)C. Work Package
+Choice)D. Project Brief
+Answer)Correct Answer: B
+
+Question)Which describes risk probability?
+Choice)A. Level of risks which the project can tolerate before escalating to the Project Board
+Choice)B. Probable effect on the project delivering its objectives
+Choice)C. Timeframe within which the risk may occur
+Choice)D. A measure of the likelihood of the risk occurring
+Answer)Correct Answer: D
+
+Question)Which should be used to document any uncompleted work that needs to be done to a project product after the project has closed?
+Choice)A. Off-specifications
+Choice)B. Follow-on action recommendations
+Choice)C. Issue Register
+Choice)D. Risk Register
+Answer)Correct Answer: B
+
+Question)What should influence the Project Board’s decision whether to delegate its Project Assurance responsibilities?
+Choice)A. The preference of the Project Manager
+Choice)B. Having insufficient authority to perform the role
+Choice)C. Having insufficient time to perform the role
+Choice)D. The need to involve key stakeholders on the project management team
+Answer)Correct Answer: C
+
+Question)Which is NOT a requirement of a Stage Plan?
+Choice)A. Produced to an appropriate level of detail to enable day-to-day control
+Choice)B. Produced near to the end of the previous management stage
+Choice)C. Approved and signed-off by Project Assurance
+Choice)D. Approved at the end of a management stage
+Answer)Correct Answer: C
+
+Question)In which product does a Project Manager define the time and cost tolerances for the work to be done by a Team Manager?
+Choice)A. Product Description
+Choice)B. Team Plan
+Choice)C. Work Package
+Choice)D. Stage Plan
+Answer)Correct Answer: C
+
+Question)Which is an objective of the Closing a Project process?
+Choice)A. Review and approve the plan for project closure
+Choice)B. Review the performance of the project against its baseline
+Choice)C. Perform any post-project reviews
+Choice)D. Create a Benefits Review Plan
+Answer)Correct Answer: B
+
+Question)Which product documents the information needed to demonstrate continued business justification?
+Choice)A. Business Case
+Choice)B. Communication Management Strategy
+Choice)C. Project Product Description
+Choice)D. Quality Management Strategy
+Answer)Correct Answer: A
+
+Question)Which aspect of project performance must be managed to avoid misunderstandings on what the project is to deliver?
+Choice)A. Timescale
+Choice)B. Scope
+Choice)C. Risk
+Choice)D. Costs
+Answer)Correct Answer: B
+
+Question)Which statement about risks is FALSE?
+Choice)A. A risk that could have a positive impact on a project’s objectives is known as an opportunity
+Choice)B. A risk that could have a negative impact on a project’s objectives is known as a threat
+Choice)C. A risk that a project’s product is incomplete is known as an off-specification
+Choice)D. A risk is an uncertain event that, should it occur, will have an effect on a project’s objectives
+Answer)Correct Answer: C
+
+Question)Which is NOT a purpose of a Benefits Review Plan?
+Choice)A. Define the period over which the cost-benefit analysis will be based
+Choice)B. Describe how to measure the performance of the project’s products in operational use
+Choice)C. Define the scope, timing and ownership of the benefit reviews required
+Choice)D. Describe how to measure and confirm any benefits that are to be realised after the project is closed
+Answer)Correct Answer: A
+
+Question)During the Managing a Stage Boundary process, what is reviewed and updated to provide the information needed by the Project Board for assessing the continuing viability of the project?
+Choice)A. Benefits Review Plan
+Choice)B. Product Status Account
+Choice)C. Business Case
+Choice)D. Project Plan
+Answer)Correct Answer: C
+
+Question)Which is one of the six aspects of project performance that needs to be managed?
+Choice)A. Progress
+Choice)B. Change
+Choice)C. Risk
+Choice)D. Security
+Answer)Correct Answer: C
+
+Question)Which role is part of the project management team?
+Choice)A. Change Authority
+Choice)B. Quality assurance
+Choice)C. Stakeholder
+Choice)D. Corporate or programme management
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence.
+A problem/concern, a request for change and [ ? ] are the three types of issue.
+Choice)A. a constraint
+Choice)B. a deviation from tolerance
+Choice)C. an off-specification
+Choice)D. a threat
+Answer)Correct Answer: C
+
+Question)Which product describes the roles and responsibilities for achieving the effective management of anticipated threats and opportunities in a project?
+Choice)A. Quality Management Strategy
+Choice)B. Risk Management Strategy
+Choice)C. Communication Management Strategy
+Choice)D. Configuration Management Strategy
+Answer)Correct Answer: B
+
+Question)Which document should record the agreed amount of risk budget for a project?
+Choice)A. Project Brief
+Choice)B. Project Plan
+Choice)C. Risk Management Strategy
+Choice)D. Risk Register
+Answer)Correct Answer: B
+
+Question)Identify the missing word(s) in the following sentence.
+Following initiation, the Controlling a Stage process is used to manage and control each [ ? ] of a project.
+Choice)A. technical stage
+Choice)B. benefit
+Choice)C. management stage
+Choice)D. Team Plan
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Managing a Stage Boundary process?
+Choice)A. Provide the Project Board with sufficient information for approving the next stage
+Choice)B. Approve the next Stage Plan
+Choice)C. Review and close any risks and issues identified during the previous stage
+Choice)D. Control the link between the Project Manager and the Team Manager(s)
+Answer)Correct Answer: A
+
+Question)Which is one of the three levels of plan in PRINCE2?
+Choice)A. Benefits Review Plan
+Choice)B. Programme Plan
+Choice)C. Team Plan
+Choice)D. Project Brief
+Answer)Correct Answer: C
+
+Question)Which of the following statements about quality assurance and Project Assurance is true?
+Choice)A. Project Assurance is the responsibility of the corporate organization; quality assurance is the responsibility of the Project Board
+Choice)B. Project Assurance is independent of the Project; quality assurance is only independent of the Project Manager
+Choice)C. Project Assurance may be delegated within a project; quality assurance must be undertaken by the Project Board
+Choice)D. Project Assurance ensures compliance to standards within the project environment; quality assurance ensures compliance across the organization
+Answer)Correct Answer: D
+
+Question)Which statement is true for ALL project stakeholders?
+Choice)A. Internal to the corporate organization
+Choice)B. May either affect or be affected by the project
+Choice)C. Review the Communication Management Strategy
+Choice)D. Support the project
+Answer)Correct Answer: B
+
+Question)Which is a type of issue?
+Choice)A. An expected dis-benefit
+Choice)B. An off-specification
+Choice)C. A project outcome
+Choice)D. A scope tolerance
+Answer)Correct Answer: B
+
+Question)Which is a purpose of the Starting up a Project process?
+Choice)A. Prevent poorly conceived projects from ever being initiated
+Choice)B. Ensure the communication requirements of all stakeholders are documented
+Choice)C. Learn lessons from this project
+Choice)D. Document how changes required by corporate or programme management will be reviewed
+Answer)Correct Answer: A
+
+Question)Which process is used by a Team Manager to coordinate work on one or more of the project’s products?
+Choice)A. Initiating a Project
+Choice)B. Controlling a Stage
+Choice)C. Managing a Stage Boundary
+Choice)D. Managing Product Delivery
+Answer)Correct Answer: D
+
+Question)Which is NOT a recommended quality review team role?
+Choice)A. Administrator
+Choice)B. Chair
+Choice)C. Producer
+Choice)D. Reviewer
+Answer)Correct Answer: C
+
+Question)What is the collective name for individuals or groups who may be affected by a project?
+Choice)A. Customers
+Choice)B. Project Support
+Choice)C. Stakeholders
+Choice)D. Team members
+Answer)Correct Answer: C
+
+Question)What process provides the information required to decide whether to authorize the delivery of a project?
+Choice)A. Directing a Project
+Choice)B. Initiating a Project
+Choice)C. Managing Product Delivery
+Choice)D. Starting up a Project
+Answer)Correct Answer: B
+
+Question)Identify the missing words in the following sentence.
+The Team Manager should check the [ ? ] for any interfaces that must be maintained while developing products.
+Choice)A. Project Product Description
+Choice)B. Project Plan
+Choice)C. Checkpoint Report
+Choice)D. Work Package
+Answer)Correct Answer: D
+
+Question)Which is a purpose of the Organization theme?
+Choice)A. Ensure that the project organization structure will enable the project to deliver the business benefits in the required time frame
+Choice)B. Define accountability within the project
+Choice)C. Identify risk owners for the project
+Choice)D. Define the quality methods and responsibilities for the management of the project
+Answer)Correct Answer: B
+
+Question)If Work Package tolerance is forecast to be exceeded, to whom should the Team Manager report?
+Choice)A. Corporate management
+Choice)B. Project Board
+Choice)C. Project Assurance
+Choice)D. Project Manager
+Answer)Correct Answer: D
+
+Choice)A. 1, 2, 3
+Choice)B. 1, 2, 4
+Choice)C. 1, 3, 4
+Choice)D. 2, 3, 4
+Answer)Correct Answer: A
+
+Question)Which is a valid statement about the Project Support role?
+Choice)A. Can be performed by the Project Manager
+Choice)B. Is an optional role for a PRINCE2 project
+Choice)C. Produces Checkpoint Reports for the Project Manager
+Choice)D. Can be combined with the Project Assurance role
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence.
+A benefit of adopting PRINCE2 is that it can be applied to [ ? ] – and can easily be implemented alongside specialist techniques.
+Choice)A. any type of project
+Choice)B. programmes and projects
+Choice)C. all types of programmes
+Choice)D. business as usual
+Answer)Correct Answer: A
+
+Question)Which is NOT confirmed during the Initiating a Project process?
+Choice)A. How the management and specialist products of the project should be baselined
+Choice)B. How the method will be tailored for the size and complexity of the project
+Choice)C. Whether the expected benefits have been achieved
+Choice)D. Who will make decisions on any changes during the project
+Answer)Correct Answer: C
+
+Question)Where should the names of those who are to approve a product be recorded?
+Choice)A. Product Status Account
+Choice)B. Product Description
+Choice)C. Configuration Item Record
+Choice)D. Checkpoint Report
+Answer)Correct Answer: B
+
+Question)Which theme defines the accountability for realization of the project’s benefits?
+Choice)A. Plans
+Choice)B. Progress
+Choice)C. Organization
+Choice)D. Quality
+Answer)Correct Answer: C
+
+Question)Which enables the project’s products and all interdependencies to be clearly identified and documented?
+Choice)A. Product breakdown structure
+Choice)B. Quality Management Strategy
+Choice)C. Product-based planning technique
+Choice)D. Quality review technique
+Answer)Correct Answer: C
+
+Question)Which should be funded from a change budget?
+Choice)A. The Starting up a Project process
+Choice)B. A fallback plan
+Choice)C. An agreed change to the scope of a project
+Choice)D. A change to a plan, within allocated tolerances, due to poor estimating
+Answer)Correct Answer: C
+
+Question)Which is a true statement about acceptance criteria?
+Choice)A. Acceptance criteria are used to produce the customer’s quality expectations
+Choice)B. Acceptance criteria are less specific and precise than customer’s quality expectations
+Choice)C. Once agreed, acceptance criteria CANNOT be changed
+Choice)D. Acceptance criteria should be agreed between the customer and the supplier
+Answer)Correct Answer: D
+
+Question)Identify the missing words in the following sentence.
+When planning the next stage, the Project Manager needs to review and, if necessary, update the [ ? ] with regard to external resources or suppliers.
+Choice)A. Configuration Item Records
+Choice)B. Business Case
+Choice)C. Project Brief
+Choice)D. project management team and/or role descriptions
+Answer)Correct Answer: D
+
+Question)A product can NOT be supplied to meet all of the requirements in its baselined Product Description. What first action should be taken?
+Choice)A. Raise a request for change
+Choice)B. Raise an off-specification
+Choice)C. Write an Exception Report
+Choice)D. Amend the Work Package
+Answer)Correct Answer: B
+
+Question)Which of the following are objectives of the Directing a Project process?
+Question)1. Ensure corporate or programme management has an interface to a project
+Question)2. Ensure that work on products allocated to a team is authorized
+Question)3. Ensure there is authority to initiate a project
+Question)4. Ensure that a project remains viable
+Choice)A. 1, 2, 3
+Choice)B. 1, 2, 4
+Choice)C. 1, 3, 4
+Choice)D. 2, 3, 4
+Answer)Correct Answer: C
+
+Question)What theme establishes the mechanisms to judge whether a project is worthwhile investing in?
+Choice)A. Plans
+Choice)B. Business Case
+Choice)C. Risk
+Choice)D. Quality
+Answer)Correct Answer: B
+
+Question)Which statement applies to Stage Plans?
+Choice)A. Always have the same duration as the Project Plan
+Choice)B. Are produced at the same time as the Project Initiation Documentation
+Choice)C. Assist the Project Manager in the day-to-day running and control of the project
+Choice)D. Provide a baseline against which the Project Board monitor overall progress
+Answer)Correct Answer: C
+
+Question)Which is NOT a benefit of using PRINCE2?
+Choice)A. Defines specific leadership, motivational skills and other interpersonal skills required
+Choice)B. Can be applied to any type of project
+Choice)C. Promotes learning and continuous improvement
+Choice)D. Defines a thorough but economical structure of reports
+Answer)Correct Answer: A
+
+Question)Which is NOT a PRINCE2 principle?
+Choice)A. Learn from experience
+Choice)B. Customer/supplier environment
+Choice)C. Defined roles and responsibilities
+Choice)D. Continued business justification
+Answer)Correct Answer: B
+
+Question)Which is a purpose of the Directing a Project process?
+Choice)A. Provide the information required to confirm if it is worthwhile to initiate a project
+Choice)B. Enable overall control of a project to be exercised by the Project Board
+Choice)C. Establish the level of control required by the Project Board after initiation
+Choice)D. Provide sufficient information so that the current stage can be reviewed and the next Stage Plan approved
+Answer)Correct Answer: B
+
+Question)Which products, identified when creating a product breakdown structure, should each have a corresponding entry in the Risk Register?
+Choice)A. Those that have been completed, but have NOT been quality checked
+Choice)B. Those that have been broken down into sub-products
+Choice)C. Those to be created outside the scope of the project
+Choice)D. Those dependent on more than one other product
+Answer)Correct Answer: C
+
+Question)What is used to identify any organization or interested party who needs to be informed of project closure?
+Choice)A. Configuration Management Strategy
+Choice)B. Project management team structure
+Choice)C. Communication Management Strategy
+Choice)D. Project Brief
+Answer)Correct Answer: C
+
+Question)Which describes a risk effect?
+Choice)A. The uncertainty expressed as a negative or favourable occurrence
+Choice)B. The issue which is affecting the project and has resulted in a risk
+Choice)C. The impact(s) on the project objectives should the threat or opportunity occur
+Choice)D. The change in the status of a risk in response to actions taken to control it
+Answer)Correct Answer: C
+
+Question)What is a purpose of a Benefits Review Plan?
+Choice)A. Provide information regarding unfinished work to the group which will support the project’s products in their operational life
+Choice)B. Give a detailed analysis of only those benefits that were realized before the project closed
+Choice)C. Document the justification for undertaking the project, based on the estimated costs versus the anticipated benefits
+Choice)D. Provide details of the time and effort needed to carry out the planned benefits reviews
+Answer)Correct Answer: D
+
+Question)Identify the missing word(s) in the following sentence.
+During a quality review meeting [ ? ] any identified defects.
+Choice)A. a solution should be designed for
+Choice)B. an issue should be created for
+Choice)C. the agreed actions should be recorded for
+Choice)D. the chair will approve the solution to
+Answer)Correct Answer: C
+
+Question)Which may be funded from a risk budget?
+Choice)A. Capturing identified threats and opportunities in the Risk Register
+Choice)B. Specific management responses to a project’s threats and opportunities
+Choice)C. Producing risk summaries for inclusion in Highlight Reports
+Choice)D. Any remaining open risks after the project has been closed
+Answer)Correct Answer: B
+
+Question)Which is a PRINCE2 time-driven control?
+Choice)A. End Stage Report
+Choice)B. Project Brief
+Choice)C. Project Initiation Documentation
+Choice)D. Checkpoint Report
+Answer)Correct Answer: D
+
+Question)Which risk response type is a recommended response to both an opportunity and a threat?
+Choice)A. Avoid
+Choice)B. Reduce
+Choice)C. Share
+Choice)D. Reject
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Controlling a Stage process?
+Choice)A. Assign work to be done and take corrective action to ensure that the stage remains within tolerance
+Choice)B. Provide a fixed reference point at which acceptance for the project product is confirmed
+Choice)C. Enable the Project Board to be provided with sufficient information to authorize the next stage
+Choice)D. Enable the organization to understand the work that needs to be done to deliver the project’s products
+Answer)Correct Answer: A
+
+Question)Which of the following is NOT part of quality control?
+Choice)A. Maintaining the documentation that records the approval of products
+Choice)B. Checking that the project’s direction and management are adequate for the nature of the project
+Choice)C. Obtaining acceptance of the project product from relevant stakeholders
+Choice)D. Implementing the relevant quality methods and responsibilities
+Answer)Correct Answer: B
+
+Question)Identify the missing product in the following sentence.
+When assessing an issue during the Controlling a Stage process, the [ ? ] provides essential information to evaluate the viability of the project.
+Choice)A. Project Brief
+Choice)B. Benefits Review Plan
+Choice)C. Project Initiation Documentation
+Choice)D. Configuration Management Strategy
+Answer)Correct Answer: C
+
+Question)Which role does NOT set tolerances?
+Choice)A. Corporate or programme management
+Choice)B. Project Board
+Choice)C. Change Authority
+Choice)D. Project Manager
+Answer)Correct Answer: C
+
+Question)Which PRINCE2 principle is supported by the setting of tolerances for the three levels of plan?
+Choice)A. Manage by stages
+Choice)B. Manage by exception
+Choice)C. Continued business justification
+Choice)D. Learn from experience
+Answer)Correct Answer: B
+
+Question)What plan is created, and submitted for approval, during the Managing a Stage Boundary process?
+Choice)A. Team Plan
+Choice)B. Stage Plan
+Choice)C. Benefits Review Plan
+Choice)D. Project Plan
+Answer)Correct Answer: B
+
+Question)Which process covers the work done by external suppliers who may NOT be using PRINCE2?
+Choice)A. Closing a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Managing Product Delivery
+Choice)D. Directing a Project
+Answer)Correct Answer: C
+
+Question)Which is the Issue Register NOT used for?
+Choice)A. Capture external events that are impacting a stage
+Choice)B. Record information about a deviation in stage tolerance
+Choice)C. Capture any threats or opportunities that might have an impact on a stage
+Choice)D. Record any problems identified when authorizing a Work Package
+Answer)Correct Answer: C
+
+Question)Which step in the issue and change control procedure considers alternative options for responding to an issue that is being managed formally?
+Choice)A. Capture
+Choice)B. Examine
+Choice)C. Propose
+Choice)D. Decide
+Answer)Correct Answer: C
+
+Question)Which aspect of project performance must be managed to ensure the project’s products are fit for purpose?
+Choice)A. Benefits
+Choice)B. Quality
+Choice)C. Risk
+Choice)D. Scope
+Answer)Correct Answer: B
+
+Question)What is an off-specification?
+Choice)A. A new requirement
+Choice)B. A quality tolerance
+Choice)C. A type of issue
+Choice)D. A major risk
+Answer)Correct Answer: C
+
+Question)From whom does a Team Manager obtain approval for a completed product?
+Choice)A. Project Manager
+Choice)B. Project Support
+Choice)C. The authority defined in the Product Description
+Choice)D. Senior Supplier
+Answer)Correct Answer: C
+
+Question)Which is NOT one of the PRINCE2 integrated elements?
+Choice)A. Tailoring PRINCE2 to the project environment
+Choice)B. The processes
+Choice)C. The products
+Choice)D. The themes
+Answer)Correct Answer: C
+
+Question)Identify the missing word in the following sentence.
+The guiding obligations and good practices which determine whether the project is genuinely being managed using PRINCE2 form the [ ? ] of the method.
+Choice)A. Principles
+Choice)B. Themes
+Choice)C. Processes
+Choice)D. Techniques
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence.
+A project is [ ? ] organization that is created for the purpose of delivering business products.
+Choice)A. a corporate
+Choice)B. a temporary
+Choice)C. an external
+Choice)D. a technical
+Answer)Correct Answer: B
+
+Question)Which is part of quality control?
+Choice)A. Undertake quality reviews
+Choice)B. Write Product Descriptions
+Choice)C. Provide assurance that the project is being conducted properly
+Choice)D. Document the customer’s quality expectations
+Answer)Correct Answer: A
+
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: D
+
+Question)Why is it crucial that the Project Product Description clearly defines acceptance methods?
+Choice)A. Enables Project Assurance to authorize quality activities
+Choice)B. Defines how all project products will be reviewed and approved
+Choice)C. Defines how it will be proven that the completed project product meets the customer’s expectations
+Choice)D. Provides confirmation that all project products have met their quality criteria
+Answer)Correct Answer: C
+
+Question)Which should be provided by corporate or programme management before the Starting up a Project process commences?
+Choice)A. A Project Brief
+Choice)B. Sufficient information to identify the prospective Executive
+Choice)C. The Project Initiation Documentation
+Choice)D. Authority to initiate a project
+Answer)Correct Answer: B
+
+Question)Which statement about the quality review technique is FALSE?
+Choice)A. It enables a check to be made on a product’s fitness for purpose
+Choice)B. It defines the quality responsibilities of the project team
+Choice)C. It supports the management of future changes by providing a baseline for a product
+Choice)D. It is used to gain wider acceptance of a product by involving key interested parties
+Answer)Correct Answer: B
+
+Question)Which is NOT considered when defining risk tolerance?
+Choice)A. A Project Board’s attitude towards risk taking
+Choice)B. The allocated risk budget
+Choice)C. An organization’s risk appetite
+Choice)D. The amount of risk a Project Board considers acceptable
+Answer)Correct Answer: B
+
+Question)Identify the missing word(s) in the following sentence.
+The Quality theme provides a set of rules and procedures which ensure that the [ ? ] created meet(s) the needs of the business.
+Choice)A. controls
+Choice)B. products
+Choice)C. project management team
+Choice)D. stages
+Answer)Correct Answer: B
+
+Question)Identify the missing words in the following sentence.
+A risk budget is a sum of money included in the [ ? ] and set aside to fund specific management responses to a project’s threats and opportunities
+Choice)A. change budget
+Choice)B. project budget
+Choice)C. project’s cost tolerance
+Choice)D. project’s risk tolerance
+Answer)Correct Answer: B
+
+Question)Identify the missing words in the following sentence.
+A purpose of the Plans theme is to [ ? ] the project’s plans 
+Choice)A. define a coding system to provide a unique identifier for the products within
+Answer)Correct Answer: C
+
+Question)Which is a true statement about PRINCE2 event-driven controls
+Choice)A. Event-driven controls take place at predefined periodic intervals
+Choice)B. Event-driven controls are produced at the frequency defined in a Work Package
+Choice)C. Event-driven controls are used for decision making
+Choice)D. Checkpoint Reports are event-driven controls
+Answer)Correct Answer: C
+
+Question)What product would enable the Project Manager to review how a Work Package is performing against its cost tolerance?
+Choice)A. Configuration Item Record
+Choice)B. Quality Register
+Choice)C. Highlight Report
+Choice)D. Checkpoint Report
+Answer)Correct Answer: D
+
+Question)Which is a purpose of a Lessons Log?
+Question)B. 
+Choice)A. Note any lessons that are raised in Checkpoint Reports
+Choice)B. Record that corrective action is being taken
+Choice)C. Escalate lessons to the Project Board
+Choice)D. Raise improvements with Project Assurance
+Answer)Correct Answer: A
+
+Question)What theme estimates the cost of delivering the project?
+Choice)A. Business Case
+Choice)B. Change
+Choice)C. Plans
+Choice)D. Progress
+Answer)Correct Answer: C
+
+Question)Which of the following are typical core activities within configuration management?
+Question)1. Planning
+Question)2. Risk assessment
+Question)3. Verification and audit
+Question)4. Identification
+Choice)A. 1, 2, 3
+Choice)B. 1, 2, 4
+Choice)C. 1, 3, 4
+Choice)D. 2, 3, 4
+Answer)Correct Answer: C
+
+Question)Why would the Project Manager escalate an issue to the Project Board?
+Choice)A. The Project Board is responsible for determining the priority of all issues
+Choice)B. Direction is required on the best response for preventing the issue from occurring
+Choice)C. The issue is forecast to cause a deviation beyond stage tolerance and advice is required
+Choice)D. Escalating issues is a means of providing the Project Board with a regular update on their status
+Answer)Correct Answer: C
+
+Question)Which is a purpose of the Directing a Project process?
+Question)D. 
+Choice)A. Create and authorize the project mandate
+Choice)B. Ensure that work on products allocated to the team is authorized and agreed
+Choice)C. Control the day-to-day running of the project
+Choice)D. Delegate day-to-day management of the project to the Project Manager
+Answer)Correct Answer: D
+
+Question)Which is NOT one of the levels of plan recommended by PRINCE2?
+Choice)A. Benefits Review Plan
+Choice)B. Project Plan
+Choice)C. Stage Plan
+Choice)D. Team Plan
+Answer)Correct Answer: A
+
+Question)In which product would you find a product’s quality tolerance defined?
+Choice)A. Product Description
+Choice)B. Quality Management Strategy
+Choice)C. Quality Register
+Choice)D. Configuration Item Record
+Answer)Correct Answer: A
+
+Question)Which is NOT a true statement about the Managing a Stage Boundary process?
+Choice)A. It provides sufficient information for the Project Board to review the success of the current stage
+Choice)B. It is used to create an Exception Plan if requested by the Project Board
+Choice)C. It provides a fixed point at which acceptance of the project product is confirmed
+Choice)D. It is executed at, or close to, the end of each management stage, except the final one
+Answer)Correct Answer: C
+
+Question)Which is NOT obtained from a product’s Product Description?
+Choice)A. The product’s quality criteria
+Choice)B. Who will approve the product
+Choice)C. The quality method to be used
+Choice)D. The development method to be used
+Answer)Correct Answer: D
+
+Question)Which is the Change Authority role permitted to authorize?
+Choice)A. Risks to the project
+Choice)B. Adjustments to the limits on the change budget
+Choice)C. Changes to stage tolerance
+Choice)D. Changes to the project that do not exceed a defined budget
+Answer)Correct Answer: D
+
+Question)Which does the Executive need to ensure is in place before the project is initiated?
+Choice)A. All Work Packages are authorized
+Choice)B. An understanding of how the project will contribute to corporate objectives
+Choice)C. The Project Plan has been approved
+Choice)D. The Project Initiation Documentation is complete
+Answer)Correct Answer: B
+
+Question)Which is a purpose of the Quality theme?
+Choice)A. Establish how the project will ensure that all products created meet their requirements
+Choice)B. Establish quality assurance to maintain the quality management system
+Choice)C. Identify all the products of the project to ensure the scope has been adequately defined
+Choice)D. Determine the communication needs of the organization’s quality assurance function
+Answer)Correct Answer: A
+
+Question)Which is an objective of the Initiating a Project process?
+Choice)A. Develop the corporate quality management system as part of the Project Initiation Documentation
+Choice)B. Prepare the plans for the subsequent stages
+Choice)C. Summarize how the organization’s project management method will be tailored for the project
+Choice)D. Request authority from corporate management to deliver the project
+Answer)Correct Answer: C
+
+Question)Which of the following are true statements about a Project Brief?
+Question)1. Used to provide a foundation for the Initiating a Project process
+Question)2. Created in the Starting up a Project process
+Question)3. Used by the Project Board to make an assessment of a project’s progress
+Question)4. Used as the basis of the Project Initiation Documentation
+Choice)A. 1, 2, 3
+Choice)B. 1, 2, 4
+Choice)C. 1, 3, 4
+Choice)D. 2, 3, 4
+Answer)Correct Answer: B
+
+Question)Which of the following describes a use of a Configuration Item Record?
+Choice)A. To record how changes to a product will be controlled
+Choice)B. To provide information on the approval procedure for the Work Package
+Choice)C. To record the history of a product
+Choice)D. To pass responsibility for the delivery of a product to a Team Manager
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence.
+At the end of a stage, the [ ? ] should be used to check whether there is a requirement to send copies of the
+End Stage Report to external interested parties.
+Choice)A. Stage Plan
+Choice)B. Communication Management Strategy
+Choice)C. Follow-on action recommendations
+Choice)D. Quality Management Strategy
+Answer)Correct Answer: B
+
+Question)Identify the missing words in the following sentence.
+At an agreed frequency, a Team Manager will send a [ ? ] to the Project Manager.
+Choice)A. Highlight Report
+Choice)B. Product Status Account
+Choice)C. Checkpoint Report
+Choice)D. Work Package
+Answer)Correct Answer: C
+
+Question)What product records any time tolerances agreed between the Project Manager and Team Manager?
+Choice)A. Product Description
+Choice)B. Work Package
+Choice)C. Project Initiation Documentation
+Choice)D. Stage Plan
+Answer)Correct Answer: B
+
+Question)Which is part of quality control?
+Choice)A. Document the project’s acceptance criteria in the Project Product Description
+Choice)B. Define the quality responsibilities of those involved in the production of the products
+Choice)C. Produce quality records to show that the planned quality activities have been carried out
+Choice)D. Maintain the corporate organization’s quality management system
+Answer)Correct Answer: C
+
+Question)What product is used to maintain a record of those who have an interest in the project and their information requirements?
+Choice)A. Project Plan
+Choice)B. Communication Management Strategy
+Choice)C. Project Brief
+Choice)D. Project Product Description
+Answer)Correct Answer: B
+
+Question)Who should use the information in a Lessons Report to refine, change and improve the standards within a quality management system?
+Choice)A. Corporate group
+Choice)B. Project Board
+Choice)C. Project Assurance
+Choice)D. Executive
+Answer)Correct Answer: A
+
+Question)Which role is part of the Project Board?
+Choice)A. Corporate or programme management
+Choice)B. Risk owner
+Choice)C. Project Manager
+Choice)D. Senior Supplier
+Answer)Correct Answer: D
+
+Question)Which describes risk appetite?
+Choice)A. An organization’s unique attitude towards risk-taking
+Choice)B. The risks to the expected benefits
+Choice)C. A common set of risk categories, risk scales and evaluation techniques
+Choice)D. The budget set aside for potential changes to the scope of the project
+Answer)Correct Answer: A
+
+Question)Which is a purpose of an Issue Report?
+Choice)A. Provide the status of all issues in a Work Package
+Choice)B. Document an issue that needs to be handled formally
+Choice)C. Provide the status of all the issues in a stage
+Choice)D. Notify the Project Manager of all new issues in a Work Package
+Answer)Correct Answer: B
+
+Question)Which is a purpose of the Closing a Project process?
+Choice)A. Authorize the final stage of the project
+Choice)B. Confirm that all benefits defined in the Business Case have been achieved
+Choice)C. Recognize whether objectives set out in the original Project Initiation Documentation have been achieved
+Choice)D. Delegate day-to-day management of the end of the project to the Project Manager
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence.
+Configuration management typically includes [ ? ] as one of the five core activities.
+Choice)A. exception planning
+Choice)B. risk assessment
+Choice)C. stakeholder engagement
+Choice)D. status accounting
+Answer)Correct Answer: D
+
+Question)Which is performed as part of the recommended risk management procedure?
+Choice)A. Allocation of a budget to investigate issues facing the project
+Choice)B. Review of risk management practices to ensure that they are performed effectively
+Choice)C. Sending of information about risks to the project to project stakeholders
+Choice)D. Resolution of conflicts between the project and the programme board
+Answer)Correct Answer: C
+
+Question)Which theme addresses the need to have a strategy for communicating with stakeholders?
+Choice)A. Quality
+Choice)B. Organization
+Choice)C. Plans
+Choice)D. Progress
+Answer)Correct Answer: B
+
+Question)Which project characteristic suggests that projects should have a defined start and a defined end?
+Choice)A. Change
+Choice)B. Temporary
+Choice)C. Cross-functional
+Choice)D. Risk
+Answer)Correct Answer: B
+
+Question)Identify the missing word in the following sentence.
+Question)The PRINCE2 method addresses project management with four integrated elements: principles, themes, [ ? ] and tailoring PRINCE2 to the project environment.
+Choice)A. Only 1 is true
+Choice)B. Only 2 is true
+Choice)C. Both 1 and 2 are true
+Choice)D. Neither 1 or 2 are true
+Answer)Correct Answer: B
+
+Question)Which project management team member represents the interest of those who will operate the project’s products to realize the benefits after the project is complete?
+Choice)A. Executive
+Choice)B. Senior User
+Choice)C. Senior Supplier
+Choice)D. Project Manager
+Answer)Correct Answer: B
+
+Question)Which is a true statement about time-driven controls?
+Choice)A. Time-driven controls are used for monitoring the progress of Work Packages and management stages
+Choice)B. Time-driven controls take place when specific events happen
+Choice)C. Time-driven controls are produced at the end of a stage
+Choice)D. An Exception Report is a time-driven control
+Answer)Correct Answer: A
+
+Question)What theme defines and implements the means by which the project will verify that products meet business requirements?
+Choice)A. Business Case
+Choice)B. Change
+Choice)C. Progress
+Choice)D. Quality
+Answer)Correct Answer: D
+
+Question)Which is a Benefits Review Plan used to assess?
+Choice)A. How the project’s products have performed when in operational use
+Choice)B. The effectiveness of the project strategies
+Choice)C. The progress of the project against its plans
+Choice)D. The suitability of the project management team structure and membership
+Answer)Correct Answer: A
+
+Question)What needs to be in place to ensure effective issue and change control?
+Choice)A. Configuration management system
+Choice)B. Manage by exception
+Choice)C. Quality planning
+Choice)D. Information needs for stakeholders
+Answer)Correct Answer: A
+
+Question)Which is a purpose of the Initiating a Project process?
+Choice)A. Decide if it is worthwhile to initiate a project
+Choice)B. Decide on the project approach
+Choice)C. Establish solid foundations for a project
+Choice)D. Identify the number of Work Packages required
+Answer)Correct Answer: C
+
+Question)Why does PRINCE2 recommend three different levels of plans?
+Choice)A. To cover initiation, specialist work and exception situations
+Choice)B. To provide appropriate detail to each of the different levels of management within the project
+Choice)C. As an allowance for initiation, product delivery and project closure
+Choice)D. To match the different aspects of the product-based planning technique
+Answer)Correct Answer: B
+
+Question)What theme provides the justification for the project?
+Choice)A. Quality
+Choice)B. Plans
+Choice)C. Progress
+Choice)D. Business Case
+Answer)Correct Answer: D
+
+Question)Which product records any project outcomes perceived as negative by stakeholders?
+Choice)A. Business Case
+Choice)B. Project Plan
+Choice)C. Communication Management Strategy
+Choice)D. Project Product Description
+Answer)Correct Answer: A
+
+Question)Which product is used by the Project Manager to authorize work?
+Choice)A. Team Plan
+Choice)B. Stage Plan
+Choice)C. Work Package
+Choice)D. Product Description
+Answer)Correct Answer: C
+
+Question)What do customer’s quality expectations identify?
+Choice)A. Standards that must be used in order to meet the level of quality needed
+Choice)B. Skills required to develop the project product
+Choice)C. Measurable definitions of the attributes required for a set of products to be acceptable to the customer
+Choice)D. Reviewer names for each product
+Answer)Correct Answer: A
+
+Question)Who does the Team Manager report to and take direction from?
+Choice)A. Project Board
+Choice)B. Project Assurance
+Choice)C. Project Manager
+Choice)D. Project Support
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence.
+The [ ? ] should include representation to satisfy the interests of the three primary categories of stakeholders affected by a PRINCE2 project.
+Choice)A. Corporate or programme management
+Choice)B. Project Board
+Choice)C. Team Managers
+Choice)D. Project Support
+Answer)Correct Answer: B
+
+Question)What is described as an organization’s unique attitude towards risk taking?
+Choice)A. Risk appetite
+Choice)B. Risk management
+Choice)C. Risk evaluation
+Choice)D. Risk tolerance
+Answer)Correct Answer: A
+
+Question)Identify the missing words in the following sentence.
+A Project Manager agrees the [ ? ] with a Team Manager.
+Choice)A. project cost tolerance
+Choice)B. stage cost tolerance
+Choice)C. Work Package cost tolerance
+Choice)D. product cost tolerance
+Answer)Correct Answer: C
+
+Question)How many management stages should a PRINCE2 project consist of?
+Choice)A. Start up stage, initiation stage and at least one other management stage to cover the remainder of the project
+Choice)B. Start up stage, at least one other management stage to cover the remainder of the project and a closing stage
+Choice)C. Initiation stage and at least one other management stage to cover the remainder of the project
+Choice)D. Start up stage, initiation stage and a closing stage
+Answer)Correct Answer: C
+
+Question)Which role is responsible for creating Checkpoint Reports?
+Choice)A. Senior Supplier
+Choice)B. Team Manager
+Choice)C. Change Authority
+Choice)D. Project Support
+Answer)Correct Answer: B
+
+Question)Which is a task of product-based planning?
+Choice)A. Identify activities and dependencies
+Choice)B. Write the Project Product Description
+Choice)C. Prepare the Work Packages
+Choice)D. Produce Product Status Accounts
+Answer)Correct Answer: B
+
+Question)Identify the missing word in the following sentence.
+The risk response type [ ? ] can be used to respond to a threat and an opportunity
+Choice)A. Avoid
+Choice)B. Reduce
+Choice)C. Share
+Choice)D. Transfer
+Answer)Correct Answer: C
+
+Question)Which process ensures that key roles and responsibilities are allocated before a decision is made to initiate a project?
+Choice)A. Managing Product Delivery
+Choice)B. Initiating a Project
+Choice)C. Managing a Stage Boundary
+Choice)D. Starting up a Project
+Answer)Correct Answer: D
+
+Question)Which is a purpose of the Risk Register?
+Question)B. 
+Choice)A. Describe the risk management techniques and standards to be applied to the project
+Choice)B. Act as a central record of information relating to the identified risks for the project
+Choice)C. Act as a repository for informal issues
+Choice)D. List the responsibilities for achieving an effective risk management procedure
+Answer)Correct Answer: B
+
+Question)Which level of management uses the mechanisms established by the Progress theme to control any unacceptable deviations?
+Choice)A. Only corporate or programme management
+Choice)B. Only the Project Board
+Choice)C. Only the Project Manager
+Choice)D. All levels of management
+Answer)Correct Answer: D
+
+Question)Which is a purpose of the Starting up a Project process?
+Choice)A. Provide information so a decision can be made as to whether a project is viable and worthwhile to initiate
+Choice)B. Define the means of communication between the project and corporate or programme management
+Choice)C. Define the project controls
+Choice)D. Record any identified risks in the Risk Register
+Answer)Correct Answer: A
+
+Question)Which is a FALSE statement about technical stages?
+Choice)A. Can overlap with other technical stages
+Choice)B. Typified by the use a particular set of specialist skills
+Choice)C. Include the Managing a Stage Boundary process activities
+Choice)D. Can span more than one management stage
+Answer)Correct Answer: C
+
+Question)Identify the missing words in the following sentence.
+The role of [ ? ] is responsible for carrying out a risk response action to respond to a particular risk.
+Choice)A. Project Assurance
+Choice)B. Project Support
+Choice)C. the risk actionee
+Choice)D. the risk owner
+Answer)Correct Answer: C
+
+Question)Which is a purpose of an End Project Report?
+Choice)A. Identify individuals or groups that need to be told that the project is coming to an end
+Choice)B. Review how well the project performed against the Project Initiation Documentation used to authorize it
+Choice)C. Identify individuals or groups that are responsible for measuring the expected benefits after the project has closed
+Choice)D. Ensure that key project information is archived and made secure
+Answer)Correct Answer: B
+
+Question)Which is a recommended quality review team role?
+Choice)A. Project Manager
+Choice)B. Assurance
+Choice)C. Project Support
+Choice)D. Administrator
+Answer)Correct Answer: D
+
+Question)Whose approval is needed to replace a Stage Plan with an Exception Plan?
+Choice)A. Corporate or programme management
+Choice)B. Project Board
+Choice)C. Project Manager
+Choice)D. Team Manager
+Answer)Correct Answer: B
