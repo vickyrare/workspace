@@ -1621,6 +1621,9 @@ Choice)C. Provide assurance that the project is being conducted properly
 Choice)D. Document the customer’s quality expectations
 Answer)Correct Answer: A
 
+Question)Which of the following statements about customer's quality expectations and acceptance criteria are true?
+Question)1. Customer's quality expectations form a specific and precise list of measurable criteria that a project product should meet in order to be acceptable to key stakeholders.
+Question)2. Acceptance criteria are often expressed in broad terms as a means to gain common understanding of general quality requirements.
 Choice)A. Only 1 is true
 Choice)B. Only 2 is true
 Choice)C. Both 1 and 2 are true
@@ -2107,6 +2110,13 @@ Choice)B. Assurance
 Choice)C. Project Support
 Choice)D. Administrator
 Answer)Correct Answer: D
+
+Question)Whose approval is needed to replace a Stage Plan with an Exception Plan?
+Choice)A. Corporate or programme management
+Choice)B. Project Board
+Choice)C. Project Manager
+Choice)D. Team Manager
+Answer)Correct Answer: B
 
 Question)Whose approval is needed to replace a Stage Plan with an Exception Plan?
 Choice)A. Corporate or programme management
