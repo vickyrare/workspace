@@ -1,5 +1,7 @@
 package io.codecrafts.McqPilot;
 
+import io.codecrafts.McqPilot.lib.QuestionProcessor;
+import io.codecrafts.McqPilot.lib.ResultProcessor;
 import io.codecrafts.McqPilot.model.Choice;
 import io.codecrafts.McqPilot.model.Question;
 import io.codecrafts.McqPilot.service.QuestionService;
@@ -41,10 +43,6 @@ public class McqPilotApplication implements CommandLineRunner{
 		boolean showResultsProgressively = false;
 
 		List<Character> allowedChars = new ArrayList<>();
-		allowedChars.add('a');
-		allowedChars.add('b');
-		allowedChars.add('c');
-		allowedChars.add('d');
 		allowedChars.add('A');
 		allowedChars.add('B');
 		allowedChars.add('C');
@@ -75,31 +73,25 @@ public class McqPilotApplication implements CommandLineRunner{
 			}
 		}
 
+		QuestionProcessor questionProcessor = new QuestionProcessor(nQuestions, questions, randomizeQuestions);
+		questionProcessor.init();
 
-		//-randomize
-		if (randomizeQuestions) {
-			Collections.shuffle(questions);
-		}
-		// -nQuestions
-		int totalQuestions = nQuestions;
+		ResultProcessor resultProcessor = new ResultProcessor();
 
-		int correctAnswers = 0;
-		int incorrectAnswers = 0;
-		double percentageCorrect = 0;
-		for(int i = 0; i < nQuestions; i++) {
+		while (questionProcessor.hasNextQuestion()) {
 			if (showResultsProgressively) {
-				System.out.println(MessageFormat.format("Progress is {0} / {1}, Correct: {2}, Incorrect: {3}, Percent Correct: %{4}", (i + 1), totalQuestions, correctAnswers, incorrectAnswers, percentageCorrect));
+				System.out.println(MessageFormat.format("Progress is {0} / {1}, Correct: {2}, Incorrect: {3}, Percent Correct: %{4}", (resultProcessor.getCurrentQuestionIndex() + 1), questionProcessor.getNumSessionQuestions(), resultProcessor.getNumCorrectAnswer(), resultProcessor.getNumIncorrectAnswers(), resultProcessor.getPercentageCorrect()));
 			}
 
-			Question question = questions.get(i);
+			Question question = questionProcessor.getNextQuestion();
 			String questionText = question.getQuestion();
 			String []questionLines = questionText.split("\n");
 
-			for(String text: questionLines) {
+			for (String text: questionLines) {
 				System.out.println(text);
 			}
 
-			for(Choice choice: question.getChoices()) {
+			for (Choice choice: question.getChoices()) {
 				String choiceText = choice.getChoice();
 				System.out.println(choiceText);
 			}
@@ -108,19 +100,23 @@ public class McqPilotApplication implements CommandLineRunner{
 			System.out.println("Enter answer (A, B, C, D): ");
 			char c = reader.next().charAt(0);
 
-			while(!allowedChars.contains(c)) {
-				c = reader.next().charAt(0);
+			c = Character.toUpperCase(c);
+
+			while (!allowedChars.contains(c)) {
 				System.out.println("Enter answer (A, B, C, D): ");
+				c = reader.next().charAt(0);
 			}
 
 			if (c == question.getAnswer().charValue()) {
-				correctAnswers++;
+				resultProcessor.incrementCorrectAnswer();
 			} else {
-				incorrectAnswers++;
+				resultProcessor.incrementIncorrectAnswer();
 				System.out.println("Correct answer: " + question.getAnswer());
 			}
-			percentageCorrect = (correctAnswers * 100) / (i + 1);
+
+			resultProcessor.incrementCurrentQuestionIndex();
+			System.out.println();
 		}
-		System.out.println(MessageFormat.format("Correct: {0}, Incorrect: {1}, Percent Correct: %{2}", correctAnswers, incorrectAnswers, percentageCorrect));
+		System.out.println(MessageFormat.format("Correct: {0}, Incorrect: {1}, Percent Correct: %{2}", resultProcessor.getNumCorrectAnswer(), resultProcessor.getNumIncorrectAnswers(), resultProcessor.getPercentageCorrect()));
 	}
 }
