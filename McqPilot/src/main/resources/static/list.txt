@@ -2124,3 +2124,562 @@ Choice)B. Project Board
 Choice)C. Project Manager
 Choice)D. Team Manager
 Answer)Correct Answer: B
+
+Question)Which process lists the activities of the Project Manager. This is where they do their day-to-day
+Question)management of a stage and it is where they do most of their work?
+Choice)A. Starting Up a Project
+Choice)B. Managing Product Delivery
+Choice)C. Closing a Project
+Choice)D. Controlling a Stage
+Answer)Correct Answer: D
+
+Question)Which document is used to define the justification for “Starting up a Project”? (contains the outline
+Question) Business Case)?
+Choice)A. Project Plan
+Choice)B. Project Charter
+Choice)C. Daily Log
+Choice)D. Project Brief
+Answer)Correct Answer: D
+
+
+Question)Which role uses the Checkpoint Report to report to the Project Manager?
+Choice)A. Project Support
+Choice)B. Team Mahager
+Choice)C. Team Member
+Choice)D. Quality Manager
+Answer)Correct Answer: B
+
+Question)Which of the following is an output of the Starting Up a Project process?
+Choice)A. Highlight Report
+Choice)B. Initiation Stage Plan
+Choice)C. Project mandate
+Choice)D. Benefits Review Plan
+Answer)Correct Answer: B
+
+Question)Which theme has the purpose to provide a framework to design, develop and maintain the Project
+Question)Plans, which are the Project Plan, Stage Plan, the Exception Plan and Team Plans?
+Choice)A. Quality Theme
+Choice)B. Business Case Theme
+Choice)C. Plans Theme
+Choice)D. Change Theme
+Answer)Correct Answer: C
+
+Question)What should a Project Manager do if they forecast to go out of Stage tolerance?
+Choice)A. Create a Highlight Report
+Choice)B. Raise an exception
+Choice)C. Create a Checkpoint Report
+Choice)D. Notify Corporate or Programme Management
+Answer)Correct Answer: B
+
+Question)What system tracks products, records when products are approved and baselined, and helps to
+Question)ensure that the correct versions are being used during the project and delivered to the customer?
+Choice)A. Risk Management System
+Choice)B. Quality Management System
+Choice)C. Change Request System »
+Choice)D. Configuration Management System
+Answer)Correct Answer: D
+
+Question)Who creates (prepares) the Risk Management Strategy document?
+Choice)A. Executive
+Choice)B. Project Assurance
+Choice)C. Risk Leader
+Choice)D. Project Manager
+Answer)Correct Answer: D
+
+Question)Which report is used by the Project Board to evaluate the project before they take the decision to
+Question)authorize closure?
+Choice)A. Exception Report
+Choice)B. Highlight Report
+Choice)C. End Stage Report
+Choice)D. End Project Report
+Answer)Correct Answer: D
+
+Question)What is another name for the six project variables?
+Choice)A. Six performance targets
+Choice)B. Six principles
+Choice)C. Six deliverables
+Choice)D. Six themes
+Answer)Correct Answer: A
+
+Question)Which of the following is a benefit?
+Choice)A. New sales system
+Choice)B. New sales process
+Choice)C. Simpler reporting
+Choice)D. 10% reduction in costs
+Answer)Correct Answer: D
+
+Question)Which process does the Project Manager prepare the next Stage Plan for the next stage and
+Question)Request Authorization to start the next stage?
+Choice)A. Managing Product Delivery
+Choice)B. Directing a Project
+Choice)C. Managing a Stage Boundary
+Choice)D. Initiating a Project
+Answer)Correct Answer: C
+
+Question)Which management product is used to support Focus on products and contains the following
+Question)information: product’s purpose, composition, quality, criteria, and quality method?
+Choice)A. Risk Register
+Choice)B. Business Case
+Choice)C. Product Descriptions
+Choice)D. Stage Plan
+Answer)Correct Answer: C
+
+Question)During which process does the Project Manager authorize the work to be done (give out work in
+Question)Work Packages to the Team Managers)?
+Choice)A. Controlling a Stage
+Choice)B. Closing a Project
+Choice)C. Directing a Project
+Choice)D. Managing a Stage Boundary
+Answer)Correct Answer: A
+
+Question)What is a sum of money that the customer and supplier agree to use to fund the cost of Requests
+Question)for Change?
+Choice)A. Change Budget
+Choice)B. Beer money :-)
+Choice)C. Risk Budget
+Choice)D. Project Budget
+Answer)Correct Answer: A
+
+Question)Which PRINCE2 principle is supported by the Quality theme?
+Choice)A. Manage by stages
+Choice)B. Manage by Exception
+Choice)C. Focus on Products
+Choice)D. Learn from Experience
+Answer)Correct Answer: C
+
+Question)Who is the project's key decision maker on the Project Board?
+Choice)A. Senior User
+Choice)B. Senior Supplier
+Choice)C. Project Manager
+Choice)D. Executive
+Answer)Correct Answer: D
+
+Question)The PRINCE2 approach to Quality has two parts: Quality Control and ....
+Choice)A. Quality Planning
+Choice)B. Quality Testing
+Choice)C. Quality Policy
+Choice)D. Quality Strategy
+Answer)Correct Answer: A
+
+Question)At what stage of a project can you be 100% sure of the cost of a project?
+Choice)A. Project Startup
+Choice)B. End of the Initiation Stage
+Choice)C. After the 2nd Stage Boundary process
+Choice)D. At the end of the project
+Answer)Correct Answer: D
+
+Question)Which theme provides information on what is required, how it will be achieved and by whom?
+Choice)A. Plans Theme
+Choice)B. Business Case Theme
+Choice)C. Quality Theme
+Choice)D. Change Theme
+Answer)Correct Answer: A
+
+Question)Which two roles have the responsibility to create the Product Descriptions?
+Choice)A. Project Manager, Senior Supplier
+Choice)B. Project Manager, Team Manager
+Choice)C. Senior User, Executive
+Choice)D. Senior User, Senior Supplier
+Answer)Correct Answer: B
+
+Question)In which process does the Project Manager setup the Project Controls? These Project Controls will
+Question)show the Project Board how they can control the project?
+Choice)A. Initiating a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Controlling a Stage
+Choice)D. Directing a Stage
+Answer)Correct Answer: A
+
+Question)Does the Project Product Description define what the project must handover to achieve customer
+Question)approval (Acceptance Criteria)?
+Choice)A. No as acceptance criteria is not agreed until the last Stage Boundary process
+Choice)B. No
+Choice)C. Yes
+Choice)D. Only for IT projects
+Answer)Correct Answer: C
+
+Question)Which plan does NOT have to follow the PRINCE2 guidelines?
+Choice)A. Project Plan
+Choice)B. Stage Plan
+Choice)C. Team Plan
+Choice)D. Quality Plan
+Answer)Correct Answer: C
+
+Question)Which of the following sentences is incorrect?
+Choice)A. Stage Plans are produced close to the time when the planned activities will take place.
+Choice)B. Stage Plans provide the basis for day-to-day control by the Project Manager.
+Choice)C. Stage Plans are created by the Project Manager
+Choice)D. Stage Plans provide the basis for day-to-day control by the Project Board.
+Answer)Correct Answer: D
+
+Question)The objective of which process is to ensure that accurate progress information is provided to the
+Question)Project Manager by the Team Manager?
+Choice)A. Managing Product Delivery
+Choice)B. Closing a Project
+Choice)C. Initiating a Project
+Choice)D. Directing a Project
+Answer)Correct Answer: A
+
+Question)Which plan is updated (not created) in the Managing a Stage Boundary process?
+Choice)A. Project Plan
+Choice)B. Team Plan
+Choice)C. Initiation Stage Plan
+Choice)D. Stage Plan
+Answer)Correct Answer: A
+
+Question)What has a temporary organization that is created for the purpose of delivering one of more products
+Question)according to an agreed Business Case with a certain time and cost?
+Choice)A. Plan
+Choice)B. Benefits Review Plan
+Choice)C. A Project Brief
+Choice)D. A Project
+Answer)Correct Answer: D
+
+Question)How does the Management by Exception framework help the Project Board to reduce their time
+Question)needed on the project? In other words, how is it a more efficient use of management time?
+Choice)A. The Project Board can delegate responsibility to the Project Manager
+Choice)B. The Project Board can take care of all Change Requests
+Choice)C. The Project Board can set Team Tolerances
+Choice)D. The Project Board can avoid meeting the Project Manager during the project
+Answer)Correct Answer: A
+
+Question)What is the trigger for the “Directing a Project Process” to start?
+Choice)A. Project mandate
+Choice)B. “Request to Initiate a Project" is done by the Corporate or Programme Management
+Choice)C. "Request to Initiate a Project" is done by the Project Manager
+Choice)D. "Request to Initiate a Project" is done by the Senior User
+Answer)Correct Answer: C
+
+Question)Which of the following is not included in a Project Plan?
+Choice)A. Product Descriptions
+Choice)B. Budget
+Choice)C. Schedule
+Choice)D. Risk Plan
+Answer)Correct Answer: D
+
+Question)Project Assurance is the responsibility of the Project Board. Who is responsible for Quality
+Question)Assurance?
+Choice)A. Corporate or Programme Management
+Choice)B. Project Board
+Choice)C. Senior Supplier
+Choice)D. Project Assurance
+Answer)Correct Answer: A
+
+Question)What is another way to say “the probability of the risk"?
+Choice)A. The impact of the risk
+Choice)B. The likelihood of the risk happening
+Choice)C. The cause of the risk
+Choice)D. The risk factor of the risk
+Answer)Correct Answer: B
+
+Question)Which plan is used on a day-to-day basis by the Project Manager?
+Choice)A. Project Plan
+Choice)B. Stage Plan
+Choice)C. Team Plan
+Choice)D. Quality Plan
+Answer)Correct Answer: B
+
+Question)Which process does the Project Manager review and update the Business Case, Project Plan and
+Question)Create the Next Stage Plan?
+Choice)A. Initiating a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Managing Product Delivery
+Choice)D. Directing a Project
+Answer)Correct Answer: B
+
+Question)What is a complete and consistent set of products that are managed, tested and deployed as a
+Question)single entity to be handed over to users?
+Choice)A. Release
+Choice)B. Upgrade
+Choice)C. Management Product
+Choice)D. Configuration item
+Answer)Correct Answer: A
+
+Question)During which process is the acceptance criteria of a project added to the Project Product
+Question)Description?
+Choice)A. Stage Boundary
+Choice)B. Closing a Project
+Choice)C. Initiating a project
+Choice)D. Starting Up a Project
+Answer)Correct Answer: D
+
+Question)The purpose of which theme is to be able to control any unacceptable deviations?
+Choice)A. Business Case
+Choice)B. Risk
+Choice)C. Quality
+Choice)D. Progress
+Answer)Correct Answer: D
+
+Question)Which of the following documents is not used by the Project Manager to communicate risk during
+Question)the project?
+Choice)A. Highlight Reports
+Choice)B. Exception Reports
+Choice)C. End Project Reports
+Choice)D. End Stage Reports
+Answer)Correct Answer: C
+
+Question)When are Project Tolerance set for the project (for the first time)?
+Choice)A. Initiating a Project
+Choice)B. Starting Up a Project
+Choice)C. Directing a Project
+Choice)D. Closing a Project
+Answer)Correct Answer: A
+
+Question)Which document is created in the Starting Up a Project process and is normally a 1-3 page
+Question)description of the main product that will be produced by the project?
+Choice)A. Project Approach
+Choice)B. outline Business Case
+Choice)C. End Stage Report
+Choice)D. Project Product Description
+Answer)Correct Answer: D
+
+Question)Which statement is NOT correct about Technical Stages?
+Choice)A. Technical stages can overlap, but management stages do not
+Choice)B. Technical stages are usually linked to skills
+Choice)C. A technical stage can spal\ a management stage boundary.
+Choice)D. The Project Board make decisions at the end of every Technical Stage and use Technical
+Answer)Correct Answer: D
+
+Question)In which process is the Risk Register created?
+Choice)A. Starting up a Project
+Choice)B. Directing a Project
+Choice)C. Initiating a Project
+Choice)D. Controlling a Stage
+Answer)Correct Answer: C
+
+Question)The purpose of which document is to provide information about the status of products. This can be
+Question)a report on one product, a group of products, or all products created during a stage?
+Choice)A. Item report
+Choice)B. CMDB Report
+Choice)C. Product Status Account
+Choice)D. Product Report
+Answer)Correct Answer: C
+
+Question)Which role provides information and resources for the Benefits Review Plan in the Initiating a Project
+Question)process?
+Choice)A. Project Support
+Choice)B. Project Assurance
+Choice)C. Senior User
+Choice)D. Senior Supplier
+Answer)Correct Answer: C
+
+Question)What principle is supported by the Project Board representing the primary stakeholder interests? Tip:
+Question)Which principle says that the Project Board should be represented by the three primary stakeholders?
+Choice)A. Defined Roles and Responsibilities
+Choice)B. Focus on Products
+Choice)C. Managed by Stages
+Choice)D. Contiued Business Justification
+Answer)Correct Answer: A
+
+Question)In which process are products quality checked?
+Choice)A. Starting up a Project
+Choice)B. Initiating a Project process
+Choice)C. Stage Boundary
+Choice)D. Managing Product Delivery
+Answer)Correct Answer: D
+
+Question)The responses to opportunities are: Share, Exploit, Enhance and .....?
+Choice)A. Avoid
+Choice)B. Transfer
+Choice)C. Reduce
+Choice)D. Reject
+Answer)Correct Answer: D
+
+Question)In which process does Quality Planning begin?
+Choice)A. Starting up a Project
+Choice)B. Initiating a Project process
+Choice)C. Stage Boundary
+Choice)D. Controlling a Stage
+Answer)Correct Answer: A
+
+Question)What is a common response to a Threat and Opportunity?
+Choice)A. Avoid
+Choice)B. Share
+Choice)C. Reduce
+Choice)D. Fallback
+Answer)Correct Answer: B
+
+Question)®@ Answered @ Review
+Question)Which role assist the Project Manager in distributing the Project Plans, Stage Plans and Team Plans?
+Choice)A. Project Support
+Choice)B. Project Assurance
+Choice)C. Team Manager
+Choice)D. Team Member
+Answer)Correct Answer: A
+
+Question)Which of the following levels is not part of the Project Management Team?
+Choice)A. Delivery level
+Choice)B. Management level
+Choice)C. Programme level
+Choice)D. Direction level
+Answer)Correct Answer: C
+
+Question)Which document describes the specific risk management techniques and standards to be applied
+Question)during the project and the responsibilities?
+Choice)A. Risk Manifesto
+Choice)B. Risk Report
+Choice)C. Risk Management Strategy
+Choice)D. Risk Register
+Answer)Correct Answer: C
+
+Question)In which process are the decisions taken by the Project Board to Initiate the next stages?
+Choice)A. Managing a Stage Boundary
+Choice)B. Directing a Project
+Choice)C. Initiating a Project
+Choice)D. Controlling a Stage
+Answer)Correct Answer: B
+
+Question)What provides information on the activities that are carried out during the project and by whom?
+Choice)A. Themes
+Choice)B. Processes
+Choice)C. Diagrams
+Choice)D. Templates
+Answer)Correct Answer: B
+
+Question)During which process does the Project Manager monitor team (Work Package) progress using the
+Question)Checkpoint Reports and Quality Register?
+Choice)A. Closing a Project
+Choice)B. Gontrolling a Stage
+Choice)C. Directing a Project
+Choice)D. Managing a Stage Boundary
+Answer)Correct Answer: B
+
+
+Question)There are 5 steps to Issue and Change Management: Capture, Examine, Propose, Decide and
+Choice)A. Reject
+Choice)B. Mitigate
+Choice)C. Respond
+Choice)D. Implement
+Answer)Correct Answer: D
+
+Question)Which role represents the Delivering level in the Project Management Team?
+Choice)A. Team Manager
+Choice)B. Project Manager
+Choice)C. Senior Supplier
+Choice)D. Project Board
+Answer)Correct Answer: A
+
+Question)In a normal PRINCE2 project, which plan is the second to be created?
+Choice)A. Team Plan
+Choice)B. Project Plan
+Choice)C. Stage Plan
+Choice)D. Exception
+Answer)Correct Answer: B
+
+Question)Which one of the following is NOT a PRINCE2 principle?
+Choice)A. Tailor to suit the project environment
+Choice)B. Defined Roles and Responsibilities
+Choice)C. Continued business justification
+Choice)D. Manage by the quality technique
+Answer)Correct Answer: D
+
+Question)Which is not a Benefit of using PRINCE2?
+Choice)A. PRINCE2 learns from users, other methods and specialists
+Choice)B. PRINCE2 can be applied to any kind of project
+Choice)C. Clear roles and responsibilities are important parts of PRINCE2
+Choice)D. PRINCE2 guarantees meeting the Business Case objectives 100% of the time
+Answer)Correct Answer: D
+
+Question)In which process are the following activities? : Review the stage status and Report highlights
+Choice)A. Managing a Stage Boundary
+Choice)B. Starting Up a Project
+Choice)C. Controlling a Stage
+Choice)D. Directing a Project
+Answer)Correct Answer: C
+
+Question)In which process does the Project Manager setup the Project Controls? These Project Controls will
+Question)show the Project Board how they can control the project?
+Choice)A. Initiating a Project
+Choice)B. Managing a Stage Boundary
+Choice)C. Controlling a Stage
+Choice)D. Directing a Project
+Answer)Correct Answer: A
+
+Question)In which process do the Quality Review Meetings take place?
+Choice)A. Closing a Project
+Choice)B. Starting Up a Project
+Choice)C. Managing a Stage Boundary
+Choice)D. Managing Product Delivery
+Answer)Correct Answer: D
+
+Question)What is a sum of money that is put aside just to deal with specific responses to threats or
+Question)opportunities?
+Choice)A. Risk Fund
+Choice)B. Risk Report
+Choice)C. Risk Budget
+Choice)D. Risk Insurance
+Answer)Correct Answer: C
+
+Question)What is risk?
+Choice)A. A set of events that, should they occur, will have an effect on achieving the project objectives
+Choice)B. Issues that have happened and are now being dealt with
+Choice)C. Something that concerns the Project Board only
+Choice)D. Something that concerns the Team Manager only
+Answer)Correct Answer: A
+
+Question)Which PRINCE2 principles uses tolerances to establish the limits of delegated authority?
+Choice)A. Focus on Products
+Choice)B. Continued business justification
+Choice)C. Management by Exception
+Choice)D. Tailoring
+Answer)Correct Answer: C
+
+Question)Which of the following is NOT correct for Project Assurance?
+Choice)A. Independent of the Project Manager
+Choice)B. Appointed as part of the project management team
+Choice)C. Consisting of Business, User and Supplier Assurance
+Choice)D. Independent of the project
+Answer)Correct Answer: D
+
+Question)Which document is created in the Initiation Stage is the responsibility of the Executive and the Project
+Question)Manager will assist the Executive?
+Choice)A. Communication Management Strategy
+Choice)B. Outline Business Case
+Choice)C. Business Case
+Choice)D. Product Description
+Answer)Correct Answer: C
+
+Question)Which role sets Work Package Tolerances?
+Choice)A. Project Assurance
+Choice)B. Project Manager
+Choice)C. Project Board
+Choice)D. Corporate or Programme Management
+Answer)Correct Answer: B
+
+Question)Which is not one of the five characteristics of a project?
+Choice)A. Uncertainty
+Choice)B. Unique
+Choice)C. Cross Functional
+Choice)D. Business as usual
+Answer)Correct Answer: D
+
+Question)Which theme has the purpose to define and establish the project's structure of accountability and
+Question)responsibilities (the who)?
+Choice)A. Business Case
+Choice)B. Organization
+Choice)C. Plans
+Choice)D. Change
+Answer)Correct Answer: B
+
+Question)Which Management Product provides the project cost information for the Business Case and is
+Question)updated during the Stage Boundary process?
+Choice)A. Project mandate
+Choice)B. Project Plan
+Choice)C. Project Product Description
+Choice)D. Issue Register
+Answer)Correct Answer: B
+
+Question)In a quality review whose role responsible for chairing the review meeting and would coordinate the
+Question)introductions?
+Choice)A. Reviewer
+Choice)B. Administrator
+Choice)C. Presenter
+Choice)D. Chair
+Answer)Correct Answer: D
+
+Question)In which management product would a product's quality tolerance be defined?
+Choice)A. Quality Management Strategy
+Choice)B. Quality Register
+Choice)C. Product Database
+Choice)D. Product Description
+Answer)Correct Answer: D
