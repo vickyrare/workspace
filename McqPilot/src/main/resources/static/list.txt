@@ -2118,15 +2118,7 @@ Choice)C. Project Manager
 Choice)D. Team Manager
 Answer)Correct Answer: B
 
-Question)Whose approval is needed to replace a Stage Plan with an Exception Plan?
-Choice)A. Corporate or programme management
-Choice)B. Project Board
-Choice)C. Project Manager
-Choice)D. Team Manager
-Answer)Correct Answer: B
-
-Question)Which process lists the activities of the Project Manager. This is where they do their day-to-day
-Question)management of a stage and it is where they do most of their work?
+Question)Which process lists the activities of the Project Manager. This is where they do their day-to-day management of a stage and it is where they do most of their work?
 Choice)A. Starting Up a Project
 Choice)B. Managing Product Delivery
 Choice)C. Closing a Project
@@ -2144,7 +2136,7 @@ Answer)Correct Answer: D
 
 Question)Which role uses the Checkpoint Report to report to the Project Manager?
 Choice)A. Project Support
-Choice)B. Team Mahager
+Choice)B. Team Manager
 Choice)C. Team Member
 Choice)D. Quality Manager
 Answer)Correct Answer: B
@@ -2156,8 +2148,7 @@ Choice)C. Project mandate
 Choice)D. Benefits Review Plan
 Answer)Correct Answer: B
 
-Question)Which theme has the purpose to provide a framework to design, develop and maintain the Project
-Question)Plans, which are the Project Plan, Stage Plan, the Exception Plan and Team Plans?
+Question)Which theme has the purpose to provide a framework to design, develop and maintain the Project Plans, which are the Project Plan, Stage Plan, the Exception Plan and Team Plans?
 Choice)A. Quality Theme
 Choice)B. Business Case Theme
 Choice)C. Plans Theme
@@ -2171,8 +2162,7 @@ Choice)C. Create a Checkpoint Report
 Choice)D. Notify Corporate or Programme Management
 Answer)Correct Answer: B
 
-Question)What system tracks products, records when products are approved and baselined, and helps to
-Question)ensure that the correct versions are being used during the project and delivered to the customer?
+Question)What system tracks products, records when products are approved and baselined, and helps to ensure that the correct versions are being used during the project and delivered to the customer?
 Choice)A. Risk Management System
 Choice)B. Quality Management System
 Choice)C. Change Request System »
@@ -2186,8 +2176,7 @@ Choice)C. Risk Leader
 Choice)D. Project Manager
 Answer)Correct Answer: D
 
-Question)Which report is used by the Project Board to evaluate the project before they take the decision to
-Question)authorize closure?
+Question)Which report is used by the Project Board to evaluate the project before they take the decision to authorize closure?
 Choice)A. Exception Report
 Choice)B. Highlight Report
 Choice)C. End Stage Report
@@ -2208,32 +2197,28 @@ Choice)C. Simpler reporting
 Choice)D. 10% reduction in costs
 Answer)Correct Answer: D
 
-Question)Which process does the Project Manager prepare the next Stage Plan for the next stage and
-Question)Request Authorization to start the next stage?
+Question)Which process does the Project Manager prepare the next Stage Plan for the next stage and Request Authorization to start the next stage?
 Choice)A. Managing Product Delivery
 Choice)B. Directing a Project
 Choice)C. Managing a Stage Boundary
 Choice)D. Initiating a Project
 Answer)Correct Answer: C
 
-Question)Which management product is used to support Focus on products and contains the following
-Question)information: product’s purpose, composition, quality, criteria, and quality method?
+Question)Which management product is used to support Focus on products and contains the following information: product’s purpose, composition, quality, criteria, and quality method?
 Choice)A. Risk Register
 Choice)B. Business Case
 Choice)C. Product Descriptions
 Choice)D. Stage Plan
 Answer)Correct Answer: C
 
-Question)During which process does the Project Manager authorize the work to be done (give out work in
-Question)Work Packages to the Team Managers)?
+Question)During which process does the Project Manager authorize the work to be done (give out work in Work Packages to the Team Managers)?
 Choice)A. Controlling a Stage
 Choice)B. Closing a Project
 Choice)C. Directing a Project
 Choice)D. Managing a Stage Boundary
 Answer)Correct Answer: A
 
-Question)What is a sum of money that the customer and supplier agree to use to fund the cost of Requests
-Question)for Change?
+Question)What is a sum of money that the customer and supplier agree to use to fund the cost of Requests for Change?
 Choice)A. Change Budget
 Choice)B. Beer money :-)
 Choice)C. Risk Budget
@@ -2282,16 +2267,14 @@ Choice)C. Senior User, Executive
 Choice)D. Senior User, Senior Supplier
 Answer)Correct Answer: B
 
-Question)In which process does the Project Manager setup the Project Controls? These Project Controls will
-Question)show the Project Board how they can control the project?
+Question)In which process does the Project Manager setup the Project Controls? These Project Controls will show the Project Board how they can control the project?
 Choice)A. Initiating a Project
 Choice)B. Managing a Stage Boundary
 Choice)C. Controlling a Stage
 Choice)D. Directing a Stage
 Answer)Correct Answer: A
 
-Question)Does the Project Product Description define what the project must handover to achieve customer
-Question)approval (Acceptance Criteria)?
+Question)Does the Project Product Description define what the project must handover to achieve customer approval (Acceptance Criteria)?
 Choice)A. No as acceptance criteria is not agreed until the last Stage Boundary process
 Choice)B. No
 Choice)C. Yes
@@ -2312,8 +2295,7 @@ Choice)C. Stage Plans are created by the Project Manager
 Choice)D. Stage Plans provide the basis for day-to-day control by the Project Board.
 Answer)Correct Answer: D
 
-Question)The objective of which process is to ensure that accurate progress information is provided to the
-Question)Project Manager by the Team Manager?
+Question)The objective of which process is to ensure that accurate progress information is provided to the Project Manager by the Team Manager?
 Choice)A. Managing Product Delivery
 Choice)B. Closing a Project
 Choice)C. Initiating a Project
@@ -2327,16 +2309,14 @@ Choice)C. Initiation Stage Plan
 Choice)D. Stage Plan
 Answer)Correct Answer: A
 
-Question)What has a temporary organization that is created for the purpose of delivering one of more products
-Question)according to an agreed Business Case with a certain time and cost?
+Question)What has a temporary organization that is created for the purpose of delivering one of more products according to an agreed Business Case with a certain time and cost?
 Choice)A. Plan
 Choice)B. Benefits Review Plan
 Choice)C. A Project Brief
 Choice)D. A Project
 Answer)Correct Answer: D
 
-Question)How does the Management by Exception framework help the Project Board to reduce their time
-Question)needed on the project? In other words, how is it a more efficient use of management time?
+Question)How does the Management by Exception framework help the Project Board to reduce their time needed on the project? In other words, how is it a more efficient use of management time?
 Choice)A. The Project Board can delegate responsibility to the Project Manager
 Choice)B. The Project Board can take care of all Change Requests
 Choice)C. The Project Board can set Team Tolerances
@@ -2357,8 +2337,7 @@ Choice)C. Schedule
 Choice)D. Risk Plan
 Answer)Correct Answer: D
 
-Question)Project Assurance is the responsibility of the Project Board. Who is responsible for Quality
-Question)Assurance?
+Question)Project Assurance is the responsibility of the Project Board. Who is responsible for Quality Assurance?
 Choice)A. Corporate or Programme Management
 Choice)B. Project Board
 Choice)C. Senior Supplier
@@ -2379,24 +2358,21 @@ Choice)C. Team Plan
 Choice)D. Quality Plan
 Answer)Correct Answer: B
 
-Question)Which process does the Project Manager review and update the Business Case, Project Plan and
-Question)Create the Next Stage Plan?
+Question)Which process does the Project Manager review and update the Business Case, Project Plan and Create the Next Stage Plan?
 Choice)A. Initiating a Project
 Choice)B. Managing a Stage Boundary
 Choice)C. Managing Product Delivery
 Choice)D. Directing a Project
 Answer)Correct Answer: B
 
-Question)What is a complete and consistent set of products that are managed, tested and deployed as a
-Question)single entity to be handed over to users?
+Question)What is a complete and consistent set of products that are managed, tested and deployed as a single entity to be handed over to users?
 Choice)A. Release
 Choice)B. Upgrade
 Choice)C. Management Product
 Choice)D. Configuration item
 Answer)Correct Answer: A
 
-Question)During which process is the acceptance criteria of a project added to the Project Product
-Question)Description?
+Question)During which process is the acceptance criteria of a project added to the Project Product Description?
 Choice)A. Stage Boundary
 Choice)B. Closing a Project
 Choice)C. Initiating a project
@@ -2410,8 +2386,7 @@ Choice)C. Quality
 Choice)D. Progress
 Answer)Correct Answer: D
 
-Question)Which of the following documents is not used by the Project Manager to communicate risk during
-Question)the project?
+Question)Which of the following documents is not used by the Project Manager to communicate risk during the project?
 Choice)A. Highlight Reports
 Choice)B. Exception Reports
 Choice)C. End Project Reports
@@ -2425,8 +2400,7 @@ Choice)C. Directing a Project
 Choice)D. Closing a Project
 Answer)Correct Answer: A
 
-Question)Which document is created in the Starting Up a Project process and is normally a 1-3 page
-Question)description of the main product that will be produced by the project?
+Question)Which document is created in the Starting Up a Project process and is normally a 1-3 page description of the main product that will be produced by the project?
 Choice)A. Project Approach
 Choice)B. outline Business Case
 Choice)C. End Stage Report
@@ -2447,24 +2421,21 @@ Choice)C. Initiating a Project
 Choice)D. Controlling a Stage
 Answer)Correct Answer: C
 
-Question)The purpose of which document is to provide information about the status of products. This can be
-Question)a report on one product, a group of products, or all products created during a stage?
+Question)The purpose of which document is to provide information about the status of products. This can be a report on one product, a group of products, or all products created during a stage?
 Choice)A. Item report
 Choice)B. CMDB Report
 Choice)C. Product Status Account
 Choice)D. Product Report
 Answer)Correct Answer: C
 
-Question)Which role provides information and resources for the Benefits Review Plan in the Initiating a Project
-Question)process?
+Question)Which role provides information and resources for the Benefits Review Plan in the Initiating a Project process?
 Choice)A. Project Support
 Choice)B. Project Assurance
 Choice)C. Senior User
 Choice)D. Senior Supplier
 Answer)Correct Answer: C
 
-Question)What principle is supported by the Project Board representing the primary stakeholder interests? Tip:
-Question)Which principle says that the Project Board should be represented by the three primary stakeholders?
+Question)What principle is supported by the Project Board representing the primary stakeholder interests? Tip: Which principle says that the Project Board should be represented by the three primary stakeholders?
 Choice)A. Defined Roles and Responsibilities
 Choice)B. Focus on Products
 Choice)C. Managed by Stages
@@ -2499,7 +2470,6 @@ Choice)C. Reduce
 Choice)D. Fallback
 Answer)Correct Answer: B
 
-Question)®@ Answered @ Review
 Question)Which role assist the Project Manager in distributing the Project Plans, Stage Plans and Team Plans?
 Choice)A. Project Support
 Choice)B. Project Assurance
@@ -2514,8 +2484,7 @@ Choice)C. Programme level
 Choice)D. Direction level
 Answer)Correct Answer: C
 
-Question)Which document describes the specific risk management techniques and standards to be applied
-Question)during the project and the responsibilities?
+Question)Which document describes the specific risk management techniques and standards to be applied during the project and the responsibilities?
 Choice)A. Risk Manifesto
 Choice)B. Risk Report
 Choice)C. Risk Management Strategy
@@ -2536,8 +2505,7 @@ Choice)C. Diagrams
 Choice)D. Templates
 Answer)Correct Answer: B
 
-Question)During which process does the Project Manager monitor team (Work Package) progress using the
-Question)Checkpoint Reports and Quality Register?
+Question)During which process does the Project Manager monitor team (Work Package) progress using the Checkpoint Reports and Quality Register?
 Choice)A. Closing a Project
 Choice)B. Gontrolling a Stage
 Choice)C. Directing a Project
@@ -2587,8 +2555,7 @@ Choice)C. Controlling a Stage
 Choice)D. Directing a Project
 Answer)Correct Answer: C
 
-Question)In which process does the Project Manager setup the Project Controls? These Project Controls will
-Question)show the Project Board how they can control the project?
+Question)In which process does the Project Manager setup the Project Controls? These Project Controls will show the Project Board how they can control the project?
 Choice)A. Initiating a Project
 Choice)B. Managing a Stage Boundary
 Choice)C. Controlling a Stage
@@ -2602,8 +2569,7 @@ Choice)C. Managing a Stage Boundary
 Choice)D. Managing Product Delivery
 Answer)Correct Answer: D
 
-Question)What is a sum of money that is put aside just to deal with specific responses to threats or
-Question)opportunities?
+Question)What is a sum of money that is put aside just to deal with specific responses to threats or opportunities?
 Choice)A. Risk Fund
 Choice)B. Risk Report
 Choice)C. Risk Budget
@@ -2631,8 +2597,7 @@ Choice)C. Consisting of Business, User and Supplier Assurance
 Choice)D. Independent of the project
 Answer)Correct Answer: D
 
-Question)Which document is created in the Initiation Stage is the responsibility of the Executive and the Project
-Question)Manager will assist the Executive?
+Question)Which document is created in the Initiation Stage is the responsibility of the Executive and the Project Manager will assist the Executive?
 Choice)A. Communication Management Strategy
 Choice)B. Outline Business Case
 Choice)C. Business Case
@@ -2653,24 +2618,21 @@ Choice)C. Cross Functional
 Choice)D. Business as usual
 Answer)Correct Answer: D
 
-Question)Which theme has the purpose to define and establish the project's structure of accountability and
-Question)responsibilities (the who)?
+Question)Which theme has the purpose to define and establish the project's structure of accountability and responsibilities (the who)?
 Choice)A. Business Case
 Choice)B. Organization
 Choice)C. Plans
 Choice)D. Change
 Answer)Correct Answer: B
 
-Question)Which Management Product provides the project cost information for the Business Case and is
-Question)updated during the Stage Boundary process?
+Question)Which Management Product provides the project cost information for the Business Case and is updated during the Stage Boundary process?
 Choice)A. Project mandate
 Choice)B. Project Plan
 Choice)C. Project Product Description
 Choice)D. Issue Register
 Answer)Correct Answer: B
 
-Question)In a quality review whose role responsible for chairing the review meeting and would coordinate the
-Question)introductions?
+Question)In a quality review whose role responsible for chairing the review meeting and would coordinate the introductions?
 Choice)A. Reviewer
 Choice)B. Administrator
 Choice)C. Presenter
