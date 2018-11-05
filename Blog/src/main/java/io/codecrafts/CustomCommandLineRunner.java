@@ -7,6 +7,7 @@ import io.codecrafts.model.User;
 import io.codecrafts.repository.PostRepository;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.service.UserService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -93,16 +94,27 @@ public class CustomCommandLineRunner implements CommandLineRunner {
         String userFolder = uploadDirectory + "/f9d98297-9db9-41a3-86e6-25ab0480fcd8";
 
         Resource resource = new ClassPathResource("/static/images/avatar.png");
-        File file = resource.getFile();
+
+        InputStream initialStream = resource.getInputStream();
+        File targetFile = new File("src/main/resources/targetFile.png");
+        OutputStream outStream = new FileOutputStream(targetFile);
+
+        byte[] buffer = new byte[8 * 1024];
+        int bytesRead;
+        while ((bytesRead = initialStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+        IOUtils.closeQuietly(initialStream);
+        IOUtils.closeQuietly(outStream);
 
         if (!Files.exists(Paths.get(adminUserFolder))) {
             Files.createDirectory(Paths.get(adminUserFolder));
-            Files.copy(Paths.get(file.getAbsolutePath()), Paths.get(adminUserFolder + "/avatar.png"));
+            Files.copy(Paths.get(targetFile.getAbsolutePath()), Paths.get(adminUserFolder + "/avatar.png"));
         }
 
         if (!Files.exists(Paths.get(userFolder))) {
             Files.createDirectory(Paths.get(userFolder));
-            Files.copy(Paths.get(file.getAbsolutePath()), Paths.get(userFolder + "/avatar.png"));
+            Files.copy(Paths.get(targetFile.getAbsolutePath()), Paths.get(userFolder + "/avatar.png"));
         }
     }
 }
