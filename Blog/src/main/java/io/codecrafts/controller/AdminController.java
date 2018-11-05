@@ -40,7 +40,7 @@ public class AdminController {
 		modelAndView.addObject("page", page);
 		modelAndView.addObject("title", "User Administration");
 		modelAndView.addObject("url", "/admin/users/?page=");
-		modelAndView.setViewName("/admin/users");
+		modelAndView.setViewName("admin/users");
 
 		return modelAndView;
 	}
@@ -51,7 +51,7 @@ public class AdminController {
 		User user = new User();
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("title", "New User");
-		modelAndView.setViewName("/admin/userform");
+		modelAndView.setViewName("admin/userform");
 		return modelAndView;
 	}
 
@@ -69,7 +69,7 @@ public class AdminController {
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("title", "New User");
-			modelAndView.setViewName("/admin/userform");
+			modelAndView.setViewName("admin/userform");
 		} else {
 			Role userRole = roleRepository.findByRole("USER");
 
@@ -94,7 +94,7 @@ public class AdminController {
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("page", currentPage + 1);
 			modelAndView.addObject("title", "User Administration");
-			modelAndView.setViewName("/admin/users");
+			modelAndView.setViewName("admin/users");
 		}
 		return modelAndView;
 	}
@@ -105,7 +105,7 @@ public class AdminController {
 		User user = userService.findUserById(id);
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("title", "Edit User");
-		modelAndView.setViewName("/admin/usereditform");
+		modelAndView.setViewName("admin/usereditform");
 		return modelAndView;
 	}
 
@@ -114,7 +114,7 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (bindingResult.hasErrors()) {
 			modelAndView.addObject("title", "Edit User");
-			modelAndView.setViewName("/admin/usereditform");
+			modelAndView.setViewName("admin/usereditform");
 		} else {
 			User updatedUser = userService.findUserById(user.getId());
 			updatedUser.setFirstName(user.getFirstName());
@@ -133,7 +133,7 @@ public class AdminController {
 			modelAndView.addObject("title", "User Administration");
 			modelAndView.addObject("totalPages", totalPages);
 			modelAndView.addObject("page", 1);
-			modelAndView.setViewName("/admin/users");
+			modelAndView.setViewName("admin/users");
 		}
 		return modelAndView;
 	}
@@ -153,7 +153,7 @@ public class AdminController {
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "User Administration");
-		modelAndView.setViewName("/admin/users");
+		modelAndView.setViewName("admin/users");
 		return modelAndView;
 	}
 
@@ -183,7 +183,7 @@ public class AdminController {
 		modelAndView.addObject("totalPages", totalPages);
 		modelAndView.addObject("page", 1);
 		modelAndView.addObject("title", "User Administration");
-		modelAndView.setViewName("/admin/users");
+		modelAndView.setViewName("admin/users");
 		return modelAndView;
 	}
 }

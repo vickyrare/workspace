@@ -67,7 +67,7 @@ public class SearchController {
         modelAndView.addObject("keyword", keyword);
         modelAndView.addObject("title", "User Administration");
         modelAndView.addObject("url", "/searchUser/?keyword=" + keyword + "&page=");
-        modelAndView.setViewName("/admin/users");
+        modelAndView.setViewName("admin/users");
 
         return modelAndView;
     }
