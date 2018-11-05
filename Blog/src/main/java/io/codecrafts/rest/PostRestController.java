@@ -8,7 +8,6 @@ import io.codecrafts.rest.annotations.RestApiController;
 import io.codecrafts.service.PostService;
 import io.codecrafts.service.UserService;
 import io.codecrafts.util.Util;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
