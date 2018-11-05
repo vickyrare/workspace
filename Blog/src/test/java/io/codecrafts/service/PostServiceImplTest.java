@@ -6,7 +6,6 @@ import io.codecrafts.model.User;
 import io.codecrafts.repository.PostRepository;
 import io.codecrafts.repository.RoleRepository;
 import io.codecrafts.repository.UserRepository;
-import javafx.geometry.Pos;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
