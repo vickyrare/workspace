@@ -31,7 +31,7 @@
 										<td>
 											<img th:src="@{'/uploads/' + ${post.getUser().getId()} + '/' + ${post.getUser().getProfilePicture()}}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
 											<figcaption class="figure-caption text-center"><small th:text="${post.getUser().getFirstName() + ' ' + post.getUser().getLastName()}">John Doe</small></figcaption>
-											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(new java.util.Date(post.getCreationDate()), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
+											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(post.getCreationDate(), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
 										</td>
 									</tr>
 								</table>
@@ -55,7 +55,7 @@
 										<td>
 											<img th:src="@{'/uploads/' + ${comment.getUser().getId()} + '/' + ${comment.getUser().getProfilePicture()}}" alt="Avatar" class="img-responsive center-block" width="100" height="100">
 											<figcaption class="figure-caption text-center"><small th:text="${comment.getUser().getFirstName() + ' ' + comment.getUser().getLastName()}">John Doe</small></figcaption>
-											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(new java.util.Date(comment.getPostDate()), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
+											<figcaption class="figure-caption text-center"><small th:text="${#dates.format(comment.getPostDate(), 'yyyy-MM-dd HH:mm:ss')}">2018-02-28 19:21:27</small></figcaption>
 										</td>
 									</tr>
 								</table>
