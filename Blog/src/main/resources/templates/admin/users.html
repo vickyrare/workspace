@@ -45,7 +45,7 @@
 							<td th:text="${user.getFirstName()}">Michael</td>
 							<td th:text="${user.getLastName()}">Clarke</td>
 							<td th:text="${user.getEmail()}">jim@gmail.com</td>
-							<td th:text="${#dates.format(new java.util.Date(user.getCreationDate()), 'yyyy-MM-dd')}">2018-02-28</td>
+							<td th:text="${#dates.format(user.getCreationDate(), 'yyyy-MM-dd')}">2018-02-28</td>
 							<td><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/edit'}"><span class="glyphicon glyphicon-edit"></span>Edit</a></td>
 							<td th:if="${user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/disable'}"><span class="glyphicon glyphicon-ban-circle"></span>Disable</a></td>
 							<td th:if="${!user.isActive()}"><a href="#" th:href="@{'/admin/users/' + ${user.id} + '/enable'}"><span class="glyphicon glyphicon-ok-sign"></span>Enable</a></td>
