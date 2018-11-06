@@ -60,45 +60,40 @@ public class SettingsController {
 		User loggedInUser = userService.findUserByEmail(authentication.getName());
 		modelAndView.addObject("user", loggedInUser);
 
-		if (bindingResult.hasErrors()) {
-			modelAndView.addObject("title", "Settings");
-			modelAndView.setViewName("settings");
-		} else {
-			User updatedUser = null;
-			if(user.getEmail().equals(loggedInUser.getEmail())) {
-				updatedUser = userService.findUserByEmail(user.getEmail());
-				updatedUser.setFirstName(user.getFirstName());
-				updatedUser.setLastName(user.getLastName());
-				updatedUser.setPassword(user.getPassword());
+		User updatedUser = null;
+		if(user.getEmail().equals(loggedInUser.getEmail())) {
+			updatedUser = userService.findUserByEmail(user.getEmail());
+			updatedUser.setFirstName(user.getFirstName());
+			updatedUser.setLastName(user.getLastName());
+			updatedUser.setPassword(user.getPassword());
 
-				String previousProfilePictureName = null;
-				if(!file.getOriginalFilename().isEmpty()) {
-					storageService.store(file);
-					previousProfilePictureName = updatedUser.getProfilePicture();
-					updatedUser.setProfilePicture(file.getOriginalFilename());
-				}
-
-				userService.saveUser(updatedUser);
-				File dir = new File(uploadDirectoryPath.toFile(), updatedUser.getId().toString());
-				modelAndView.addObject("user", updatedUser);
-
-				if(!file.getOriginalFilename().isEmpty()) {
-					//remove previous profile picture
-					File previousProfilePicture = new File(dir, previousProfilePictureName);
-					if (previousProfilePicture.exists()) {
-						previousProfilePicture.delete();
-					}
-
-					file.transferTo(new File(dir, file.getOriginalFilename()));
-				}
-				modelAndView.addObject("successMessage", "User settings has been changed successfully");
+			String previousProfilePictureName = null;
+			if(!file.getOriginalFilename().isEmpty()) {
+				storageService.store(file);
+				previousProfilePictureName = updatedUser.getProfilePicture();
+				updatedUser.setProfilePicture(file.getOriginalFilename());
 			}
 
-			List<Post> posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
-			modelAndView.addObject("posts", posts);
-			modelAndView.addObject("title", "Posts");
-			modelAndView.setViewName("posts");
+			userService.saveUser(updatedUser);
+			File dir = new File(uploadDirectoryPath.toFile(), updatedUser.getId().toString());
+			modelAndView.addObject("user", updatedUser);
+
+			if(!file.getOriginalFilename().isEmpty()) {
+				//remove previous profile picture
+				File previousProfilePicture = new File(dir, previousProfilePictureName);
+				if (previousProfilePicture.exists()) {
+					previousProfilePicture.delete();
+				}
+
+				file.transferTo(new File(dir, file.getOriginalFilename()));
+			}
+			modelAndView.addObject("successMessage", "User settings has been changed successfully");
 		}
+
+		List<Post> posts = postService.findAllInRange(0, Util.ITEMS_PER_PAGE);
+		modelAndView.addObject("posts", posts);
+		modelAndView.addObject("title", "Posts");
+		modelAndView.setViewName("posts");
 		return modelAndView;
 	}
 }
