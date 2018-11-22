@@ -46,7 +46,7 @@ public class AdminControllerTest {
     public void testUserAdministrationIndexPage() throws Exception{
         this.mockMvc.perform(get("/admin/users"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/users"))
+                .andExpect(view().name("admin/users"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("User Administration")))
                 .andExpect(content().string(Matchers.containsString("<td>79a5bd3f-1ec2-46cf-94b6-8ac23df3f3c9</td>\n" +
@@ -67,7 +67,7 @@ public class AdminControllerTest {
     public void testAdminTriesToDisableAUser() throws Exception{
         this.mockMvc.perform(get("/admin/users/" + "f9d98297-9db9-41a3-86e6-25ab0480fcd8" + "/disable"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/users"))
+                .andExpect(view().name("admin/users"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("User Administration")))
                 .andExpect(content().string(Matchers.containsString("/admin/users/f9d98297-9db9-41a3-86e6-25ab0480fcd8/enable")));
@@ -85,7 +85,7 @@ public class AdminControllerTest {
     public void testAdminTriesToEnableAUser() throws Exception{
         this.mockMvc.perform(get("/admin/users/" + "a9d98297-9db9-41a3-86e6-25ab0480fcd8" + "/enable"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("/admin/users"))
+                .andExpect(view().name("admin/users"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("User Administration")))
                 .andExpect(content().string(Matchers.containsString("/admin/users/a9d98297-9db9-41a3-86e6-25ab0480fcd8/disable")));
