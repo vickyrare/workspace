@@ -76,7 +76,7 @@ public class SettingsControllerTest {
                 .andExpect(MockMvcResultMatchers.model().attributeExists("title"))
                 .andExpect(MockMvcResultMatchers.model().attribute("title", is("Posts")))
                 .andExpect(content().string(Matchers.containsString("Omair")))
-                .andExpect(content().string(Matchers.containsString("login.jpg")));
+                .andExpect(content().string(Matchers.containsString("avatar.png")));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class SettingsControllerTest {
     }
 
     private MockMultipartFile getMockMultipartFile() throws IOException {
-        Resource resource = new ClassPathResource("/static/images/login.jpg");
+        Resource resource = new ClassPathResource("/static/images/avatar.png");
         File file = resource.getFile();
         FileInputStream fileInputStream = new FileInputStream(file);
         return new MockMultipartFile("file", file.getName(), "multipart/form-data", fileInputStream);
