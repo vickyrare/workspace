@@ -1,11 +1,17 @@
 # Blog
 
-Similiar project than https://github.com/gustavoponce7/SpringSecurityLoginTutorial but this code implements the UserDetailsService as authentication strategy.
-
-1. mvn clean
-2. mvn clean install
-3. Go to the target folder
-4. java -jar blog-0.0.1-SNAPSHOT.jar
+###Maven setup
+1. mvn clean install
+2. java -jar target/blog-0.0.1-SNAPSHOT.jar
+3. Or
+4. mvn spring-boot:run 
 
 - http://localhost:8080/registration
 - http://localhost:8080/login
+
+###Docker setup
+1. Set spring.profiles.active=docker in Blog/src/main/resources/config/application.properties file
+2. Go to workspace folder and type docker-compose up
+
+- http://localhost/registration
+- http://localhost/login
