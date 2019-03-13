@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'Jetty_Soap_Rest'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http-jetty', version: '2.3.1'
+    compile group: 'org.apache.cxf', name: 'cxf-rt-transports-http', version: '2.3.1'
+    compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxrs', version: '2.3.1'
+    compile group: 'org.apache.cxf', name: 'cxf-rt-frontend-jaxws', version: '2.3.1'
+    compile group: 'org.apache.cxf', name: 'cxf-rt-core', version: '2.3.1'
+    compile group: 'javax.ws.rs', name: 'jsr311-api', version: '1.1.1'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.3.1'
+}
