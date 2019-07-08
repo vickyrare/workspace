@@ -1,14 +1,11 @@
 package io.codecrafts.configuration;
 
-import io.codecrafts.model.Role;
-import io.codecrafts.model.User;
 import io.codecrafts.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -17,10 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.codecrafts.configuration.SecurityConstants.HEADER_STRING;
 import static io.codecrafts.configuration.SecurityConstants.SECRET;
@@ -58,25 +53,27 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody();
 
-            Set<Role> roles = (Set<Role>)claims.get("roles");
-
+            String roles [] = claims.get("roles").toString().split(",");
+            final Collection authorities =
+                    Arrays.stream(claims.get("roles").toString().split(","))
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+            authorities.clear();
+            for(String role: roles) {
+                role = role.replace("authority=", "");
+                role = role.replace("{", "");
+                role = role.replace("}", "");
+                role = role.replace("[", "");
+                role = role.replace("]", "");
+                ((List) authorities).add(new SimpleGrantedAuthority("ROLE_" +  role.trim()));
+            }
             // Extract the UserName
             String user = claims.getSubject();
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, getUserAuthority(roles));
+                return new UsernamePasswordAuthenticationToken(user, null, authorities);
             }
             return null;
         }
         return null;
-    }
-
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
-        Set<GrantedAuthority> roles = new HashSet<GrantedAuthority>();
-        for (Role role : userRoles) {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
-        }
-
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(roles);
-        return grantedAuthorities;
     }
 }

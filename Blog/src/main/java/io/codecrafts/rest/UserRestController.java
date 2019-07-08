@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,6 +33,8 @@ public class UserRestController {
 
     @GetMapping(value = "/users")
     public ResponseEntity<List<User>> listAllUsers(@RequestParam(defaultValue = "1")int page) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = userService.findUserByEmail(auth.getName());
         List<User> users = userService.findAllInRange(page - 1, Util.ITEMS_PER_PAGE);
         if (users.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -83,6 +88,7 @@ public class UserRestController {
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = "/users/{userId}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
         User user = userService.findUserById(userId);
