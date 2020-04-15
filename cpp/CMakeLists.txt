@@ -8,7 +8,10 @@ set(BOOST_LIBRARYDIR "C:/local/boost_1_58_0/stage/lib")
 add_executable(Bind Bind.cpp)
 add_executable(CRTP CRTP.cpp)
 
-find_package(Boost 1.58.0)
+add_executable(SmartPointer smart_pointers/SmartPointer.cpp)
+add_executable(UniquePointer smart_pointers/UniquePointer.cpp)
+
+find_package(Boost 1.72.0)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
     link_directories(${Boost_LIBRARY_DIRS})
