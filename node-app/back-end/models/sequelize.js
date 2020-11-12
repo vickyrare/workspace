@@ -37,7 +37,12 @@ PostMessage.belongsTo(User, {foreignKey: 'to_id'})
 sequelize.sync({force: false})
   .then(() => {
     console.log(`Database & tables created!`)
-    initial()
+    Role.findAll().
+    then(role=> {
+      if (role.length == 0) {
+        initial()
+      }
+    })
   })
 
 function initial() {
@@ -51,6 +56,91 @@ function initial() {
 
   Role.create({
     role_name: "admin"
+  });
+
+  User.create({
+    first_name: 'User',
+    last_name: 'One',
+    email: 'user@one.com',
+    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    active: true,
+    role_id: 1
+  });
+
+  User.create({
+    first_name: 'User',
+    last_name: 'Two',
+    email: 'user@two.com',
+    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    active: true,
+    role_id: 3
+  });
+
+  User.create({
+    first_name: 'User',
+    last_name: 'Three',
+    email: 'user@three.com',
+    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    active: true,
+    role_id: 1
+  });
+
+  User.create({
+    first_name: 'User',
+    last_name: 'Four',
+    email: 'user@four.com',
+    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    active: true,
+    role_id: 1
+  });
+
+  User.create({
+    first_name: 'User',
+    last_name: 'Five',
+    email: 'user@five.com',
+    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    active: true,
+    role_id: 1
+  });
+
+  Post.create({
+    user_id: 1,
+    content: 'XBox games for sale',
+    active: true,
+  });
+
+  Post.create({
+    user_id: 2,
+    content: 'Playstation games for sale',
+    active: true,
+  });
+
+  PostMessage.create({
+    post_id: 1,
+    from_id: 2,
+    to_id: 1,
+    message: 'Is price negotiable?'
+  });
+
+  PostMessage.create({
+    post_id: 1,
+    from_id: 1,
+    to_id: 2,
+    message: 'Yes. What\'s your offer?'
+  });
+
+  PostMessage.create({
+    post_id: 1,
+    from_id: 3,
+    to_id: 1,
+    message: 'Still available?'
+  });
+
+  PostMessage.create({
+    post_id: 1,
+    from_id: 1,
+    to_id: 3,
+    message: 'Yes.'
   });
 }
 module.exports = {

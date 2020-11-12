@@ -16,7 +16,7 @@ router.get('/api/posts', postController.getPosts);
 router.put('/api/posts/:postId', userController.allowIfLoggedin, postController.updatePost);
 router.get('/api/posts/user/:userid', postController.getPostsForUser);
 router.post('/api/posts/messages', userController.allowIfLoggedin, postController.createMessageForPost);
-router.get('/api/posts/messages/:postid/:sellerid/:buyerid', userController.allowIfLoggedin, postController.getPostMessagesBySeller);
+router.get('/api/posts/messages/:postid/:buyerid', userController.allowIfLoggedin, postController.getPostMessagesByBuyer);
 router.delete('/api/posts/:id', userController.allowIfLoggedin, postController.deletePost);
 
 module.exports = router;

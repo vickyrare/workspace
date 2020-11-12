@@ -1,5 +1,6 @@
 const { Post } = require('../models/sequelize')
 const { PostMessage } = require('../models/sequelize')
+const { getPagination} = require('../utils/pagination');
 
 const { roles } = require('../roles')
 
@@ -43,9 +44,22 @@ exports.getPost = (req, res) => {
 }
 
 exports.getPosts = (req, res) => {
-    Post.findAll()
-      .then(posts => res.json(posts))
-      .catch(err => res.sendStatus(403))
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size)
+  console.log(limit)
+  console.log(offset)
+  Post.findAndCountAll({
+    order: [
+      ['post_id', 'DESC'],
+    ],
+    limit: limit,
+    offset: offset,
+  })
+    .then(posts => {
+      const response = getPagingData(posts, page, limit);
+      res.send(response);
+    })
+    .catch(err => res.sendStatus(403))
 }
 
 exports.updatePost = (req, res, next) => {
@@ -81,7 +95,9 @@ exports.updatePost = (req, res, next) => {
           });
         }
       } else {
-        res.sendStatus(404, 'Post with post_id ' + post_id + 'not found')
+        res.status(404).json({
+          error: 'Post with post_id ' + post_id + 'not found'
+        });
       }
     }).catch(err => res.sendStatus(500, 'Server error'))
   } catch (error) {
@@ -90,16 +106,24 @@ exports.updatePost = (req, res, next) => {
 }
 
 exports.getPostsForUser = (req, res) => {
+  const { page, size } = req.query;
+  const { limit, offset } = getPagination(page, size);
   const user_id = req.params.userid;
-  Post.findAll({
+  Post.findAndCountAll({
     where: {
-      user_id: user_id
-    }
+      user_id: user_id,
+    },
+    limit: limit,
+    offset: offset,
+
   }).then(posts => {
     if (posts) {
-      res.json(posts)
+      const response = getPagingData(posts, page, limit,);
+      res.send(response);
     } else {
-      res.sendStatus(404, 'No posts for user_id ' + user_id + 'were found')
+      res.status(404).json({
+        error: 'No posts for user_id ' + user_id + 'were found'
+      });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
 }
@@ -122,26 +146,43 @@ exports.createMessageForPost = (req, res) => {
         .then(post_message => res.sendStatus(200, post_message))
         .catch(err => res.sendStatus(500, 'Server error'))
     } else {
-      res.sendStatus(404, 'Post with post_id ' + post_id + 'not found')
+      res.status(404).json({
+        error: 'Post with post_id ' + post_id + 'not found'
+      });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
 }
 
-exports.getPostMessagesBySeller=  (req, res) => {
+exports.getPostMessagesByBuyer = (req, res) => {
   const post_id = req.params.postid;
-  const from_id = req.params.sellerid;
   const to_id = req.params.buyerid;
-  PostMessage.findAll({
+  Post.findOne({
     where: {
-      post_id: post_id,
-      from_id: [from_id, to_id],
-      to_id: [from_id, to_id],
+      post_id: post_id
     }
-  }).then(post_messages => {
-    if (post_messages) {
-      res.json(post_messages)
+  }).then(post => {
+    console.log(post)
+    if (post) {
+      const from_id = post.user_id;
+      PostMessage.findAll({
+        where: {
+          post_id: post_id,
+          from_id: [from_id, to_id],
+          to_id: [from_id, to_id],
+        }
+      }).then(post_messages => {
+        if (post_messages.length > 0) {
+          res.json(post_messages)
+        } else {
+          res.status(404).json({
+            error: 'No message for post_id ' + post_id + ' were found'
+          });
+        }
+      }).catch(err => res.sendStatus(500, 'Server error'))
     } else {
-      res.sendStatus(404, 'No message for post_id ' + post_id + 'were found')
+      res.status(404).json({
+        error: 'Post with post_id ' + post_id + ' not found'
+      });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
 }
@@ -156,9 +197,23 @@ exports.deletePost = (req, res) => {
     if (post) {
       post.destroy()
         .then(post=> res.sendStatus(200))
-        .catch(err => res.sendStatus(500, 'Server error'))
+        .catch(err => {
+          res.status(404).json({
+            error: 'Server error'
+          })
+        });
     } else {
-      res.sendStatus(404, 'Post with id ' + post_id + 'not found')
+      res.status(404).json({
+        error: 'Post with post_id ' + post_id + ' not found'
+      });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
 }
+
+const getPagingData = (data, page, limit) => {
+  const { count: totalItems, rows: posts } = data;
+  const currentPage = page ? +page : 0;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  return { posts, totalItems, totalPages, currentPage };
+};
