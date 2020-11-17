@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 const {User} = require('../models/sequelize')
-const { getPagination} = require('../utils/pagination');
+const {getPagination} = require('../utils/pagination');
 
 // Add this to the top of the file
 const {roles} = require('../roles')
@@ -38,7 +38,7 @@ exports.allowIfLoggedin = async (req, res, next) => {
 }
 
 exports.signup = (req, res) => {
-  let {first_name, last_name, email, password } = req.body;
+  let {first_name, last_name, email, password} = req.body;
   User.findOne({
     where: {
       email: email
@@ -50,22 +50,20 @@ exports.signup = (req, res) => {
       });
     } else {
       let active = true;
-      bcrypt.hash(password, saltRounds, function (err, hash_password) {
-        User.create({
-          first_name,
-          last_name,
-          email,
-          password: hash_password,
-          active,
-          role_id: 1
-        })
-          .then(user => res.sendStatus(200, user))
-          .catch(err => {
-            res.status(500).json({
-              error: 'Server error'
-            })
-          });
-      });
+      User.create({
+        first_name,
+        last_name,
+        email,
+        password,
+        active,
+        role_id: 1
+      })
+        .then(user => res.sendStatus(200, user))
+        .catch(err => {
+          res.status(500).json({
+            error: err.errors[0].message
+          })
+        });
     }
   }).catch(err => {
     res.status(500).json({
@@ -132,8 +130,8 @@ exports.getUser = (req, res) => {
 }
 
 exports.getUsers = (req, res) => {
-  const { page, size } = req.query;
-  const { limit, offset } = getPagination(page, size);
+  const {page, size} = req.query;
+  const {limit, offset} = getPagination(page, size);
   User.findAndCountAll({
     order: [
       ['user_id', 'ASC'],
@@ -181,9 +179,9 @@ exports.updateUser = (req, res, next) => {
 }
 
 const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: users } = data;
+  const {count: totalItems, rows: users} = data;
   const currentPage = page ? +page : 0;
   const totalPages = Math.ceil(totalItems / limit);
 
-  return { users, totalItems, totalPages, currentPage };
+  return {users, totalItems, totalPages, currentPage};
 };

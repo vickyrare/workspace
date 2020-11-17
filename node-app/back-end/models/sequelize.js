@@ -34,7 +34,7 @@ PostMessage.belongsTo(Post, {foreignKey: 'post_id'})
 PostMessage.belongsTo(User, {foreignKey: 'from_id'})
 PostMessage.belongsTo(User, {foreignKey: 'to_id'})
 
-sequelize.sync({force: false})
+sequelize.sync({force: true})
   .then(() => {
     console.log(`Database & tables created!`)
     Role.findAll().
@@ -45,98 +45,98 @@ sequelize.sync({force: false})
     })
   })
 
-function initial() {
-  Role.create({
+async function initial() {
+  await Role.create({
     role_name: "user"
   });
 
-  Role.create({
+  await Role.create({
     role_name: "moderator"
   });
 
-  Role.create({
+  await Role.create({
     role_name: "admin"
   });
 
-  User.create({
+  await User.create({
     first_name: 'User',
     last_name: 'One',
     email: 'user@one.com',
-    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    password: '123456',
     active: true,
     role_id: 1
   });
 
-  User.create({
+  await User.create({
     first_name: 'User',
     last_name: 'Two',
     email: 'user@two.com',
-    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    password: '123456',
     active: true,
     role_id: 3
   });
 
-  User.create({
+  await User.create({
     first_name: 'User',
     last_name: 'Three',
     email: 'user@three.com',
-    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    password: '123456',
     active: true,
     role_id: 1
   });
 
-  User.create({
+  await User.create({
     first_name: 'User',
     last_name: 'Four',
     email: 'user@four.com',
-    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    password: '123456',
     active: true,
     role_id: 1
   });
 
-  User.create({
+  await User.create({
     first_name: 'User',
     last_name: 'Five',
     email: 'user@five.com',
-    password: '$2b$10$T9FfL0OpYopTkGhG4MJJLuvnIznozgmw2zZMBC43ZisInaLnmIpz2',
+    password: '123456',
     active: true,
     role_id: 1
   });
 
-  Post.create({
+  await Post.create({
     user_id: 1,
     content: 'XBox games for sale',
     active: true,
   });
 
-  Post.create({
+  await Post.create({
     user_id: 2,
     content: 'Playstation games for sale',
     active: true,
   });
 
-  PostMessage.create({
+  await PostMessage.create({
     post_id: 1,
     from_id: 2,
     to_id: 1,
     message: 'Is price negotiable?'
   });
 
-  PostMessage.create({
+  await PostMessage.create({
     post_id: 1,
     from_id: 1,
     to_id: 2,
     message: 'Yes. What\'s your offer?'
   });
 
-  PostMessage.create({
+  await PostMessage.create({
     post_id: 1,
     from_id: 3,
     to_id: 1,
     message: 'Still available?'
   });
 
-  PostMessage.create({
+  await PostMessage.create({
     post_id: 1,
     from_id: 1,
     to_id: 3,
