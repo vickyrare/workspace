@@ -5,7 +5,8 @@ const { getPagination} = require('../utils/pagination');
 const { roles } = require('../roles')
 
 exports.createPost = (req, res) => {
-  let { user_id, content } = req.body;
+  let { content } = req.body;
+  let user_id = res.locals.loggedInUser.user_id
   Post.findOne({
     where: {
       user_id: user_id,
@@ -13,7 +14,9 @@ exports.createPost = (req, res) => {
     }
   }).then(post => {
     if (post) {
-      res.sendStatus(409, 'Post with content already exist')
+      res.status(409).json({
+        error: 'Post with content already exist'
+      });
     } else {
       let active = true;
       Post.create({
@@ -21,7 +24,11 @@ exports.createPost = (req, res) => {
         content: content,
         active: active
       })
-        .then(post => res.sendStatus(200, post))
+        .then(post => {
+          res.json({
+            post
+          });
+        })
         .catch(err => res.sendStatus(500, 'Server error'))
 
     }
@@ -38,7 +45,9 @@ exports.getPost = (req, res) => {
     if (post) {
       res.json(post)
     } else {
-      res.sendStatus(404, 'Post with post_id ' + post_id + 'not found')
+      res.status(404).json({
+        error: 'Post with post_id ' + post_id + ' not found'
+      });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
 }
@@ -46,8 +55,6 @@ exports.getPost = (req, res) => {
 exports.getPosts = (req, res) => {
   const { page, size } = req.query;
   const { limit, offset } = getPagination(page, size)
-  console.log(limit)
-  console.log(offset)
   Post.findAndCountAll({
     order: [
       ['post_id', 'DESC'],
@@ -71,7 +78,6 @@ exports.updatePost = (req, res, next) => {
         post_id: postId
       }
     }).then(post => {
-      console.log('ok here')
       if (post) {
         const userId = post.user_id;
         const permission = roles.can(req.user.role).readOwn('posts');
@@ -91,7 +97,7 @@ exports.updatePost = (req, res, next) => {
         } else {
           // resource is forbidden for this user/role
           res.status(401).json({
-            error: "You don't have enough permission to perform this action"
+            error: 'You don\'t have enough permission to perform this action'
           });
         }
       } else {
@@ -122,7 +128,7 @@ exports.getPostsForUser = (req, res) => {
       res.send(response);
     } else {
       res.status(404).json({
-        error: 'No posts for user_id ' + user_id + 'were found'
+        error: 'No posts for user_id ' + user_id + ' were found'
       });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
@@ -147,7 +153,7 @@ exports.createMessageForPost = (req, res) => {
         .catch(err => res.sendStatus(500, 'Server error'))
     } else {
       res.status(404).json({
-        error: 'Post with post_id ' + post_id + 'not found'
+        error: 'Post with post_id ' + post_id + ' not found'
       });
     }
   }).catch(err => res.sendStatus(500, 'Server error'))
@@ -161,7 +167,6 @@ exports.getPostMessagesByBuyer = (req, res) => {
       post_id: post_id
     }
   }).then(post => {
-    console.log(post)
     if (post) {
       const from_id = post.user_id;
       PostMessage.findAll({
