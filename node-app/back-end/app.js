@@ -1,5 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+require ('custom-env').env('dev')
 
 // Database
 const db = require('./config/database');
