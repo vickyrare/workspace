@@ -1,11 +1,11 @@
-const { Post } = require('../models/sequelize')
-const { PostMessage } = require('../models/sequelize')
-const { getPagination} = require('../utils/pagination');
+const {Post} = require('../models/sequelize')
+const {PostMessage} = require('../models/sequelize')
+const {getPagination} = require('../utils/pagination');
 
-const { roles } = require('../roles')
+const {roles} = require('../roles')
 
 exports.createPost = (req, res) => {
-  let { content } = req.body;
+  let {content} = req.body;
   let user_id = res.locals.loggedInUser.user_id
   Post.findOne({
     where: {
@@ -53,8 +53,8 @@ exports.getPost = (req, res) => {
 }
 
 exports.getPosts = (req, res) => {
-  const { page, size } = req.query;
-  const { limit, offset } = getPagination(page, size)
+  const {page, size} = req.query;
+  const {limit, offset} = getPagination(page, size)
   Post.findAndCountAll({
     order: [
       ['post_id', 'DESC'],
@@ -93,7 +93,7 @@ exports.updatePost = (req, res, next) => {
           ).then(post => res.status(200).json({
             post,
             message: 'Post has been updated'
-          })).catch(err=> res.sendStatus(500, 'Server error'))
+          })).catch(err => res.sendStatus(500, 'Server error'))
         } else {
           // resource is forbidden for this user/role
           res.status(401).json({
@@ -112,8 +112,8 @@ exports.updatePost = (req, res, next) => {
 }
 
 exports.getPostsForUser = (req, res) => {
-  const { page, size } = req.query;
-  const { limit, offset } = getPagination(page, size);
+  const {page, size} = req.query;
+  const {limit, offset} = getPagination(page, size);
   const user_id = req.params.userid;
   Post.findAndCountAll({
     where: {
@@ -135,7 +135,7 @@ exports.getPostsForUser = (req, res) => {
 
 exports.createMessageForPost = (req, res) => {
   let from_id = res.locals.loggedInUser.user_id;
-  let { post_id, to_id, message } = req.body;
+  let {post_id, to_id, message} = req.body;
   Post.findOne({
     where: {
       post_id: post_id
@@ -200,7 +200,7 @@ exports.deletePost = (req, res) => {
   }).then(post => {
     if (post) {
       post.destroy()
-        .then(post=> res.sendStatus(200))
+        .then(post => res.sendStatus(200))
         .catch(err => {
           res.status(404).json({
             error: 'Server error'
@@ -215,9 +215,9 @@ exports.deletePost = (req, res) => {
 }
 
 const getPagingData = (data, page, limit) => {
-  const { count: totalItems, rows: posts } = data;
+  const {count: totalItems, rows: posts} = data;
   const currentPage = page ? +page : 0;
   const totalPages = Math.ceil(totalItems / limit);
 
-  return { posts, totalItems, totalPages, currentPage };
+  return {posts, totalItems, totalPages, currentPage};
 };

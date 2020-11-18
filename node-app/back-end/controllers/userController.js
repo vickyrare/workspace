@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
-const saltRounds = 10;
 const {User} = require('../models/sequelize')
 const {Role} = require('../models/sequelize')
 const {getPagination} = require('../utils/pagination');
@@ -85,13 +84,31 @@ exports.login = (req, res) => {
       bcrypt.compare(req.body.password, user.password, function (err, result) {
         if (result == true) {
           jwt.sign({userId: user.user_id}, process.env.SECRET_KEY, {expiresIn: '30m'}, (err, token) => {
-            res.json({
-              first_name: user.first_name,
-              email: user.email,
-              last_name: user.last_name,
-              role: user.role,
-              token
-            });
+            const first_name = user.first_name
+            const email = user.email
+            const last_name = user.last_name
+            const role = user.role
+
+            // insert access_token in the database
+            User.update({
+                access_token: token
+              }, {
+                where: {
+                  user_id: user.user_id
+                }
+              }
+            ).then(user => {
+              res.json({
+                first_name: first_name,
+                email: email,
+                last_name: last_name,
+                role: role,
+                token
+              });
+            }).catch(err => {
+              console.log(err)
+              res.sendStatus(500, 'Server error')
+            })
           });
         } else {
           res.status(401).json({
@@ -108,6 +125,24 @@ exports.login = (req, res) => {
     res.status(500).json({
       error: 'Server error'
     })
+  })
+}
+
+exports.logout = (req, res) => {
+  User.update({
+      access_token: ''
+    }, {
+      where: {
+        user_id: res.locals.loggedInUser.user_id
+      }
+    }
+  ).then(user => {
+    res.json({
+      message: 'Logout successfully'
+    });
+  }).catch(err => {
+    console.log(err)
+    res.sendStatus(500, 'Server error')
   })
 }
 

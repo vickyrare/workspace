@@ -10,7 +10,7 @@ module.exports = (sequelize, type) => {
     role_name: {
       type: Sequelize.STRING
     },
-  }, { underscored: true, timestamps: false});
+  }, {underscored: true, timestamps: false});
 
   return Role
 };

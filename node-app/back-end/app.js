@@ -1,25 +1,25 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-require ('custom-env').env('dev')
+require('custom-env').env('dev')
 
 // Database
 const db = require('./config/database');
 
 // Test DB
 db.authenticate()
-    .then(() => console.log('Database connected...'))
-    .catch(err => console.log('Error: ' + err))
+  .then(() => console.log('Database connected...'))
+  .catch(err => console.log('Error: ' + err))
 
 const app = express();
 
 var bodyParser = require('body-parser');
 
-const { User } = require('./models/sequelize')
+const {User} = require('./models/sequelize')
 
-const { Role } = require('./models/sequelize')
+const {Role} = require('./models/sequelize')
 
 // Body Parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
   if (req.headers["x-access-token"]) {
@@ -27,12 +27,13 @@ app.use((req, res, next) => {
 
     jwt.verify(accessToken, process.env.SECRET_KEY, (err, authData) => {
       if (err) {
-        return res.status(401).json({error: "JWT token has expired, please login to obtain a new one"});
+        return res.status(401).json({error: 'JWT token has expired, please login to obtain a new one'});
       } else {
 
         User.findOne({
           where: {
-            user_id: authData.userId
+            user_id: authData.userId,
+            access_token: accessToken
           }
         }).then(user => {
           if (user) {
@@ -47,18 +48,18 @@ app.use((req, res, next) => {
                 next();
               }
             }).catch(err => {
-              return res.sendStatus(500, 'Server error')
+              return res.status(401).json({error: 'Server error'})
             })
           } else {
-            return res.sendStatus(401, 'Unauthorized')
+            return res.status(401).json({error: 'Unauthorized'})
           }
         }).catch(err => {
-          return res.sendStatus(500, 'Server error')
+          return res.status(500).json({error: 'Server error'})
         })
       }
     });
   } else {
-      next()
+    next()
   }
 });
 

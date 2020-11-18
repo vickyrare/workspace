@@ -13,7 +13,7 @@ module.exports = (sequelize, type) => {
     active: {
       type: Sequelize.BOOLEAN
     }
-  }, { underscored: true})
+  }, {underscored: true})
 
   return Post
 }

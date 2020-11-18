@@ -10,6 +10,6 @@ module.exports = (sequelize, type) => {
     message: {
       type: Sequelize.STRING
     }
-  }, { underscored: true})
+  }, {underscored: true})
   return PostMessage
 }

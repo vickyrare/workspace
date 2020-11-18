@@ -46,10 +46,15 @@ module.exports = (sequelize, type) => {
     active: {
       type: Sequelize.BOOLEAN
     },
+    access_token: {
+      type: Sequelize.STRING,
+      defaultValue: ''
+    },
   }, {
     hooks: {
-      afterValidate: function(user) {
-        user.password = bcrypt.hashSync(user.password, parseInt(process.env.SALT_LENGTH))
+      afterValidate: function (user) {
+        if (user.password != undefined)
+          user.password = bcrypt.hashSync(user.password, parseInt(process.env.SALT_LENGTH))
       }
     },
     underscored: true,
