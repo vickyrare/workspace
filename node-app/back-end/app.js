@@ -2,6 +2,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 require('custom-env').env('dev')
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const app = express();
 
 var bodyParser = require('body-parser');
