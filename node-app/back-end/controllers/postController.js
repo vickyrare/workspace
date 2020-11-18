@@ -121,7 +121,6 @@ exports.getPostsForUser = (req, res) => {
     },
     limit: limit,
     offset: offset,
-
   }).then(posts => {
     if (posts) {
       const response = getPagingData(posts, page, limit,);

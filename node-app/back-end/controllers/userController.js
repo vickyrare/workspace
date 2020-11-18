@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 const {User} = require('../models/sequelize')
+const {Role} = require('../models/sequelize')
 const {getPagination} = require('../utils/pagination');
 
 // Add this to the top of the file
@@ -77,7 +78,8 @@ exports.login = (req, res) => {
   User.findOne({
     where: {
       email: email
-    }
+    },
+    include: [Role]
   }).then(user => {
     if (user) {
       bcrypt.compare(req.body.password, user.password, function (err, result) {
@@ -87,7 +89,7 @@ exports.login = (req, res) => {
               first_name: user.first_name,
               email: user.email,
               last_name: user.last_name,
-              role: 'user',
+              role: user.role,
               token
             });
           });
@@ -111,8 +113,8 @@ exports.login = (req, res) => {
 
 exports.getUser = (req, res) => {
   const userId = req.params.userId;
-  const permission = roles.can(req.user.role).readOwn('users');
-  if (userId == res.locals.loggedInUser.user_id && permission.granted) {
+  let permission = roles.can(req.user.role).readOwn('users');
+  if (userId == res.locals.loggedInUser.user_id || res.locals.loggedInUser.role === 'admin' && permission.granted) {
     User.findOne({
       where: {
         user_id: userId,
@@ -136,17 +138,22 @@ exports.getUsers = (req, res) => {
     order: [
       ['user_id', 'ASC'],
     ],
+    include: [Role],
     limit: limit,
     offset: offset,
     attributes: {
-      exclude: ['password']
+      exclude: ['password', 'role_id']
     },
   })
     .then(users => {
-      const response = getPagingData(users, page, limit,);
+      const response = getPagingData(users, page, limit);
       res.send(response);
     })
-    .catch(err => res.sendStatus(403))
+    .catch(err => {
+      res.status(401).json({
+        error: "You don't have enough permission to perform this action"
+      });
+    })
 }
 
 exports.updateUser = (req, res, next) => {

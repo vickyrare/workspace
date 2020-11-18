@@ -27,7 +27,7 @@ const PostMessage = PostMessageModel(sequelize, Sequelize)
 User.hasMany(Post, {foreignKey: 'user_id'});
 Post.belongsTo(User, {foreignKey: 'user_id'});
 
-Role.hasOne(User, {foreignKey: 'role_id'})
+User.belongsTo(Role, {foreignKey: 'role_id'})
 
 Post.hasMany(PostMessage, {foreignKey: 'post_id'})
 PostMessage.belongsTo(Post, {foreignKey: 'post_id'})
@@ -37,8 +37,7 @@ PostMessage.belongsTo(User, {foreignKey: 'to_id'})
 sequelize.sync({force: true})
   .then(() => {
     console.log(`Database & tables created!`)
-    Role.findAll().
-    then(role=> {
+    Role.findAll().then(role => {
       if (role.length == 0) {
         initial()
       }
@@ -46,17 +45,18 @@ sequelize.sync({force: true})
   })
 
 async function initial() {
-  await Role.create({
-    role_name: "user"
-  });
 
-  await Role.create({
-    role_name: "moderator"
-  });
-
-  await Role.create({
-    role_name: "admin"
-  });
+  await Role.bulkCreate([
+    {
+      role_name: "user"
+    },
+    {
+      role_name: "moderator"
+    },
+    {
+      role_name: "admin"
+    }
+  ])
 
   await User.create({
     first_name: 'User',
@@ -103,46 +103,47 @@ async function initial() {
     role_id: 1
   });
 
-  await Post.create({
-    user_id: 1,
-    content: 'XBox games for sale',
-    active: true,
-  });
+  await Post.bulkCreate([
+    {
+      user_id: 1,
+      content: 'XBox games for sale',
+      active: true,
+    },
+    {
+      user_id: 2,
+      content: 'Playstation games for sale',
+      active: true,
+    }
+  ])
 
-  await Post.create({
-    user_id: 2,
-    content: 'Playstation games for sale',
-    active: true,
-  });
-
-  await PostMessage.create({
-    post_id: 1,
-    from_id: 2,
-    to_id: 1,
-    message: 'Is price negotiable?'
-  });
-
-  await PostMessage.create({
-    post_id: 1,
-    from_id: 1,
-    to_id: 2,
-    message: 'Yes. What\'s your offer?'
-  });
-
-  await PostMessage.create({
-    post_id: 1,
-    from_id: 3,
-    to_id: 1,
-    message: 'Still available?'
-  });
-
-  await PostMessage.create({
-    post_id: 1,
-    from_id: 1,
-    to_id: 3,
-    message: 'Yes.'
-  });
+  await PostMessage.bulkCreate([
+    {
+      post_id: 1,
+      from_id: 2,
+      to_id: 1,
+      message: 'Is price negotiable?'
+    },
+    {
+      post_id: 1,
+      from_id: 1,
+      to_id: 2,
+      message: 'Yes. What\'s your offer?'
+    },
+    {
+      post_id: 1,
+      from_id: 3,
+      to_id: 1,
+      message: 'Still available?'
+    },
+    {
+      post_id: 1,
+      from_id: 1,
+      to_id: 3,
+      message: 'Yes.'
+    }
+  ])
 }
+
 module.exports = {
   User,
   Post,
