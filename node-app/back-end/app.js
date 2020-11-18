@@ -2,14 +2,6 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 require('custom-env').env('dev')
 
-// Database
-const db = require('./config/database');
-
-// Test DB
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.log('Error: ' + err))
-
 const app = express();
 
 var bodyParser = require('body-parser');
