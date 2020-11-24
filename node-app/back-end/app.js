@@ -9,7 +9,13 @@ const app = express();
 
 var bodyParser = require('body-parser');
 
+const {sequelize} = require('./models/sequelize')
+
 const {User} = require('./models/sequelize')
+
+const {Post} = require('./models/sequelize')
+
+const {PostMessage} = require('./models/sequelize')
 
 const {Role} = require('./models/sequelize')
 
@@ -60,4 +66,117 @@ app.use((req, res, next) => {
 
 app.use('/', require('./routes/routes'));
 
-app.listen(5000, () => console.log('Server started on port 5000'));
+sequelize.sync({force: process.env.RECREATE_DATABASE})
+  .then(() => {
+    console.log(`Database & tables created!`)
+    initial()
+    app.on('databaseInitialized', () => {
+      app.listen(5000, function() {
+        console.log(`Express running on port 5000`);
+        app.emit('serverStarted');
+      });
+    });
+  })
+
+async function initial() {
+
+  await Role.bulkCreate([
+    {
+      role_name: "user"
+    },
+    {
+      role_name: "moderator"
+    },
+    {
+      role_name: "admin"
+    }
+  ])
+
+  await User.create({
+    first_name: 'User',
+    last_name: 'One',
+    email: 'user@one.com',
+    password: '123456',
+    active: true,
+    role_id: 1
+  });
+
+  await User.create({
+    first_name: 'User',
+    last_name: 'Two',
+    email: 'user@two.com',
+    password: '123456',
+    active: true,
+    role_id: 3
+  });
+
+  await User.create({
+    first_name: 'User',
+    last_name: 'Three',
+    email: 'user@three.com',
+    password: '123456',
+    active: true,
+    role_id: 1
+  });
+
+  await User.create({
+    first_name: 'User',
+    last_name: 'Four',
+    email: 'user@four.com',
+    password: '123456',
+    active: true,
+    role_id: 1
+  });
+
+  await User.create({
+    first_name: 'User',
+    last_name: 'Five',
+    email: 'user@five.com',
+    password: '123456',
+    active: true,
+    role_id: 1
+  });
+
+  await Post.bulkCreate([
+    {
+      user_id: 1,
+      content: 'XBox games for sale',
+      active: true,
+    },
+    {
+      user_id: 2,
+      content: 'Playstation games for sale',
+      active: true,
+    }
+  ])
+
+  await PostMessage.bulkCreate([
+    {
+      post_id: 1,
+      from_id: 2,
+      to_id: 1,
+      message: 'Is price negotiable?'
+    },
+    {
+      post_id: 1,
+      from_id: 1,
+      to_id: 2,
+      message: 'Yes. What\'s your offer?'
+    },
+    {
+      post_id: 1,
+      from_id: 3,
+      to_id: 1,
+      message: 'Still available?'
+    },
+    {
+      post_id: 1,
+      from_id: 1,
+      to_id: 3,
+      message: 'Yes.'
+    }
+  ])
+  app.emit('databaseInitialized');
+}
+
+module.exports = app;

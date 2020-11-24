@@ -70,7 +70,6 @@ exports.getPosts = (req, res) => {
 }
 
 exports.updatePost = (req, res, next) => {
-  try {
     const update = req.body
     const postId = req.params.postId;
     Post.findOne({
@@ -79,21 +78,22 @@ exports.updatePost = (req, res, next) => {
       }
     }).then(post => {
       if (post) {
-        const userId = post.user_id;
-        const permission = roles.can(req.user.role).readOwn('posts');
-        if (userId == res.locals.loggedInUser.user_id && permission.granted) {
+        const postUserId = post.user_id;
+        let permission = roles.can(req.user.role).updateAny('posts');
+        if (postUserId == res.locals.loggedInUser.user_id || permission.granted) {
           Post.update({
               content: update.content
             }, {
               where: {
-                post_id: postId,
-                user_id: res.locals.loggedInUser.user_id,
+                post_id: postId
               }
             }
           ).then(post => res.status(200).json({
             post,
             message: 'Post has been updated'
-          })).catch(err => res.sendStatus(500, 'Server error'))
+          })).catch(err => {
+            console.log(err)
+          })
         } else {
           // resource is forbidden for this user/role
           res.status(401).json({
@@ -102,13 +102,46 @@ exports.updatePost = (req, res, next) => {
         }
       } else {
         res.status(404).json({
-          error: 'Post with post_id ' + post_id + 'not found'
+          error: 'Post with post_id ' + postId + ' not found'
         });
       }
-    }).catch(err => res.sendStatus(500, 'Server error'))
-  } catch (error) {
-    next(error)
-  }
+    }).catch(err => {
+      console.log(err)
+    })
+}
+
+exports.deletePost = (req, res, next) => {
+  const update = req.body
+  const postId = req.params.postId;
+  Post.findOne({
+    where: {
+      post_id: postId
+    }
+  }).then(post => {
+    if (post) {
+      const postUserId = post.user_id;
+      let permission = roles.can(req.user.role).deleteAny('posts');
+      if (postUserId == res.locals.loggedInUser.user_id || permission.granted) {
+        post.destroy()
+          .then(post => res.status(200).json({
+           message: 'Post deleted successfully'
+        })).catch(err => {
+          console.log(err)
+        })
+      } else {
+        // resource is forbidden for this user/role
+        res.status(401).json({
+          error: 'You don\'t have enough permission to perform this action'
+        });
+      }
+    } else {
+      res.status(404).json({
+        error: 'Post with post_id ' + postId + ' not found'
+      });
+    }
+  }).catch(err => {
+    console.log(err)
+  })
 }
 
 exports.getPostsForUser = (req, res) => {
@@ -183,29 +216,6 @@ exports.getPostMessagesByBuyer = (req, res) => {
           });
         }
       }).catch(err => res.sendStatus(500, 'Server error'))
-    } else {
-      res.status(404).json({
-        error: 'Post with post_id ' + post_id + ' not found'
-      });
-    }
-  }).catch(err => res.sendStatus(500, 'Server error'))
-}
-
-exports.deletePost = (req, res) => {
-  const post_id = req.params.id;
-  Post.findOne({
-    where: {
-      post_id: post_id
-    }
-  }).then(post => {
-    if (post) {
-      post.destroy()
-        .then(post => res.sendStatus(200))
-        .catch(err => {
-          res.status(404).json({
-            error: 'Server error'
-          })
-        });
     } else {
       res.status(404).json({
         error: 'Post with post_id ' + post_id + ' not found'

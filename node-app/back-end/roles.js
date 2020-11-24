@@ -7,6 +7,7 @@ exports.roles = (function() {
     .updateOwn("users")
     .readOwn("posts")
     .updateOwn("posts")
+    .deleteOwn("posts")
 
   ac.grant("admin")
     .extend("user")
