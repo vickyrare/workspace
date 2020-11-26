@@ -1,11 +1,71 @@
 var expect = require('chai').expect;
 const request = require('supertest');
 const app = require('../app');
-//var agent = request.agent(app);
 
 before(done => {
   app.on('serverStarted', () => {
     done();
+  });
+});
+
+describe('Sign up', function () {
+  it('Sign up with all the required fields', function (done) {
+    request(app)
+      .post('/api/signup')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({first_name: 'new', last_name: 'user', email: 'new@user.com', password: '123456'})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(res.body.user_id).to.be.a('number')
+        expect(res.body.first_name).to.equal('new');
+        expect(res.body.last_name).to.equal('user');
+        expect(res.body.email).to.equal('new@user.com');
+        done();
+      });
+  });
+
+  it('Sign up with invalid email', function (done) {
+    request(app)
+      .post('/api/signup')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({first_name: 'new', last_name: 'user', email: 'userwithinvalidemail', password: '123456'})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(res.body.error).to.equal('Valid email is required')
+        done();
+      });
+  });
+
+  it('Sign up with missing required field', function (done) {
+    request(app)
+      .post('/api/signup')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({last_name: 'user', email: 'user@valid.com', password: '123456'})
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(res.body.error).to.equal('users.first_name cannot be null')
+        done();
+      });
+  });
+
+  it('Sign up using same email', function (done) {
+    request(app)
+      .post('/api/signup')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({first_name: 'new', last_name: 'user', email: 'new@user.com', password: '123456'})
+      .expect(401)
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(res.body.error).to.equal('User with email already exist');
+        done();
+      });
   });
 });
 
@@ -19,7 +79,8 @@ describe('Login', function () {
       .expect(200)
       .expect('Content-Type', /json/)
       .end(function (err, res) {
-        expect(res.body).not.to.be.empty;
+        expect(res.body.access_token).not.to.be.empty;
+        expect(res.body.refresh_token).not.to.be.empty;
         expect(res.body).to.be.an('object');
         done();
       });
@@ -41,7 +102,7 @@ describe('Login', function () {
 });
 
 describe('Logout', function () {
-  var token = null;
+  var accessToken = null;
   before(function (done) {
     request(app)
       .post('/api/login')
@@ -49,7 +110,7 @@ describe('Logout', function () {
       .set('Content-Type', 'application/json')
       .send({email: 'user@one.com', password: '123456'})
       .end(function (err, res) {
-        token = res.body.token; // Or something
+        accessToken = res.body.access_token;
         done();
       });
   });
@@ -57,7 +118,7 @@ describe('Logout', function () {
   it('Logout when already logged-in', function (done) {
     request(app)
       .get('/api/logout')
-      .set('x-access-token', token)
+      .set('access_token', accessToken)
       .end(function (err, res) {
         expect(res.body.message).to.equal('Logout successfully');
         done();
@@ -70,6 +131,41 @@ describe('Logout', function () {
       .end(function (err, res) {
         expect(res.body.error).to.equal('You need to be logged in to access this route');
         done();
+      });
+  });
+});
+
+describe('Refresh token', function () {
+  var refreshToken = null;
+  before(function (done) {
+    request(app)
+      .post('/api/login')
+      .set('Accept', 'application/json')
+      .set('Content-Type', 'application/json')
+      .send({email: 'user@one.com', password: '123456'})
+      .end(function (err, res) {
+        refreshToken = res.body.refresh_token;
+        done();
+      });
+  });
+
+  it('Use valid refresh token to get access token', function () {
+    request(app)
+      .get('/api/refresh')
+      .set('refresh_token', refreshToken)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function (err, res) {
+        expect(res.body.access_token).not.to.be.empty;
+      });
+  });
+
+  it('Use invalid refresh token to get access token', function () {
+    request(app)
+      .get('/api/refresh')
+      .set('refresh_token', 'invalid_refresh_token')
+      .end(function (err, res) {
+        expect(res.body.error).to.equal('JWT refresh token has expired, please login to obtain a new one');
       });
   });
 });
@@ -99,8 +195,8 @@ describe('Posts', function () {
       })
   });
 
-  describe('Create, Update Posts as a user', function () {
-    var token = null;
+  describe('Create, Update, Delete Posts as a user', function () {
+    var accessToken = null;
     before(function (done) {
       request(app)
         .post('/api/login')
@@ -108,7 +204,7 @@ describe('Posts', function () {
         .set('Content-Type', 'application/json')
         .send({email: 'user@one.com', password: '123456'})
         .end(function (err, res) {
-          token = res.body.token; // Or something
+          accessToken = res.body.access_token;
           done();
         });
     });
@@ -116,7 +212,7 @@ describe('Posts', function () {
     it('Create post', function (done) {
       request(app)
         .post('/api/posts')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .send({content: 'post content'})
         .expect('Content-Type', /json/)
@@ -130,7 +226,7 @@ describe('Posts', function () {
     it('Update own post', function (done) {
       request(app)
         .put('/api/posts/1')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .send({content: 'XBox games for sale modified'})
         .expect('Content-Type', /json/)
@@ -141,10 +237,10 @@ describe('Posts', function () {
         })
     });
 
-    it('Update other user post', function (done) {
+    it('Cannot update other user post', function (done) {
       request(app)
         .put('/api/posts/2')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .send({content: 'Playstation games for sale modified'})
         .expect('Content-Type', /json/)
@@ -158,7 +254,7 @@ describe('Posts', function () {
     it('Delete own post', function (done) {
       request(app)
         .delete('/api/posts/1')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -168,10 +264,10 @@ describe('Posts', function () {
         })
     });
 
-    it('Delete other user post', function (done) {
+    it('Cannot delete other user post', function (done) {
       request(app)
         .delete('/api/posts/2')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -183,7 +279,7 @@ describe('Posts', function () {
   });
 
   describe('Update, Delete Posts as admin user', function () {
-    var token = null;
+    var accessToken = null;
     before(function (done) {
       request(app)
         .post('/api/login')
@@ -191,7 +287,7 @@ describe('Posts', function () {
         .set('Content-Type', 'application/json')
         .send({email: 'user@two.com', password: '123456'})
         .end(function (err, res) {
-          token = res.body.token; // Or something
+          accessToken = res.body.access_token;
           done();
         });
     });
@@ -199,7 +295,7 @@ describe('Posts', function () {
     it('Update other user post', function (done) {
       request(app)
         .put('/api/posts/3')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .send({content: 'Playstation games for sale modified'})
         .expect('Content-Type', /json/)
@@ -213,7 +309,7 @@ describe('Posts', function () {
     it('Delete other user post', function (done) {
       request(app)
         .delete('/api/posts/3')
-        .set('x-access-token', token)
+        .set('access_token', accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)

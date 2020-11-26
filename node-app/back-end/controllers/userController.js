@@ -58,7 +58,14 @@ exports.signup = (req, res) => {
         active,
         role_id: 1
       })
-        .then(user => res.sendStatus(200, user))
+        .then(user => {
+          res.json({
+            first_name: user.first_name,
+            email: user.email,
+            last_name: user.last_name,
+            user_id: user.user_id
+          });
+        })
         .catch(err => {
           res.status(500).json({
             error: err.errors[0].message
@@ -83,34 +90,46 @@ exports.login = (req, res) => {
     if (user) {
       bcrypt.compare(req.body.password, user.password, function (err, result) {
         if (result == true) {
-          jwt.sign({userId: user.user_id}, process.env.SECRET_KEY, {expiresIn: '30m'}, (err, token) => {
-            const first_name = user.first_name
-            const email = user.email
-            const last_name = user.last_name
-            const role = user.role
+          let payload = {userId: user.user_id}
 
-            // insert access_token in the database
-            User.update({
-                access_token: token
-              }, {
-                where: {
-                  user_id: user.user_id
-                }
+          let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: parseInt(process.env.ACCESS_TOKEN_LIFE)
+          })
+
+          //create the refresh token with the longer lifespan
+          let refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+            algorithm: "HS256",
+            expiresIn: parseInt(process.env.REFRESH_TOKEN_LIFE)
+          })
+
+          const first_name = user.first_name
+          const email = user.email
+          const last_name = user.last_name
+          const role = user.role
+
+          // insert access_token in the database
+          User.update({
+              access_token: accessToken
+            }, {
+              where: {
+                user_id: user.user_id
               }
-            ).then(user => {
-              res.json({
-                first_name: first_name,
-                email: email,
-                last_name: last_name,
-                role: role,
-                token
-              });
-            }).catch(err => {
-              console.log(err)
-              res.sendStatus(500, 'Server error')
-            })
-          });
-        } else {
+            }
+          ).then(user => {
+            res.json({
+              first_name: first_name,
+              email: email,
+              last_name: last_name,
+              role: role,
+              access_token: accessToken,
+              refresh_token: refreshToken
+            });
+          }).catch(err => {
+            res.sendStatus(500, 'Server error')
+          })
+        }
+        else {
           res.status(401).json({
             error: 'Login failure'
           })
@@ -144,6 +163,39 @@ exports.logout = (req, res) => {
     console.log(err)
     res.sendStatus(500, 'Server error')
   })
+}
+
+exports.refresh = (req, res) => {
+
+  if (req.headers["x-refresh-token"]) {
+    const refreshToken = req.headers["x-refresh-token"];
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, authData) => {
+      if (err) {
+        return res.status(401).json({error: 'JWT refresh token has expired, please login to obtain a new one'});
+      } else {
+        let payload = {userId: authData.userId}
+        let newAccessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+          algorithm: "HS256",
+          expiresIn: parseInt(process.env.ACCESS_TOKEN_LIFE)
+        })
+        // insert access_token in the database
+        User.update({
+            access_token: newAccessToken
+          }, {
+            where: {
+              user_id: authData.userId
+            }
+          }
+        ).then(user => {
+          res.json({
+            access_token: newAccessToken
+          });
+        }).catch(err => {
+          res.sendStatus(500, 'Server error')
+        })
+      }
+    });
+  }
 }
 
 exports.getUser = (req, res) => {

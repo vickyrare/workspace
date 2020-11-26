@@ -23,12 +23,11 @@ const {Role} = require('./models/sequelize')
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  if (req.headers["x-access-token"]) {
-    const accessToken = req.headers["x-access-token"];
-
-    jwt.verify(accessToken, process.env.SECRET_KEY, (err, authData) => {
+  if (req.headers["access_token"]) {
+    const accessToken = req.headers["access_token"];
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
       if (err) {
-        return res.status(401).json({error: 'JWT token has expired, please login to obtain a new one'});
+        return res.status(401).json({error: 'JWT access token has expired, please login to obtain a new one'});
       } else {
 
         User.findOne({
@@ -66,10 +65,14 @@ app.use((req, res, next) => {
 
 app.use('/', require('./routes/routes'));
 
-sequelize.sync({force: process.env.RECREATE_DATABASE})
+sequelize.sync({force: process.env.RECREATE_DATABASE === 'true' ? true: false})
   .then(() => {
     console.log(`Database & tables created!`)
-    initial()
+    Role.findAll().then(role => {
+      if (role.length == 0) {
+        initial()
+      }
+    })
     app.on('databaseInitialized', () => {
       app.listen(5000, function() {
         console.log(`Express running on port 5000`);

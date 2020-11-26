@@ -6,6 +6,7 @@ const postController = require('../controllers/postController');
 router.post('/api/signup', userController.signup);
 router.post('/api/login', userController.login);
 router.get('/api/logout', userController.allowIfLoggedin, userController.logout);
+router.get('/api/refresh', userController.refresh);
 
 router.get('/api/users/:userId', userController.allowIfLoggedin, userController.getUser);
 router.get('/api/users', userController.allowIfLoggedin, userController.grantAccess('readAny', 'users'), userController.getUsers);
