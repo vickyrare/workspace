@@ -5,7 +5,11 @@ require('custom-env').env('dev')
 const dotenv = require('dotenv');
 dotenv.config();
 
+var cors = require('cors')
+
 const app = express();
+
+app.use(cors())
 
 var bodyParser = require('body-parser');
 
@@ -23,8 +27,9 @@ const {Role} = require('./models/sequelize')
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req, res, next) => {
-  if (req.headers["access_token"]) {
-    const accessToken = req.headers["access_token"];
+  if (req.headers["authorization"]) {
+    let accessToken = req.headers['authorization'];
+    accessToken = accessToken.replace('Bearer ', '')
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
       if (err) {
         return res.status(401).json({error: 'JWT access token has expired, please login to obtain a new one'});
@@ -72,6 +77,7 @@ sequelize.sync({force: process.env.RECREATE_DATABASE === 'true' ? true: false})
       if (role.length == 0) {
         initial()
       }
+      app.emit('databaseInitialized');
     })
     app.on('databaseInitialized', () => {
       app.listen(5000, function() {
@@ -179,7 +185,6 @@ async function initial() {
       message: 'Yes.'
     }
   ])
-  app.emit('databaseInitialized');
 }
 
 module.exports = app;
