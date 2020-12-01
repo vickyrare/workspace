@@ -16,3 +16,4 @@ soap-webservice-axis-maven/target/*
 soap-webservice-axis-maven/.idea/*
 McqPilot/.idea
 McqPilot/target
+node-app/front-end/node_modules/*
