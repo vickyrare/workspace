@@ -1,0 +1,45 @@
+.v-btn {
+    text-transform: none;
+  }
+  
+.v-input__slot {
+    cursor: pointer !important;
+}
+
+.v-list__tile__action {
+    cursor: pointer !important;
+}
+
+.v-list-item__content{
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    font-family: 'Roboto' !important;
+}
+
+.v-list-item__subtitle {
+    line-height: 21px !important;
+}
+
+.pageTitle {
+    height: 41px;
+    opacity: 0.87;
+    font-size: 34px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+@media only screen and (min-width: 1264px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+.v-application .title {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    font-family: 'Roboto' !important;
+    line-height: 20px ;
+}
