@@ -120,7 +120,7 @@ describe('Logout', function () {
       .get('/api/logout')
       .set('access_token', accessToken)
       .end(function (err, res) {
-        expect(res.body.message).to.equal('Logout successfully');
+        expect(res.body.error).to.equal('You need to be logged in to access this route');
         done();
       });
   });
@@ -212,7 +212,7 @@ describe('Posts', function () {
     it('Create post', function (done) {
       request(app)
         .post('/api/posts')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .send({content: 'post content'})
         .expect('Content-Type', /json/)
@@ -226,7 +226,7 @@ describe('Posts', function () {
     it('Update own post', function (done) {
       request(app)
         .put('/api/posts/1')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .send({content: 'XBox games for sale modified'})
         .expect('Content-Type', /json/)
@@ -240,7 +240,7 @@ describe('Posts', function () {
     it('Cannot update other user post', function (done) {
       request(app)
         .put('/api/posts/2')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .send({content: 'Playstation games for sale modified'})
         .expect('Content-Type', /json/)
@@ -254,7 +254,7 @@ describe('Posts', function () {
     it('Delete own post', function (done) {
       request(app)
         .delete('/api/posts/1')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -267,7 +267,7 @@ describe('Posts', function () {
     it('Cannot delete other user post', function (done) {
       request(app)
         .delete('/api/posts/2')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
@@ -295,7 +295,7 @@ describe('Posts', function () {
     it('Update other user post', function (done) {
       request(app)
         .put('/api/posts/3')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .send({content: 'Playstation games for sale modified'})
         .expect('Content-Type', /json/)
@@ -309,7 +309,7 @@ describe('Posts', function () {
     it('Delete other user post', function (done) {
       request(app)
         .delete('/api/posts/3')
-        .set('access_token', accessToken)
+        .set('Authorization', 'Bearer ' + accessToken)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
