@@ -1,26 +1,36 @@
 package parkingsystem.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import parkingsystem.models.ParkingSpots;
-import parkingsystem.models.SpotRecord;
+import parkingsystem.models.Spot;
 import parkingsystem.models.SpotResult;
-import parkingsystem.models.Vehicle;
+import parkingsystem.service.SpotService;
 
-import java.util.HashMap;
-
+@Service
 public class ParkingManager {
+
+    @Autowired
     ParkingSpots parkingSpots;
-    HashMap<String, SpotRecord> spotRecords;
+
+    @Autowired
+    SpotService spotService;
+
+    @Autowired
     SpotRecordManager spotRecordManager;
 
-    public ParkingManager(int numFloors, int numSpotsOnEachFloor) {
-        parkingSpots = new ParkingSpots(2, 20);
-        spotRecordManager = new SpotRecordManager();
+    public ParkingManager() {
     }
 
-    public SpotResult occupySpot(int spotId, Vehicle vehicle) {
-        SpotResult spotResult = parkingSpots.occupySpot(spotId, vehicle);
+    public void init(int numFloors, int numSpotsOnEachFloor) {
+        parkingSpots.init(numFloors, numSpotsOnEachFloor);
+    }
+
+    public SpotResult occupySpot(int spotId, String vehicleRego) {
+        SpotResult spotResult = parkingSpots.occupySpot(spotId, vehicleRego);
         if (spotResult == SpotResult.SUCCESS) {
-            spotRecordManager.recordVehicleIn(parkingSpots.getSpot(spotId));
+            Spot spot = spotService.findSpot(spotId);
+            spotRecordManager.recordVehicleIn(spot, vehicleRego);
         }
         return spotResult;
     }
@@ -28,7 +38,8 @@ public class ParkingManager {
     public SpotResult freeSpot(int spotId) {
         SpotResult spotResult = parkingSpots.freeSpot(spotId);
         if (spotResult == SpotResult.SUCCESS) {
-            spotRecordManager.recordVehicleOut(parkingSpots.getSpot(spotId));
+            Spot spot = spotService.findSpot(spotId);
+            spotRecordManager.recordVehicleOut(spot);
         }
         return spotResult;
     }

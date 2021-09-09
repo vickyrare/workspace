@@ -1,29 +1,41 @@
 package parkingsystem.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import parkingsystem.models.Spot;
 import parkingsystem.models.SpotRecord;
+import parkingsystem.service.SpotRecordService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 
+@Service
 public class SpotRecordManager {
+
+    @Autowired
+    SpotRecordService spotRecordService;
+
     HashMap<String, SpotRecord> spotRecords;
 
     public SpotRecordManager() {
         this.spotRecords = new HashMap<>();
     }
 
-    public void recordVehicleIn(Spot spot) {
-        spotRecords.put(spot.getVehicle().getVehicleRego(), new SpotRecord(spot, LocalDateTime.now()));
+    public void recordVehicleIn(Spot spot, String vehicleRego) {
+        SpotRecord spotRecord = new SpotRecord(spot, vehicleRego, LocalDateTime.now());
+        spotRecordService.saveSpotRecord(spotRecord);
     }
 
     public void recordVehicleOut(Spot spot) {
-        spotRecords.get(spot.getVehicle().getVehicleRego()).setTimeOut(LocalDateTime.now());
+        SpotRecord spotRecord = spotRecordService.findBySpot(spot);
+        spotRecord.setTimeOut(LocalDateTime.now());
+        spotRecordService.saveSpotRecord(spotRecord);
     }
 
     public void reportActivity() {
-        for (String key : spotRecords.keySet()) {
-            SpotRecord spotRecord = spotRecords.get(key);
+        List<SpotRecord> spotRecords = spotRecordService.getAll();
+        for (SpotRecord spotRecord: spotRecords) {
             spotRecord.report();
         }
     }

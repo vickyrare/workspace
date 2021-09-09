@@ -1,16 +1,35 @@
 package parkingsystem.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
+@Entity
 public class SpotRecord {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne
     Spot spot;
+
+    private String vehicleRego;
+
     LocalDateTime timeIn, timeOut;
 
-    public SpotRecord(Spot spot, LocalDateTime timeIn) {
+    public SpotRecord() {
+
+    }
+
+    public SpotRecord(Spot spot, String vehicleRego, LocalDateTime timeIn) {
         this.spot = spot;
+        this.vehicleRego = vehicleRego;
         this.timeIn = timeIn;
         this.timeOut = null;
     }
@@ -21,6 +40,14 @@ public class SpotRecord {
 
     public void setSpot(Spot spot) {
         this.spot = spot;
+    }
+
+    public String getVehicleRego() {
+        return vehicleRego;
+    }
+
+    public void setVehicleRego(String vehicleRego) {
+        this.vehicleRego = vehicleRego;
     }
 
     public LocalDateTime getTimeIn() {
@@ -52,7 +79,7 @@ public class SpotRecord {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-            System.out.println(String.format("%s[%s]: TimeIn: %s, TimeOut: %s, Duration %02d:%02d:%02d", spot.getSpotId(), spot.getVehicle().getVehicleRego(), timeIn.format(formatter), timeOut.format(formatter), hrs, mins, secs));
+            System.out.println(String.format("%s[%s]: TimeIn: %s, TimeOut: %s, Duration %02d:%02d:%02d", spot.getSpotId(), getVehicleRego(), timeIn.format(formatter), timeOut.format(formatter), hrs, mins, secs));
         }
     }
 }

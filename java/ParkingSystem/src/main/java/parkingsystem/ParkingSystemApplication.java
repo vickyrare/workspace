@@ -1,14 +1,30 @@
-package parkingsystem.app;
+package parkingsystem;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import parkingsystem.manager.ParkingManager;
 import parkingsystem.models.SpotResult;
-import parkingsystem.models.Vehicle;
 
 import java.util.Scanner;
 
-public class App {
+@SpringBootApplication(exclude={SecurityAutoConfiguration.class})
+public class ParkingSystemApplication implements CommandLineRunner {
+
+    private ParkingManager parkingManager;
+
+    public ParkingSystemApplication(ParkingManager parkingManager) {
+        this.parkingManager = parkingManager;
+    }
+
     public static void main(String[] args) {
-        ParkingManager parkingManager = new ParkingManager(2, 20);
+        SpringApplication.run(ParkingSystemApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        parkingManager.init(2, 20);
 
         Scanner in = new Scanner(System.in);
 
@@ -26,13 +42,8 @@ public class App {
             } else if (inputTokens.length == 3 && inputTokens[0].equalsIgnoreCase("occupy")) {
                 String vehicleRego = inputTokens[1];
                 String spotId = inputTokens[2];
-                Vehicle vehicle = new Vehicle(vehicleRego);
-                if (parkingManager.occupySpot(Integer.parseInt(spotId), vehicle) == SpotResult.SUCCESS) {
-                    parkingManager.occupySpot(Integer.parseInt(spotId), vehicle);
-                    System.out.println(SpotResult.SUCCESS.message);
-                } else {
-                    System.out.println("Spot already in use");
-                }
+                SpotResult spotResult = parkingManager.occupySpot(Integer.parseInt(spotId), vehicleRego);
+                System.out.println(spotResult.message);
             } else if (inputTokens.length == 2 && inputTokens[0].equalsIgnoreCase("free")) {
                 String spotId = inputTokens[1];
                 if (parkingManager.freeSpot(Integer.parseInt(spotId)) == SpotResult.SUCCESS) {
@@ -46,6 +57,6 @@ public class App {
                 parkingManager.reportActivity();
             }
         }
-
     }
 }
+

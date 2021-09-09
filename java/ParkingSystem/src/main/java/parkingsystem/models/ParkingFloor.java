@@ -15,7 +15,7 @@ public class ParkingFloor {
         ArrayList<Integer> spotIds = Util.createSpotIds(floorNum * 100 + 1, numSpots);
         floorSpots = new ArrayList<>();
         for(int i = 0; i < numSpots; i++) {
-            floorSpots.add(new Spot(spotIds.get(i), false));
+            floorSpots.add(new Spot(spotIds.get(i), 0,false));
         }
     }
 
