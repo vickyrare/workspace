@@ -1,4 +1,4 @@
-package parkingsystem.utils;
+package io.codecrafts.parkingsystem.utils;
 
 import java.util.ArrayList;
 

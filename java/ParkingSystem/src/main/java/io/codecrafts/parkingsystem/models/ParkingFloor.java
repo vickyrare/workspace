@@ -1,6 +1,6 @@
-package parkingsystem.models;
+package io.codecrafts.parkingsystem.models;
 
-import parkingsystem.utils.Util;
+import io.codecrafts.parkingsystem.utils.Util;
 
 import java.util.ArrayList;
 

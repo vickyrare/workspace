@@ -1,9 +1,8 @@
-package parkingsystem.service;
+package io.codecrafts.parkingsystem.service;
 
-import parkingsystem.models.Spot;
+import io.codecrafts.parkingsystem.models.Spot;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface SpotService {
     List<Spot> getAll();

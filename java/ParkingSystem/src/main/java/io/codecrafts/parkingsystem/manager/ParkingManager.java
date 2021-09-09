@@ -1,11 +1,11 @@
-package parkingsystem.manager;
+package io.codecrafts.parkingsystem.manager;
 
+import io.codecrafts.parkingsystem.models.Spot;
+import io.codecrafts.parkingsystem.models.SpotResult;
+import io.codecrafts.parkingsystem.service.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import parkingsystem.models.ParkingSpots;
-import parkingsystem.models.Spot;
-import parkingsystem.models.SpotResult;
-import parkingsystem.service.SpotService;
+import io.codecrafts.parkingsystem.models.ParkingSpots;
 
 @Service
 public class ParkingManager {

@@ -1,11 +1,11 @@
-package parkingsystem;
+package io.codecrafts.parkingsystem;
 
+import io.codecrafts.parkingsystem.manager.ParkingManager;
+import io.codecrafts.parkingsystem.models.SpotResult;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import parkingsystem.manager.ParkingManager;
-import parkingsystem.models.SpotResult;
 
 import java.util.Scanner;
 

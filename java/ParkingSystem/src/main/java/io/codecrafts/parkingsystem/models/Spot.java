@@ -1,4 +1,4 @@
-package parkingsystem.models;
+package io.codecrafts.parkingsystem.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

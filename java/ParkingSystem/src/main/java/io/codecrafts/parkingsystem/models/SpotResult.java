@@ -1,4 +1,4 @@
-package parkingsystem.models;
+package io.codecrafts.parkingsystem.models;
 
 public enum SpotResult {
 

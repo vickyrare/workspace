@@ -1,9 +1,9 @@
-package parkingsystem.models;
+package io.codecrafts.parkingsystem.models;
 
+import io.codecrafts.parkingsystem.service.SpotService;
+import io.codecrafts.parkingsystem.utils.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import parkingsystem.service.SpotService;
-import parkingsystem.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;

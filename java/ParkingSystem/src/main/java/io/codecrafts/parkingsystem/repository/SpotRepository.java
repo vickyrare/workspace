@@ -1,8 +1,8 @@
-package parkingsystem.repository;
+package io.codecrafts.parkingsystem.repository;
 
+import io.codecrafts.parkingsystem.models.Spot;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import parkingsystem.models.Spot;
 
 import java.util.List;
 import java.util.Optional;

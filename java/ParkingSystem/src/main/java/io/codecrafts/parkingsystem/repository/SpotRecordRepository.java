@@ -1,14 +1,9 @@
-package parkingsystem.repository;
+package io.codecrafts.parkingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import parkingsystem.models.Spot;
-import parkingsystem.models.SpotRecord;
-
-import java.util.List;
-import java.util.Optional;
+import io.codecrafts.parkingsystem.models.Spot;
+import io.codecrafts.parkingsystem.models.SpotRecord;
 
 @Repository
 public interface SpotRecordRepository extends JpaRepository<SpotRecord, Long> {

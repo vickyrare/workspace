@@ -1,10 +1,10 @@
-package parkingsystem.manager;
+package io.codecrafts.parkingsystem.manager;
 
+import io.codecrafts.parkingsystem.models.Spot;
+import io.codecrafts.parkingsystem.service.SpotRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import parkingsystem.models.Spot;
-import parkingsystem.models.SpotRecord;
-import parkingsystem.service.SpotRecordService;
+import io.codecrafts.parkingsystem.models.SpotRecord;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
