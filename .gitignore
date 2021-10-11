@@ -17,3 +17,6 @@ soap-webservice-axis-maven/.idea/*
 McqPilot/.idea
 McqPilot/target
 node-app/front-end/node_modules/*
+java/ParkingSystem/target/classes/*
+java/ParkingSystem/.idea/*
+.idea/*
