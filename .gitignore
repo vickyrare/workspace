@@ -19,4 +19,6 @@ McqPilot/target
 node-app/front-end/node_modules/*
 java/ParkingSystem/target/classes/*
 java/ParkingSystem/.idea/*
+java/StopStop/target/*
+java/StopStop/.idea/*
 .idea/*
