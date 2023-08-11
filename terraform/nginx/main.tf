@@ -14,7 +14,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "my-personal-web" {
-  provider = aws.ap-southeast-1
+  provider   = aws.ap-southeast-1
   cidr_block = "10.0.0.0/16"
 
   tags = {
@@ -24,7 +24,7 @@ resource "aws_vpc" "my-personal-web" {
 
 resource "aws_internet_gateway" "gw" {
   provider = aws.ap-southeast-1
-  vpc_id = aws_vpc.my-personal-web.id
+  vpc_id   = aws_vpc.my-personal-web.id
 
   tags = {
     env = "dev"
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "gw" {
 
 resource "aws_route_table" "route-table" {
   provider = aws.ap-southeast-1
-  vpc_id = aws_vpc.my-personal-web.id
+  vpc_id   = aws_vpc.my-personal-web.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -41,12 +41,12 @@ resource "aws_route_table" "route-table" {
   }
 
   tags = {
-     env = "dev"
+    env = "dev"
   }
 }
 
 resource "aws_subnet" "my-personal-web" {
-  provider = aws.ap-southeast-1
+  provider          = aws.ap-southeast-1
   vpc_id            = aws_vpc.my-personal-web.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-southeast-1a"
@@ -57,7 +57,7 @@ resource "aws_subnet" "my-personal-web" {
 }
 
 resource "aws_subnet" "my-personal-web-1" {
-  provider = aws.ap-southeast-1
+  provider          = aws.ap-southeast-1
   vpc_id            = aws_vpc.my-personal-web.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "ap-southeast-1b"
@@ -142,11 +142,11 @@ resource "aws_ecs_task_definition" "my-personal-web" {
   memory                   = 2048
   container_definitions = jsonencode([
     {
-      name      = "my-personal-web-api"
-      image     = "nginx"
-      cpu       = 1024
-      memory    = 2048
-      essential = true
+      name               = "my-personal-web-api"
+      image              = "nginx"
+      cpu                = 1024
+      memory             = 2048
+      essential          = true
       portMappings = [
         {
           containerPort = 80
@@ -184,7 +184,7 @@ resource "aws_ecs_service" "my-personal-web" {
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
-  provider = aws.ap-southeast-1
+  provider          = aws.ap-southeast-1
   name              = "/fargate/service/app.log"
   retention_in_days = 1
   tags = {
