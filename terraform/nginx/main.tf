@@ -9,12 +9,10 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  alias  = "ap-southeast-1"
   region = "ap-southeast-1"
 }
 
 resource "aws_vpc" "my-personal-web" {
-  provider   = aws.ap-southeast-1
   cidr_block = "10.0.0.0/16"
 
   tags = {
@@ -23,7 +21,6 @@ resource "aws_vpc" "my-personal-web" {
 }
 
 resource "aws_internet_gateway" "gw" {
-  provider = aws.ap-southeast-1
   vpc_id   = aws_vpc.my-personal-web.id
 
   tags = {
@@ -32,7 +29,6 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_route_table" "route-table" {
-  provider = aws.ap-southeast-1
   vpc_id   = aws_vpc.my-personal-web.id
 
   route {
@@ -46,7 +42,6 @@ resource "aws_route_table" "route-table" {
 }
 
 resource "aws_subnet" "my-personal-web" {
-  provider          = aws.ap-southeast-1
   vpc_id            = aws_vpc.my-personal-web.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-southeast-1a"
@@ -57,7 +52,6 @@ resource "aws_subnet" "my-personal-web" {
 }
 
 resource "aws_subnet" "my-personal-web-1" {
-  provider          = aws.ap-southeast-1
   vpc_id            = aws_vpc.my-personal-web.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "ap-southeast-1b"
@@ -68,8 +62,6 @@ resource "aws_subnet" "my-personal-web-1" {
 }
 
 resource "aws_security_group" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   name        = "allow_http"
   description = "Allow HTTP inbound traffic"
   vpc_id      = aws_vpc.my-personal-web.id
@@ -84,8 +76,6 @@ resource "aws_security_group" "my-personal-web" {
 }
 
 resource "aws_lb" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   name               = "my-personal-web-lb-tf"
   internal           = false
   load_balancer_type = "application"
@@ -98,8 +88,6 @@ resource "aws_lb" "my-personal-web" {
 }
 
 resource "aws_lb_target_group" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   name        = "tf-my-personal-web-lb-tg"
   port        = 80
   protocol    = "HTTP"
@@ -108,8 +96,6 @@ resource "aws_lb_target_group" "my-personal-web" {
 }
 
 resource "aws_lb_listener" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   load_balancer_arn = aws_lb.my-personal-web.arn
   port              = "80"
   protocol          = "HTTP"
@@ -120,21 +106,15 @@ resource "aws_lb_listener" "my-personal-web" {
 }
 
 resource "aws_ecs_cluster" "my-personal-web" {
-  provider = aws.ap-southeast-1
   name     = "my-personal-web-api-cluster"
 }
 
 resource "aws_ecs_cluster_capacity_providers" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   cluster_name = aws_ecs_cluster.my-personal-web.name
-
   capacity_providers = ["FARGATE"]
 }
 
 resource "aws_ecs_task_definition" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   family                   = "service"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
@@ -158,8 +138,6 @@ resource "aws_ecs_task_definition" "my-personal-web" {
 }
 
 resource "aws_ecs_service" "my-personal-web" {
-  provider = aws.ap-southeast-1
-
   name            = "my-personal-web"
   cluster         = aws_ecs_cluster.my-personal-web.id
   task_definition = aws_ecs_task_definition.my-personal-web.arn
@@ -184,7 +162,6 @@ resource "aws_ecs_service" "my-personal-web" {
 }
 
 resource "aws_cloudwatch_log_group" "logs" {
-  provider          = aws.ap-southeast-1
   name              = "/fargate/service/app.log"
   retention_in_days = 1
   tags = {
