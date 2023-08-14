@@ -21,6 +21,29 @@ resource "aws_security_group_rule" "example" {
   security_group_id = "sg-065526e90c6b89749"
 }
 
+resource "aws_security_group_rule" "example-2" {
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "sg-065526e90c6b89749"
+}
+
+resource "aws_db_instance" "myinstance" {
+  engine                 = "mysql"
+  identifier             = "limbs-db-instance"
+  allocated_storage      = 20
+  engine_version         = "5.7"
+  instance_class         = "db.t2.micro"
+  username               = ""
+  password               = ""
+  parameter_group_name   = "default.mysql5.7"
+  vpc_security_group_ids = ["sg-065526e90c6b89749"]
+  skip_final_snapshot    = true
+  publicly_accessible    = false
+}
+
 resource "aws_lb" "my-personal-web" {
   name               = "my-personal-web-lb-tf"
   internal           = false
@@ -66,10 +89,12 @@ resource "aws_ecs_task_definition" "my-personal-web" {
   network_mode             = "awsvpc"
   cpu                      = 256
   memory                   = 512
+  execution_role_arn       = "arn:aws:iam::430971056203:role/ecsTaskExecutionRole"
+  task_role_arn            = "arn:aws:iam::430971056203:role/ecsTaskExecutionRole"
   container_definitions = jsonencode([
     {
       name      = "my-personal-web-api"
-      image     = "nginx"
+      image     = "430971056203.dkr.ecr.ap-southeast-1.amazonaws.com/limbs:latest"
       cpu       = 256
       memory    = 512
       essential = true
@@ -77,6 +102,40 @@ resource "aws_ecs_task_definition" "my-personal-web" {
         {
           containerPort = 80
           hostPort      = 80
+        }
+      ],
+      environment = [
+        {
+          "name" : "DB_USER",
+          "value" : ""
+        },
+        {
+          "name" : "DB_PASSWORD",
+          "value" : ""
+        },
+        {
+          "name" : "DB_NAME",
+          "value" : "limbs"
+        },
+        {
+          "name" : "DB_PORT",
+          "value" : "3306"
+        },
+        {
+          "name" : "DB_HOST",
+          "value" : "limbs-db-instance.cfnxzdkkl5os.ap-southeast-1.rds.amazonaws.com"
+        },
+        {
+          "name" : "HOME_DOMAIN",
+          "value" : "staging-php.littleimages.com.au"
+        },
+        {
+          "name" : "RAILS_URL",
+          "value" : "staging-ruby.littleimages.com.au"
+        },
+        {
+          "name" : "RAILS_API",
+          "value" : "staging-ruby.littleimages.com.au"
         }
       ]
     }
