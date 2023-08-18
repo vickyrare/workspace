@@ -12,13 +12,33 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
+variable "rds_username" {
+  type = string
+}
+
+variable "rds_password" {
+  type = string
+}
+
+variable "security_group" {
+  type = string
+}
+
+variable "subnets" {
+  type = list(any)
+}
+
+variable "image" {
+  type = string
+}
+
 resource "aws_security_group_rule" "http-80" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "sg-065526e90c6b89749"
+  security_group_id = var.security_group
 }
 
 resource "aws_security_group_rule" "mysql-3306" {
@@ -27,7 +47,7 @@ resource "aws_security_group_rule" "mysql-3306" {
   to_port           = 3306
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = "sg-065526e90c6b89749"
+  security_group_id = var.security_group
 }
 
 resource "aws_db_instance" "limbs-db-instance" {
@@ -36,10 +56,10 @@ resource "aws_db_instance" "limbs-db-instance" {
   allocated_storage      = 20
   engine_version         = "5.7"
   instance_class         = "db.t2.micro"
-  username               = ""
-  password               = ""
+  username               = var.rds_username
+  password               = var.rds_password
   parameter_group_name   = "default.mysql5.7"
-  vpc_security_group_ids = ["sg-065526e90c6b89749"]
+  vpc_security_group_ids = [var.security_group]
   skip_final_snapshot    = true
   publicly_accessible    = false
 }
@@ -48,8 +68,8 @@ resource "aws_lb" "limbs-lb" {
   name               = "limbs-lb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = ["sg-065526e90c6b89749"]
-  subnets            = ["subnet-0debef2d90c3ee03f", "subnet-0d1b2de0405787aab", "subnet-0e8e26b7707d2ce98"]
+  security_groups    = [var.security_group]
+  subnets            = [var.subnets[0], var.subnets[1], var.subnets[2]]
   tags = {
     env = "dev"
   }
@@ -99,7 +119,7 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
   container_definitions = jsonencode([
     {
       name      = "limbs-task"
-      image     = "430971056203.dkr.ecr.ap-southeast-1.amazonaws.com/limbs:latest"
+      image     = var.image
       cpu       = 256
       memory    = 512
       essential = true
@@ -112,11 +132,11 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
       environment = [
         {
           "name" : "DB_USER",
-          "value" : ""
+          "value" : var.rds_username
         },
         {
           "name" : "DB_PASSWORD",
-          "value" : ""
+          "value" : var.rds_password
         },
         {
           "name" : "DB_NAME",
@@ -156,8 +176,8 @@ resource "aws_ecs_service" "limbs-service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = ["subnet-0debef2d90c3ee03f", "subnet-0d1b2de0405787aab", "subnet-0e8e26b7707d2ce98"]
-    security_groups  = ["sg-065526e90c6b89749"]
+    subnets          = [var.subnets[0], var.subnets[1], var.subnets[2]]
+    security_groups  = [var.security_group]
     assign_public_ip = true
   }
 
