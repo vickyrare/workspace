@@ -17,6 +17,7 @@ variable "limbs_db_instance" {
 variable "limbs_db_instance_endpoint" {
   type = string
 }
+
 variable "security_group" {
   type = string
 }
