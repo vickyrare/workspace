@@ -20,7 +20,7 @@ resource "aws_db_instance" "limbs-db-instance" {
   engine                 = "mariadb"
   identifier             = "limbs-db-instance"
   allocated_storage      = 20
-  instance_class         = "db.t2.micro"
+  instance_class         = "db.t4g.micro"
   username               = var.rds_username
   password               = var.rds_password
   vpc_security_group_ids = [var.security_group]
@@ -38,7 +38,7 @@ output "limbs_db_instance_address" {
 
 resource "null_resource" "db_setup" {
   provisioner "local-exec" {
-    command = "mysql --host=${aws_db_instance.limbs-db-instance.address} --port=3306 --user=${var.rds_username} --password=${var.rds_password} < limbs_20221127_2010AEST.sql"
+    command = "mysql --host=${aws_db_instance.limbs-db-instance.address} --port=3306 --user=${var.rds_username} --password=${var.rds_password} < /Users/waqqas/Downloads/limbs_20221127_2010AEST.sql"
   }
 }
 

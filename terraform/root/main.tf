@@ -9,7 +9,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = "ap-southeast-1"
+  region = "ap-southeast-2"
 }
 
 module "setup" {
@@ -22,27 +22,29 @@ module "setup" {
 }
 
 module "limbs" {
-  source                     = "./limbs"
-  limbs_image                = var.limbs_image
-  rds_dbname                 = var.rds_dbname
-  rds_username               = var.rds_username
-  rds_password               = var.rds_password
-  security_group             = var.security_group
-  subnets                    = var.subnets
-  limbs_db_instance          = module.setup.limbs_db_instance
+  source                    = "./limbs"
+  limbs_image               = var.limbs_image
+  rds_dbname                = var.rds_dbname
+  rds_username              = var.rds_username
+  rds_password              = var.rds_password
+  security_group            = var.security_group
+  subnets                   = var.subnets
+  vpc                       = var.vpc
+  limbs_db_instance         = module.setup.limbs_db_instance
   limbs_db_instance_address = module.setup.limbs_db_instance_address
-  limbs_cluster_id           = module.setup.limbs-cluster
+  limbs_cluster_id          = module.setup.limbs-cluster
 }
 
 module "limbs-admin" {
-  source                     = "./limbs-admin"
-  limbs_admin_image          = var.limbs_admin_image
-  rds_dbname                 = var.rds_dbname
-  rds_username               = var.rds_username
-  rds_password               = var.rds_password
-  security_group             = var.security_group
-  subnets                    = var.subnets
-  limbs_db_instance          = module.setup.limbs_db_instance
+  source                    = "./limbs-admin"
+  limbs_admin_image         = var.limbs_admin_image
+  rds_dbname                = var.rds_dbname
+  rds_username              = var.rds_username
+  rds_password              = var.rds_password
+  security_group            = var.security_group
+  subnets                   = var.subnets
+  vpc                       = var.vpc
+  limbs_db_instance         = module.setup.limbs_db_instance
   limbs_db_instance_address = module.setup.limbs_db_instance_address
-  limbs_cluster_id           = module.setup.limbs-cluster
+  limbs_cluster_id          = module.setup.limbs-cluster
 }

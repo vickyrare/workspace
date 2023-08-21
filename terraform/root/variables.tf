@@ -14,6 +14,10 @@ variable "security_group" {
   type = string
 }
 
+variable "vpc" {
+  type = string
+}
+
 variable "subnets" {
   type = list(any)
 }

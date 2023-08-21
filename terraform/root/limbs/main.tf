@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "limbs-lb-target-group" {
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = "vpc-0ab54f623133d9902"
+  vpc_id      = var.vpc
 }
 
 resource "aws_lb_listener" "limbs-lb-listener" {
@@ -38,8 +38,8 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
   network_mode             = "awsvpc"
   cpu                      = 256
   memory                   = 512
-  execution_role_arn       = "arn:aws:iam::430971056203:role/ecsTaskExecutionRole"
-  task_role_arn            = "arn:aws:iam::430971056203:role/ecsTaskExecutionRole"
+  execution_role_arn       = "arn:aws:iam::458490389489:role/ecsTaskExecutionRole"
+  task_role_arn            = "arn:aws:iam::458490389489:role/ecsTaskExecutionRole"
   container_definitions = jsonencode([
     {
       name      = "limbs-task"
