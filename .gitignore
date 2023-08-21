@@ -21,7 +21,7 @@ java/ParkingSystem/target/classes/*
 java/ParkingSystem/.idea/*
 java/StopStop/target/*
 java/StopStop/.idea/*
-.idea/*
+*.idea/*
 *.terraform
 terraform/.idea/*
 *.tfstate
