@@ -10,6 +10,6 @@ aws ec2 describe-subnets --region ap-southeast-2 | grep SubnetId
 
 terraform state list
 
-terraform state show module.limbs.aws_lb.limbs-lb
+terraform state show module.limbs-php.aws_lb.limbs-php-lb
 
-terraform state show module.limbs-admin.aws_lb.limbs-admin-lb
+terraform state show module.limbs-ruby.aws_lb.limbs-ruby-lb

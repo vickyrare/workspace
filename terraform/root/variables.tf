@@ -22,10 +22,10 @@ variable "subnets" {
   type = list(any)
 }
 
-variable "limbs_image" {
+variable "limbs_php_image" {
   type = string
 }
 
-variable "limbs_admin_image" {
+variable "limbs_ruby_image" {
   type = string
 }

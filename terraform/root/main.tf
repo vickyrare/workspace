@@ -21,9 +21,9 @@ module "setup" {
   subnets        = var.subnets
 }
 
-module "limbs" {
-  source                    = "./limbs"
-  limbs_image               = var.limbs_image
+module "limbs-php" {
+  source                    = "./limbs-php"
+  limbs_php_image           = var.limbs_php_image
   rds_dbname                = var.rds_dbname
   rds_username              = var.rds_username
   rds_password              = var.rds_password
@@ -35,9 +35,9 @@ module "limbs" {
   limbs_cluster_id          = module.setup.limbs-cluster
 }
 
-module "limbs-admin" {
-  source                    = "./limbs-admin"
-  limbs_admin_image         = var.limbs_admin_image
+module "limbs-ruby" {
+  source                    = "./limbs-ruby"
+  limbs_ruby_image          = var.limbs_ruby_image
   rds_dbname                = var.rds_dbname
   rds_username              = var.rds_username
   rds_password              = var.rds_password

@@ -38,7 +38,7 @@ output "limbs_db_instance_address" {
 
 resource "null_resource" "db_setup" {
   provisioner "local-exec" {
-    command = "mysql --host=${aws_db_instance.limbs-db-instance.address} --port=3306 --user=${var.rds_username} --password=${var.rds_password} < /Users/waqqas/Downloads/limbs_20221127_2010AEST.sql"
+    command = "mysql --host=${aws_db_instance.limbs-db-instance.address} --port=3306 --user=${var.rds_username} --password=${var.rds_password} < ./limbs_20221127_2010AEST.sql"
   }
 }
 

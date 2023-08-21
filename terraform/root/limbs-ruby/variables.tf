@@ -34,7 +34,7 @@ variable "limbs_cluster_id" {
   type = string
 }
 
-variable "limbs_admin_image" {
+variable "limbs_ruby_image" {
   type = string
 }
 

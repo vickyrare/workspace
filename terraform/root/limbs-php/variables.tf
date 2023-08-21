@@ -34,7 +34,7 @@ variable "limbs_cluster_id" {
   type = string
 }
 
-variable "limbs_image" {
+variable "limbs_php_image" {
   type = string
 }
 

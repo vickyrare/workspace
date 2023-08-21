@@ -1,5 +1,5 @@
-resource "aws_lb" "limbs-lb" {
-  name               = "limbs-lb"
+resource "aws_lb" "limbs-php-lb" {
+  name               = "limbs-php-lb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.security_group]
@@ -10,11 +10,11 @@ resource "aws_lb" "limbs-lb" {
 }
 
 output "lb_endpoint" {
-  value = aws_lb.limbs-lb.dns_name
+  value = aws_lb.limbs-php-lb.dns_name
 }
 
 
-resource "aws_lb_target_group" "limbs-lb-target-group" {
+resource "aws_lb_target_group" "limbs-php-lb-target-group" {
   name        = "limbs-lb-target-group"
   port        = 80
   protocol    = "HTTP"
@@ -22,13 +22,13 @@ resource "aws_lb_target_group" "limbs-lb-target-group" {
   vpc_id      = var.vpc
 }
 
-resource "aws_lb_listener" "limbs-lb-listener" {
-  load_balancer_arn = aws_lb.limbs-lb.arn
+resource "aws_lb_listener" "limbs-php-lb-listener" {
+  load_balancer_arn = aws_lb.limbs-php-lb.arn
   port              = "80"
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.limbs-lb-target-group.arn
+    target_group_arn = aws_lb_target_group.limbs-php-lb-target-group.arn
   }
 }
 
@@ -42,8 +42,8 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
   task_role_arn            = "arn:aws:iam::458490389489:role/ecsTaskExecutionRole"
   container_definitions = jsonencode([
     {
-      name      = "limbs-task"
-      image     = var.limbs_image
+      name      = "limbs-php-task"
+      image     = var.limbs_php_image
       cpu       = 256
       memory    = 512
       essential = true
@@ -92,8 +92,8 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
   depends_on = [var.limbs_db_instance]
 }
 
-resource "aws_ecs_service" "limbs-service" {
-  name            = "limbs-service"
+resource "aws_ecs_service" "limbs-php-service" {
+  name            = "limbs-php-service"
   cluster         = var.limbs_cluster_id
   task_definition = aws_ecs_task_definition.limbs-task-definition.arn
   desired_count   = 1
@@ -106,8 +106,8 @@ resource "aws_ecs_service" "limbs-service" {
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.limbs-lb-target-group.arn
-    container_name   = "limbs-task"
+    target_group_arn = aws_lb_target_group.limbs-php-lb-target-group.arn
+    container_name   = "limbs-php-task"
     container_port   = 80
   }
 
