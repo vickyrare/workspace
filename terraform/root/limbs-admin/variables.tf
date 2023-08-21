@@ -14,7 +14,7 @@ variable "limbs_db_instance" {
   type = any
 }
 
-variable "limbs_db_instance_endpoint" {
+variable "limbs_db_instance_address" {
   type = string
 }
 

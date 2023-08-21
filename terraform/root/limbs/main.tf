@@ -64,7 +64,7 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
         },
         {
           "name" : "DB_NAME",
-          "value" : "limbs"
+          "value" : var.rds_dbname
         },
         {
           "name" : "DB_PORT",
@@ -72,7 +72,7 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
         },
         {
           "name" : "DB_HOST",
-          "value" : var.limbs_db_instance_endpoint
+          "value" : var.limbs_db_instance_address
         },
         {
           "name" : "HOME_DOMAIN",

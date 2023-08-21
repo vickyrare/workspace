@@ -30,7 +30,7 @@ module "limbs" {
   security_group             = var.security_group
   subnets                    = var.subnets
   limbs_db_instance          = module.setup.limbs_db_instance
-  limbs_db_instance_endpoint = module.setup.limbs_db_instance_endpoint
+  limbs_db_instance_address = module.setup.limbs_db_instance_address
   limbs_cluster_id           = module.setup.limbs-cluster
 }
 
@@ -43,6 +43,6 @@ module "limbs-admin" {
   security_group             = var.security_group
   subnets                    = var.subnets
   limbs_db_instance          = module.setup.limbs_db_instance
-  limbs_db_instance_endpoint = module.setup.limbs_db_instance_endpoint
+  limbs_db_instance_address = module.setup.limbs_db_instance_address
   limbs_cluster_id           = module.setup.limbs-cluster
 }

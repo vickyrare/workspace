@@ -17,36 +17,30 @@ resource "aws_security_group_rule" "mysql-3306" {
 }
 
 resource "aws_db_instance" "limbs-db-instance" {
-  engine                 = "mysql"
+  engine                 = "mariadb"
   identifier             = "limbs-db-instance"
   allocated_storage      = 20
-  engine_version         = "5.7"
   instance_class         = "db.t2.micro"
   username               = var.rds_username
   password               = var.rds_password
-  parameter_group_name   = "default.mysql5.7"
   vpc_security_group_ids = [var.security_group]
   skip_final_snapshot    = true
-  publicly_accessible    = false
+  publicly_accessible    = true
 }
 
 output "limbs_db_instance" {
   value = aws_db_instance.limbs-db-instance
 }
 
-output "limbs_db_instance_endpoint" {
-  value = aws_db_instance.limbs-db-instance.endpoint
-}
-
-/*data "local_file" "sql_script" {
-  filename = "/Users/waqqas.sharif/Downloads/limbs_20221127_2010AEST.sql"
+output "limbs_db_instance_address" {
+  value = aws_db_instance.limbs-db-instance.address
 }
 
 resource "null_resource" "db_setup" {
   provisioner "local-exec" {
-    command = "mysql --host=${aws_db_instance.limbs-db-instance.endpoint} --port=3306 --user=${var.rds_username} --password=${var.rds_password} --database=${var.rds_dbname} < ${data.local_file.sql_script.content}"
+    command = "mysql --host=${aws_db_instance.limbs-db-instance.address} --port=3306 --user=${var.rds_username} --password=${var.rds_password} < limbs_20221127_2010AEST.sql"
   }
-}*/
+}
 
 resource "aws_ecs_cluster" "limbs-cluster" {
   name = "limbs-cluster"

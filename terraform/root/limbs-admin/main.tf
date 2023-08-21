@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "limbs-admin-task-definition" {
       environment = [
         {
           "name" : "DATABASE_URL",
-          "value" : "mysql2://${var.rds_username}:${var.rds_password}@l${var.limbs_db_instance_endpoint}"
+          "value" : "mysql2://${var.rds_username}:${var.rds_password}@${var.limbs_db_instance_address}"
         },
         {
           "name" : "PHP_SESSION_URI",
