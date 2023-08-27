@@ -13,7 +13,6 @@ output "lb_endpoint" {
   value = aws_lb.limbs-php-lb.dns_name
 }
 
-
 resource "aws_lb_target_group" "limbs-php-lb-target-group" {
   name        = "limbs-lb-target-group"
   port        = 80
@@ -30,6 +29,10 @@ resource "aws_lb_listener" "limbs-php-lb-listener" {
     type             = "forward"
     target_group_arn = aws_lb_target_group.limbs-php-lb-target-group.arn
   }
+}
+
+resource "aws_cloudwatch_log_group" "limbs-php-cloud-watch-group" {
+  name = "limbs-php-cloud-watch-group"
 }
 
 resource "aws_ecs_task_definition" "limbs-task-definition" {
@@ -86,7 +89,15 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
           "name" : "RAILS_API",
           "value" : "staging-ruby.littleimages.com.au"
         }
-      ]
+      ],
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group = aws_cloudwatch_log_group.limbs-php-cloud-watch-group.name,
+          awslogs-region = "ap-southeast-2",
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     }
   ])
   depends_on = [var.limbs_db_instance]
