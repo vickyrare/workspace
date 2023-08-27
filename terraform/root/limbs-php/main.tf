@@ -93,8 +93,8 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group = aws_cloudwatch_log_group.limbs-php-cloud-watch-group.name,
-          awslogs-region = "ap-southeast-2",
+          awslogs-group         = aws_cloudwatch_log_group.limbs-php-cloud-watch-group.name,
+          awslogs-region        = "ap-southeast-2",
           awslogs-stream-prefix = "ecs"
         }
       }
@@ -104,11 +104,12 @@ resource "aws_ecs_task_definition" "limbs-task-definition" {
 }
 
 resource "aws_ecs_service" "limbs-php-service" {
-  name            = "limbs-php-service"
-  cluster         = var.limbs_cluster_id
-  task_definition = aws_ecs_task_definition.limbs-task-definition.arn
-  desired_count   = 1
-  launch_type     = "FARGATE"
+  name                   = "limbs-php-service"
+  cluster                = var.limbs_cluster_id
+  task_definition        = aws_ecs_task_definition.limbs-task-definition.arn
+  desired_count          = 1
+  launch_type            = "FARGATE"
+  enable_execute_command = true
 
   network_configuration {
     subnets          = [var.subnets[0], var.subnets[1], var.subnets[2]]
