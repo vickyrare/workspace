@@ -2,12 +2,21 @@ import subprocess
 import sys
 import os
 
-def get_changed_files_in_mr(base_branch, feature_branch):
+def get_changed_files_in_mr():
     """
     Get the list of files changed in a Git merge request (MR).
     Compares the feature branch with the base branch.
     """
     try:
+        # get the current branch name
+        result = subprocess.run(
+            ["git", "branch", "--show-current", ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        base_branch = 'main'
+        feature_branch = result.stdout.strip('\n')
         # Use `git diff` to get the file names between branches
         result = subprocess.run(
             ["git", "diff", "--name-only", base_branch + "..." + feature_branch],
@@ -40,14 +49,7 @@ def open_files_in_intellij(files):
 
 
 def main():
-    if len(sys.argv) != 3:
-        print("Usage: python open_git_mr_files.py <base-branch> <feature-branch>")
-        sys.exit(1)
-
-    base_branch = sys.argv[1]
-    feature_branch = sys.argv[2]
-
-    files = get_changed_files_in_mr(base_branch, feature_branch)
+    files = get_changed_files_in_mr()
 
     if not files:
         print("No files were changed in this merge request.")
