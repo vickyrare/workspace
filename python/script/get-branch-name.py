@@ -10,6 +10,7 @@ if __name__ == '__main__':
 
     ticket_desc = args.ticket_desc
 
+    ticket_desc = ticket_desc.replace('-', '')
     ticket_desc = ticket_desc.replace(': ', '-')
     ticket_desc = ticket_desc.replace(' ', '-')
     ticket_desc = ticket_desc.replace('(', '-')
