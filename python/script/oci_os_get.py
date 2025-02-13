@@ -1,9 +1,10 @@
 import argparse
 import subprocess
 import json
+import os
 
 
-def transform_oci_url(input_url, output_file="output"):
+def transform_oci_url(input_url):
     try:
         # Parse the input string
         if not input_url.startswith("oci://"):
@@ -23,7 +24,7 @@ def transform_oci_url(input_url, output_file="output"):
             "--namespace", namespace,
             "--bucket-name", bucket,
             "--name", file_name,
-            "--file", output_file
+            "--file", os.path.basename(file_name)
         ]
 
         return command
@@ -67,14 +68,15 @@ def prettify_json_file(input_file, output_file=None):
 if __name__ == "__main__":
     # Set up argument parser
     parser = argparse.ArgumentParser(
-        description="Transform OCI URL into OCI CLI command, execute it, and prettify JSON output")
+        description="Transform OCI URL into OCI CLI command, execute it")
     parser.add_argument("input_url", help="OCI URL in the format 'oci://bucket@namespace/file'")
-    parser.add_argument("--output", default="output.json", help="Output file name (default: 'output.json')")
 
     args = parser.parse_args()
 
+    output_file = os.path.basename(args.input_url)
+
     # Transform the input
-    cli_command = transform_oci_url(args.input_url, args.output)
+    cli_command = transform_oci_url(args.input_url)
 
     if cli_command:
         # Print the command (optional)
@@ -83,4 +85,6 @@ if __name__ == "__main__":
 
         # Execute the command
         execute_command(cli_command)
-        prettify_json_file(args.output, args.output)
+        if output_file.endswith(".json"):
+            prettify_json_file(output_file, output_file)
+
