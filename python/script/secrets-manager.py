@@ -1,0 +1,310 @@
+import oci
+import requests
+import json
+import argparse
+import base64
+import datetime
+import os
+
+# --- Helper Functions ---
+
+def get_artifactory_token(artifactory_url, username, password):
+    """
+    Fetches an access token from Artifactory.
+    """
+    token_url = f"{artifactory_url}/artifactory/api/security/token"
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    data = {
+        "username": username,
+        "password": password,
+        "grant_type": "client_credentials",
+        "scope": "api:* read:write" # Adjust scope as needed
+    }
+    try:
+        response = requests.post(token_url, headers=headers, data=data)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching Artifactory token: {e}")
+        return None
+
+def get_secret_bundle(secret_id):
+    """
+    Retrieves the latest secret bundle content.
+    """
+    try:
+        get_secret_bundle_response = secrets_client.get_secret_bundle(secret_id)
+        secret_content_base64 = get_secret_bundle_response.data.secret_bundle_content.content
+        secret_content = base64.b64decode(secret_content_base64).decode('utf-8')
+        try:
+            # Assume the secret is a JSON object containing the token
+            return json.loads(secret_content)
+        except json.JSONDecodeError:
+            # If not JSON, assume the secret content is the token itself.
+            # Return it in a dictionary to match the expected format.
+            return {"access_token": secret_content}
+    except oci.exceptions.ServiceError as e:
+        if e.status == 404:
+            return None # Secret not found
+        print(f"Error retrieving secret bundle: {e}")
+        return None
+
+def create_or_update_secret(secret_name, compartment_id, vault_id, token_json, username, artifactory_url):
+    """
+    Creates a new secret or updates an existing one with a new version.
+    """
+    secret_content = json.dumps(token_json)
+    secret_content_base64 = base64.b64encode(secret_content.encode('utf-8')).decode('utf-8')
+
+    # Define metadata
+    metadata = {
+        "username": username,
+        "artifactory_url": artifactory_url
+    }
+
+    # Check if secret exists
+    list_secrets_response = secrets_client.list_secrets(
+        compartment_id=compartment_id,
+        name=secret_name,
+        vault_id=vault_id
+    )
+
+    if list_secrets_response.data and list_secrets_response.data.items:
+        # Secret exists, create a new version
+        secret_id = list_secrets_response.data.items[0].id
+        print(f"Secret '{secret_name}' found. Creating new version...")
+
+        # Update description
+        description = (
+            f"Artifactory token for user '{username}' on instance '{artifactory_url}'. "
+            f"Last updated: {datetime.datetime.now().isoformat()}"
+        )
+        secrets_client.update_secret(
+            secret_id=secret_id,
+            update_secret_details=oci.secrets.models.UpdateSecretDetails(
+                description=description,
+                freeform_tags=metadata # Using freeform_tags for metadata as per plan.md
+            )
+        )
+
+        # Create new secret bundle
+        create_secret_bundle_response = secrets_client.create_secret_bundle(
+            secret_id=secret_id,
+            create_secret_bundle_details=oci.secrets.models.CreateSecretBundleDetails(
+                secret_bundle_content=oci.secrets.models.Base64SecretBundleContent(
+                    content=secret_content_base64,
+                    content_type="BASE64"
+                )
+            )
+        )
+        print(f"New version created for secret '{secret_name}'. Version OCID: {create_secret_bundle_response.data.id}")
+        return create_secret_bundle_response.data.id
+    else:
+        # Secret does not exist, create it
+        print(f"Secret '{secret_name}' not found. Creating new secret...")
+        description = (
+            f"Artifactory token for user '{username}' on instance '{artifactory_url}'. "
+            f"Created: {datetime.datetime.now().isoformat()}"
+        )
+        create_secret_response = secrets_client.create_secret(
+            create_secret_details=oci.secrets.models.CreateSecretDetails(
+                compartment_id=compartment_id,
+                secret_content=oci.secrets.models.Base64SecretContent(
+                    content=secret_content_base64,
+                    content_type="BASE64"
+                ),
+                secret_name=secret_name,
+                vault_id=vault_id,
+                description=description,
+                freeform_tags=metadata # Using freeform_tags for metadata as per plan.md
+            )
+        )
+        print(f"Secret '{secret_name}' created. Secret OCID: {create_secret_response.data.id}")
+        return create_secret_response.data.id
+
+def output_token(token_json, output_format, username=None):
+    """
+    Outputs the access token in various formats.
+    """
+    access_token = token_json.get("access_token")
+    if not access_token:
+        print("Error: Access token not found in the response.")
+        return
+
+    if output_format == "value":
+        print(access_token)
+    elif output_format == "username_token":
+        if username:
+            print(f"{username}/{access_token}")
+        else:
+            print("Error: Username not provided for 'username_token' format.")
+    elif output_format == "json":
+        output_data = {
+            "username": username if username else "artifactory_user", # Placeholder if username not available
+            "password": access_token
+        }
+        print(json.dumps(output_data, indent=2))
+    else:
+        print(f"Unsupported output format: {output_format}")
+
+def ping_artifactory(secret_id, artifactory_url_arg=None):
+    """
+    Tests the validity of the Artifactory token stored in a secret by hitting the /ping endpoint.
+    """
+    secret_bundle = get_secret_bundle(secret_id)
+    if not secret_bundle:
+        print(f"Error: Could not retrieve secret content for ID: {secret_id}")
+        return False
+
+    access_token = secret_bundle.get("access_token")
+    if not access_token:
+        print("Error: Access token not found in the secret content.")
+        return False
+
+    artifactory_url = artifactory_url_arg # Use provided argument first
+    if not artifactory_url:
+        # Retrieve Artifactory URL from secret metadata (freeform_tags)
+        try:
+            # The following line causes AttributeError in user's environment
+            # get_secret_response = secrets_client.get_secret(secret_id)
+            # artifactory_url = get_secret_response.data.freeform_tags.get("artifactory_url")
+
+            # Workaround: If get_secret is not available, we cannot retrieve artifactory_url from metadata.
+            # We will print an error and ask the user to provide it via --artifactory-url.
+            print("Warning: 'secrets_client.get_secret' method is not available in your OCI SDK version.")
+            print("Cannot retrieve 'artifactory_url' from secret metadata.")
+            print("Please provide the Artifactory URL using the '--artifactory-url' argument.")
+            return False
+
+        except oci.exceptions.ServiceError as e:
+            print(f"Error getting secret details for metadata: {e}")
+            return False
+
+    if not artifactory_url: # Check again if it's still not set
+        print("Error: Artifactory URL is not available. Please provide it using the '--artifactory-url' argument.")
+        return False
+
+    ping_url = f"{artifactory_url}/artifactory/api/system/ping"
+    headers = {"Authorization": f"Bearer {access_token}"}
+
+    try:
+        response = requests.get(ping_url, headers=headers)
+        response.raise_for_status()
+        if response.text.strip() == "OK":
+            print(f"Artifactory ping successful for secret ID {secret_id}!")
+            return True
+        else:
+            print(f"Artifactory ping failed for secret ID {secret_id}. Response: {response.text}")
+            return False
+    except requests.exceptions.RequestException as e:
+        print(f"Error during Artifactory ping for secret ID {secret_id}: {e}")
+        return False
+
+# Global clients
+secrets_client = None
+vaults_client = None
+
+def main():
+    parser = argparse.ArgumentParser(description="Manage Artifactory access tokens in OCI Vault.")
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    # Fetch command
+    fetch_parser = subparsers.add_parser("fetch", help="Fetch a new Artifactory token and output it.")
+    fetch_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    fetch_parser.add_argument("--artifactory-url", required=True, help="Base URL of the Artifactory instance.")
+    fetch_parser.add_argument("--username", required=True, help="Artifactory username.")
+    fetch_parser.add_argument("--password", required=True, help="Artifactory password.")
+    fetch_parser.add_argument("--output-format", choices=["value", "username_token", "json"], default="value",
+                              help="Output format for the token.")
+
+    # Store command (create/update secret)
+    store_parser = subparsers.add_parser("store", help="Fetch a new Artifactory token and store/update it in OCI Vault.")
+    store_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    store_parser.add_argument("--artifactory-url", required=True, help="Base URL of the Artifactory instance.")
+    store_parser.add_argument("--username", required=True, help="Artifactory username.")
+    store_parser.add_argument("--password", required=True, help="Artifactory password.")
+    store_parser.add_argument("--compartment-id", required=True, help="OCID of the compartment where the secret will reside.")
+    store_parser.add_argument("--vault-id", required=True, help="OCID of the Vault where the secret will reside.")
+    store_parser.add_argument("--secret-name", required=True,
+                              help="Name of the secret. Should follow 'artifactory-<instance>-<username>' convention.")
+
+    # Ping command
+    ping_parser = subparsers.add_parser("ping", help="Test the validity of an Artifactory token stored in a secret.")
+    ping_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    ping_parser.add_argument("--secret-id", required=True, help="OCID of the secret containing the Artifactory token.")
+    ping_parser.add_argument("--artifactory-url", help="Base URL of the Artifactory instance. If not provided, it will be retrieved from the secret's metadata.")
+
+    args = parser.parse_args()
+    print(f"Parsed arguments: {args}")
+
+    # OCI SDK Setup - moved here to use --profile argument
+    global secrets_client, vaults_client
+
+    try:
+        config = oci.config.from_file(profile_name=args.profile)
+        print(f"Using OCI config profile: {args.profile}")
+    except Exception as config_e:
+        print(f"Error loading OCI config file with profile '{args.profile}': {config_e}")
+        print("Please ensure your OCI config file (~/.oci/config) is correctly set up or provide valid credentials.")
+        exit(1)
+
+    signer = None
+    # Check for security token session and create a signer if found
+    token_file = os.path.expanduser(os.path.join('~', '.oci', 'sessions', 'DEFAULT', 'token'))
+    if os.path.exists(token_file):
+        print("Found security token session, attempting to use it.")
+        try:
+            from oci.auth.signers import SecurityTokenSigner
+            from oci.signer import load_private_key_from_file
+
+            key_file = config.get('key_file')
+            if not key_file:
+                raise Exception("'key_file' not found in OCI config. It's required for security token authentication.")
+
+            with open(token_file, 'r') as f:
+                token = f.read()
+
+            private_key = load_private_key_from_file(os.path.expanduser(key_file), config.get('pass_phrase'))
+            signer = SecurityTokenSigner(token, private_key)
+        except Exception as e:
+            print(f"Could not create security token signer: {e}. Falling back to API key authentication.")
+            signer = None
+
+    try:
+        if signer:
+            # When providing a signer, we still need to provide the region.
+            region = config.get('region')
+            if not region:
+                raise Exception("Region not found in OCI config and is required.")
+
+            client_config = {'region': region}
+            secrets_client = oci.secrets.secrets_client.SecretsClient(config=client_config, signer=signer)
+            vaults_client = oci.vault.vaults_client.VaultsClient(config=client_config, signer=signer)
+        else:
+            print("Using API Key authentication from config file.")
+            secrets_client = oci.secrets.secrets_client.SecretsClient(config)
+            vaults_client = oci.vault.vaults_client.VaultsClient(config)
+    except oci.exceptions.InvalidConfig as e:
+        print(f"OCI Config is invalid: {e}")
+        print("Please ensure your OCI config file (~/.oci/config) is correctly set up.")
+        exit(1)
+    except Exception as e:
+        print(f"Error creating OCI clients: {e}")
+        exit(1)
+
+    if args.command == "fetch":
+        token_json = get_artifactory_token(args.artifactory_url, args.username, args.password)
+        if token_json:
+            output_token(token_json, args.output_format, args.username)
+    elif args.command == "store":
+        token_json = get_artifactory_token(args.artifactory_url, args.username, args.password)
+        if token_json:
+            create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
+                                    token_json, args.username, args.artifactory_url)
+    elif args.command == "ping":
+        ping_artifactory(args.secret_id, args.artifactory_url)
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
