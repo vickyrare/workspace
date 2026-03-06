@@ -12,21 +12,31 @@ def get_artifactory_token(artifactory_url, username, password):
     """
     Fetches an access token from Artifactory.
     """
-    token_url = f"{artifactory_url}/artifactory/api/security/token"
-    headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    data = {
-        "username": username,
-        "password": password,
-        "grant_type": "client_credentials",
-        "scope": "api:* read:write" # Adjust scope as needed
+    # token_url = f"{artifactory_url}/artifactory/api/security/token"
+    # headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    # data = {
+    #     "username": username,
+    #     "password": password,
+    #     "grant_type": "client_credentials",
+    #     "scope": "api:* read:write" # Adjust scope as needed
+    # }
+    # try:
+    #     response = requests.post(token_url, headers=headers, data=data)
+    #     response.raise_for_status()
+    #     return response.json()
+    # except requests.exceptions.RequestException as e:
+    #     print(f"Error fetching Artifactory token: {e}")
+    #     return None
+    return """
+    {
+      "access_token": "access_token",
+      "refresh_token": "refresh_token",
+      "expires_in": "expires_in",
+      "scope": "scope",
+      "token_type": "token_type",
+      "user_name": "user_name"
     }
-    try:
-        response = requests.post(token_url, headers=headers, data=data)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching Artifactory token: {e}")
-        return None
+    """
 
 def get_secret_bundle(secret_id):
     """
@@ -49,9 +59,9 @@ def get_secret_bundle(secret_id):
         print(f"Error retrieving secret bundle: {e}")
         return None
 
-def create_or_update_secret(secret_name, compartment_id, vault_id, token_json, username, artifactory_url):
+def create_or_update_secret(secret_name, compartment_id, vault_id, token_json, username, artifactory_url, key_id):
     """
-    Creates a new secret or updates an existing one with a new version.
+    Creates a new secret or updates an existing one with a new version using VaultsClient.
     """
     secret_content = json.dumps(token_json)
     secret_content_base64 = base64.b64encode(secret_content.encode('utf-8')).decode('utf-8')
@@ -62,16 +72,25 @@ def create_or_update_secret(secret_name, compartment_id, vault_id, token_json, u
         "artifactory_url": artifactory_url
     }
 
-    # Check if secret exists
-    list_secrets_response = secrets_client.list_secrets(
-        compartment_id=compartment_id,
-        name=secret_name,
-        vault_id=vault_id
-    )
+    # Check if secret exists using VaultsClient.list_secrets
+    secret_exists = False
+    existing_secret_id = None
+    try:
+        list_secrets_response = vaults_client.list_secrets(
+            compartment_id=compartment_id,
+            name=secret_name,
+            vault_id=vault_id
+        )
+        if list_secrets_response.data: # Check if the list is not empty
+            existing_secret_id = list_secrets_response.data[0].id # Access the first item in the list
+            secret_exists = True
+    except oci.exceptions.ServiceError as e:
+        print(f"Error checking for existing secret with VaultsClient: {e}")
+        return None # Or re-raise, depending on desired error handling
 
-    if list_secrets_response.data and list_secrets_response.data.items:
+    if secret_exists:
         # Secret exists, create a new version
-        secret_id = list_secrets_response.data.items[0].id
+        secret_id = existing_secret_id
         print(f"Secret '{secret_name}' found. Creating new version...")
 
         # Update description
@@ -79,44 +98,42 @@ def create_or_update_secret(secret_name, compartment_id, vault_id, token_json, u
             f"Artifactory token for user '{username}' on instance '{artifactory_url}'. "
             f"Last updated: {datetime.datetime.now().isoformat()}"
         )
-        secrets_client.update_secret(
+        
+        # Update secret using VaultsClient
+        update_secret_response = vaults_client.update_secret(
             secret_id=secret_id,
-            update_secret_details=oci.secrets.models.UpdateSecretDetails(
+            update_secret_details=oci.vault.models.UpdateSecretDetails(
                 description=description,
-                freeform_tags=metadata # Using freeform_tags for metadata as per plan.md
-            )
-        )
-
-        # Create new secret bundle
-        create_secret_bundle_response = secrets_client.create_secret_bundle(
-            secret_id=secret_id,
-            create_secret_bundle_details=oci.secrets.models.CreateSecretBundleDetails(
-                secret_bundle_content=oci.secrets.models.Base64SecretBundleContent(
+                freeform_tags=metadata,
+                secret_content=oci.vault.models.Base64SecretContentDetails(
                     content=secret_content_base64,
                     content_type="BASE64"
                 )
             )
         )
-        print(f"New version created for secret '{secret_name}'. Version OCID: {create_secret_bundle_response.data.id}")
-        return create_secret_bundle_response.data.id
+        print(f"New version created for secret '{secret_name}'. Secret OCID: {update_secret_response.data.id}")
+        return update_secret_response.data.id
     else:
         # Secret does not exist, create it
         print(f"Secret '{secret_name}' not found. Creating new secret...")
         description = (
-            f"Artifactory token for user '{username}' on instance '{artifactory_url}'. "
+            f"artifactory-'{username}'-'{artifactory_url}' "
             f"Created: {datetime.datetime.now().isoformat()}"
         )
-        create_secret_response = secrets_client.create_secret(
-            create_secret_details=oci.secrets.models.CreateSecretDetails(
+        
+        # Create secret using VaultsClient
+        create_secret_response = vaults_client.create_secret(
+            create_secret_details=oci.vault.models.CreateSecretDetails(
                 compartment_id=compartment_id,
-                secret_content=oci.secrets.models.Base64SecretContent(
+                secret_name=secret_name,
+                vault_id=vault_id,
+                key_id=key_id, # Required for creating a secret
+                secret_content=oci.vault.models.Base64SecretContentDetails(
                     content=secret_content_base64,
                     content_type="BASE64"
                 ),
-                secret_name=secret_name,
-                vault_id=vault_id,
                 description=description,
-                freeform_tags=metadata # Using freeform_tags for metadata as per plan.md
+                freeform_tags=metadata
             )
         )
         print(f"Secret '{secret_name}' created. Secret OCID: {create_secret_response.data.id}")
@@ -164,21 +181,12 @@ def ping_artifactory(secret_id, artifactory_url_arg=None):
     artifactory_url = artifactory_url_arg # Use provided argument first
     if not artifactory_url:
         # Retrieve Artifactory URL from secret metadata (freeform_tags)
-        try:
-            # The following line causes AttributeError in user's environment
-            # get_secret_response = secrets_client.get_secret(secret_id)
-            # artifactory_url = get_secret_response.data.freeform_tags.get("artifactory_url")
-
-            # Workaround: If get_secret is not available, we cannot retrieve artifactory_url from metadata.
-            # We will print an error and ask the user to provide it via --artifactory-url.
-            print("Warning: 'secrets_client.get_secret' method is not available in your OCI SDK version.")
-            print("Cannot retrieve 'artifactory_url' from secret metadata.")
-            print("Please provide the Artifactory URL using the '--artifactory-url' argument.")
-            return False
-
-        except oci.exceptions.ServiceError as e:
-            print(f"Error getting secret details for metadata: {e}")
-            return False
+        # Workaround: If get_secret is not available, we cannot retrieve artifactory_url from metadata.
+        # We will print an error and ask the user to provide it via --artifactory-url.
+        print("Warning: 'secrets_client.get_secret' method is not available in your OCI SDK version.")
+        print("Cannot retrieve 'artifactory_url' from secret metadata.")
+        print("Please provide the Artifactory URL using the '--artifactory-url' argument.")
+        return False
 
     if not artifactory_url: # Check again if it's still not set
         print("Error: Artifactory URL is not available. Please provide it using the '--artifactory-url' argument.")
@@ -227,6 +235,7 @@ def main():
     store_parser.add_argument("--vault-id", required=True, help="OCID of the Vault where the secret will reside.")
     store_parser.add_argument("--secret-name", required=True,
                               help="Name of the secret. Should follow 'artifactory-<instance>-<username>' convention.")
+    store_parser.add_argument("--key-id", required=True, help="OCID of the Key to encrypt the secret.")
 
     # Ping command
     ping_parser = subparsers.add_parser("ping", help="Test the validity of an Artifactory token stored in a secret.")
@@ -300,7 +309,7 @@ def main():
         token_json = get_artifactory_token(args.artifactory_url, args.username, args.password)
         if token_json:
             create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
-                                    token_json, args.username, args.artifactory_url)
+                                    token_json, args.username, args.artifactory_url, args.key_id)
     elif args.command == "ping":
         ping_artifactory(args.secret_id, args.artifactory_url)
     else:
