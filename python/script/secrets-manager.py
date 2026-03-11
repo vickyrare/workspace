@@ -7,37 +7,6 @@ import datetime
 import os
 
 # --- Helper Functions ---
-
-def get_artifactory_token(artifactory_url, username, password):
-    """
-    Fetches an access token from Artifactory.
-    """
-    # token_url = f"{artifactory_url}/artifactory/api/security/token"
-    # headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    # data = {
-    #     "username": username,
-    #     "password": password,
-    #     "grant_type": "client_credentials",
-    #     "scope": "api:* read:write" # Adjust scope as needed
-    # }
-    # try:
-    #     response = requests.post(token_url, headers=headers, data=data)
-    #     response.raise_for_status()
-    #     return response.json()
-    # except requests.exceptions.RequestException as e:
-    #     print(f"Error fetching Artifactory token: {e}")
-    #     return None
-    return """
-    {
-      "access_token": "access_token",
-      "refresh_token": "refresh_token",
-      "expires_in": "expires_in",
-      "scope": "scope",
-      "token_type": "token_type",
-      "user_name": "user_name"
-    }
-    """
-
 def get_secret_bundle(secret_id):
     """
     Retrieves the latest secret bundle content.
@@ -164,6 +133,31 @@ def output_token(token_json, output_format, username=None):
     else:
         print(f"Unsupported output format: {output_format}")
 
+def refresh_artifactory_token(artifactory_url, refresh_token, access_token_for_auth=None):
+    """
+    Refreshes an access token from Artifactory using a refresh token.
+    Optionally uses an existing access token for authorization.
+    """
+    #token_url = f"{artifactory_url}/artifactory/api/security/token"
+    token_url = f"{artifactory_url}/access/api/v1/tokens"
+    #headers = {"Content-Type": "application/x-www-form-urlencoded"}
+    headers = {}
+    if access_token_for_auth:
+        headers["Authorization"] = f"Bearer {access_token_for_auth}"
+    data = {
+        "grant_type": "refresh_token",
+        "refresh_token": refresh_token,
+      #  "scope": "member-of-groups:telesis-swa-services_reader,arthubidcs_telesis-swa-services_reader,readers,authenticated_users",
+        #"scope": "api:* read:write" # Adjust scope as needed
+    }
+    try:
+        response = requests.post(token_url, headers=headers, data=data)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error refreshing Artifactory token: {e}")
+        return None
+
 def ping_artifactory(secret_id, artifactory_url_arg=None):
     """
     Tests the validity of the Artifactory token stored in a secret by hitting the /ping endpoint.
@@ -216,21 +210,14 @@ def main():
     parser = argparse.ArgumentParser(description="Manage Artifactory access tokens in OCI Vault.")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    # Fetch command
-    fetch_parser = subparsers.add_parser("fetch", help="Fetch a new Artifactory token and output it.")
-    fetch_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
-    fetch_parser.add_argument("--artifactory-url", required=True, help="Base URL of the Artifactory instance.")
-    fetch_parser.add_argument("--username", required=True, help="Artifactory username.")
-    fetch_parser.add_argument("--password", required=True, help="Artifactory password.")
-    fetch_parser.add_argument("--output-format", choices=["value", "username_token", "json"], default="value",
-                              help="Output format for the token.")
+    # Fetch command (removed as username/password authentication is removed)
 
     # Store command (create/update secret)
-    store_parser = subparsers.add_parser("store", help="Fetch a new Artifactory token and store/update it in OCI Vault.")
+    store_parser = subparsers.add_parser("store", help="Refresh an Artifactory token and store/update it in OCI Vault.")
     store_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    store_parser.add_argument("--source-secret-id", required=True, help="OCID of the secret containing the refresh token.")
     store_parser.add_argument("--artifactory-url", required=True, help="Base URL of the Artifactory instance.")
-    store_parser.add_argument("--username", required=True, help="Artifactory username.")
-    store_parser.add_argument("--password", required=True, help="Artifactory password.")
+    store_parser.add_argument("--username", help="Artifactory username. Used for metadata.")
     store_parser.add_argument("--compartment-id", required=True, help="OCID of the compartment where the secret will reside.")
     store_parser.add_argument("--vault-id", required=True, help="OCID of the Vault where the secret will reside.")
     store_parser.add_argument("--secret-name", required=True,
@@ -301,15 +288,37 @@ def main():
         print(f"Error creating OCI clients: {e}")
         exit(1)
 
-    if args.command == "fetch":
-        token_json = get_artifactory_token(args.artifactory_url, args.username, args.password)
-        if token_json:
-            output_token(token_json, args.output_format, args.username)
-    elif args.command == "store":
-        token_json = get_artifactory_token(args.artifactory_url, args.username, args.password)
-        if token_json:
-            create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
-                                    token_json, args.username, args.artifactory_url, args.key_id)
+    if args.command == "store":
+        # 1. Read the existing secret to get the refresh token and access token
+        existing_secret_content = get_secret_bundle(args.source_secret_id)
+        if not existing_secret_content:
+            print(f"Error: Could not retrieve existing secret content for ID: {args.source_secret_id}")
+            exit(1)
+        
+        refresh_token = existing_secret_content.get("refresh_token")
+        if not refresh_token:
+            print(f"Error: 'refresh_token' not found in secret content for ID: {args.source_secret_id}")
+            exit(1)
+
+        access_token_for_auth = existing_secret_content.get("access_token")
+        if not access_token_for_auth:
+            print(f"Warning: 'access_token' not found in secret content for ID: {args.source_secret_id}. Proceeding without it for authorization.")
+
+        # 2. Refresh the access token
+        token_json = refresh_artifactory_token(args.artifactory_url, refresh_token, access_token_for_auth)
+        if not token_json:
+            print("Error: Failed to refresh Artifactory token.")
+            exit(1)
+
+        # 3. Store the new token information back into the secret
+        # For metadata, we still need username and artifactory_url.
+        # If not provided, we'll use placeholders or raise an error if strictly needed.
+        if not args.username:
+            print("Warning: --username not provided. Using 'unknown_user' for metadata.")
+            args.username = "unknown_user"
+        
+        create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
+                                token_json, args.username, args.artifactory_url, args.key_id)
     elif args.command == "ping":
         ping_artifactory(args.secret_id, args.artifactory_url)
     else:
