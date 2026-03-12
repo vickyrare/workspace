@@ -211,12 +211,14 @@ def main():
     # Fetch command
     fetch_parser = subparsers.add_parser("fetch", help="Fetch an access token from a secret and output it.")
     fetch_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    fetch_parser.add_argument("--auth-method", choices=["api_key", "security_token", "instance_principals"], default="security_token", help="Authentication method to use.")
     fetch_parser.add_argument("--secret-id", required=True, help="OCID of the secret containing the Artifactory token.")
     fetch_parser.add_argument("--output-format", choices=["value", "username_token", "json"], default="value", help="Output format for the token.")
 
     # Store command (create/update secret)
     store_parser = subparsers.add_parser("store", help="Refresh an Artifactory token and store/update it in OCI Vault.")
     store_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    store_parser.add_argument("--auth-method", choices=["api_key", "security_token", "instance_principals"], default="security_token", help="Authentication method to use.")
     store_parser.add_argument("--source-secret-id", required=True, help="OCID of the secret containing the refresh token.")
     store_parser.add_argument("--artifactory-url", required=True, help="Base URL of the Artifactory instance.")
     store_parser.add_argument("--username", help="Artifactory username. Used for metadata.")
@@ -228,6 +230,7 @@ def main():
     # Ping command
     ping_parser = subparsers.add_parser("ping", help="Test the validity of an Artifactory token stored in a secret.")
     ping_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    ping_parser.add_argument("--auth-method", choices=["api_key", "security_token", "instance_principals"], default="security_token", help="Authentication method to use.")
     ping_parser.add_argument("--secret-id", required=True, help="OCID of the secret containing the Artifactory token.")
     ping_parser.add_argument("--artifactory-url", help="Base URL of the Artifactory instance. If not provided, it will be retrieved from the secret's metadata.")
 
@@ -237,48 +240,56 @@ def main():
     # OCI SDK Setup - moved here to use --profile argument
     global secrets_client, vaults_client
 
-    try:
-        config = oci.config.from_file(profile_name=args.profile)
-        print(f"Using OCI config profile: {args.profile}")
-    except Exception as config_e:
-        print(f"Error loading OCI config file with profile '{args.profile}': {config_e}")
-        print("Please ensure your OCI config file (~/.oci/config) is correctly set up or provide valid credentials.")
-        exit(1)
+    config = {} # Initialize config as empty
+    if args.auth_method == "api_key" or args.auth_method == "security_token":
+        try:
+            config = oci.config.from_file(profile_name=args.profile)
+            print(f"Using OCI config profile: {args.profile}")
+        except Exception as config_e:
+            print(f"Error loading OCI config file with profile '{args.profile}': {config_e}")
+            print("Please ensure your OCI config file (~/.oci/config) is correctly set up or provide valid credentials.")
+            exit(1)
 
     signer = None
-    # Check for security token session and create a signer if found
-    token_file = os.path.expanduser(os.path.join('~', '.oci', 'sessions', 'DEFAULT', 'token'))
-    if os.path.exists(token_file):
-        print("Found security token session, attempting to use it.")
-        try:
-            from oci.auth.signers import SecurityTokenSigner
-            from oci.signer import load_private_key_from_file
+    if args.auth_method == "security_token":
+        # Check for security token session and create a signer if found
+        token_file = os.path.expanduser(os.path.join('~', '.oci', 'sessions', 'DEFAULT', 'token'))
+        if os.path.exists(token_file):
+            print("Found security token session, attempting to use it.")
+            try:
+                from oci.auth.signers import SecurityTokenSigner
+                from oci.signer import load_private_key_from_file
 
-            key_file = config.get('key_file')
-            if not key_file:
-                raise Exception("'key_file' not found in OCI config. It's required for security token authentication.")
+                key_file = config.get('key_file')
+                if not key_file:
+                    raise Exception("'key_file' not found in OCI config. It's required for security token authentication.")
 
-            with open(token_file, 'r') as f:
-                token = f.read()
+                with open(token_file, 'r') as f:
+                    token = f.read()
 
-            private_key = load_private_key_from_file(os.path.expanduser(key_file), config.get('pass_phrase'))
-            signer = SecurityTokenSigner(token, private_key)
-        except Exception as e:
-            print(f"Could not create security token signer: {e}. Falling back to other authentication methods.")
-            signer = None
-
-    if not signer: # If security token didn't work, try Instance Principals
+                private_key = load_private_key_from_file(os.path.expanduser(key_file), config.get('pass_phrase'))
+                signer = SecurityTokenSigner(token, private_key)
+            except Exception as e:
+                print(f"Could not create security token signer: {e}. Please check your OCI config and session.")
+                exit(1)
+        else:
+            print("Error: Security token authentication requested, but no token file found.")
+            exit(1)
+    elif args.auth_method == "instance_principals":
         try:
             from oci.auth.signers import InstancePrincipalsSecurityTokenSigner
             signer = InstancePrincipalsSecurityTokenSigner()
             print("Using Instance Principals for authentication.")
-            # When using Instance Principals, config can be empty, but we still need region.
-            # We'll extract region from the config file if available, otherwise rely on default.
-            if not config.get('region'):
-                print("Warning: Region not found in OCI config. Instance Principals might require it.")
         except Exception as e:
-            print(f"Instance Principals authentication failed: {e}. Falling back to API Key authentication from config file.")
-            signer = None
+            print(f"Error: Instance Principals authentication failed: {e}.")
+            exit(1)
+    elif args.auth_method == "api_key":
+        # API Key authentication is handled by passing the config directly to the client
+        print("Using API Key authentication from config file.")
+        # No explicit signer needed here, client will create it from config
+    else:
+        print(f"Error: Unknown authentication method: {args.auth_method}")
+        exit(1)
 
     try:
         if signer:
@@ -295,8 +306,7 @@ def main():
             client_config = {'region': region} if region else {}
             secrets_client = oci.secrets.secrets_client.SecretsClient(config=client_config, signer=signer)
             vaults_client = oci.vault.vaults_client.VaultsClient(config=client_config, signer=signer)
-        else:
-            print("Using API Key authentication from config file.")
+        else: # This branch is for API Key authentication
             secrets_client = oci.secrets.secrets_client.SecretsClient(config)
             vaults_client = oci.vault.vaults_client.VaultsClient(config)
     except oci.exceptions.InvalidConfig as e:
