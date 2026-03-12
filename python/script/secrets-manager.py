@@ -276,7 +276,6 @@ def main():
         try:
             from oci.auth.signers import InstancePrincipalsSecurityTokenSigner
             signer = InstancePrincipalsSecurityTokenSigner()
-            print("Using Instance Principals for authentication.")
         except Exception as e:
             print(f"Error: Instance Principals authentication failed: {e}.")
             exit(1)
