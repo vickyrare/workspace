@@ -235,7 +235,6 @@ def main():
     ping_parser.add_argument("--artifactory-url", help="Base URL of the Artifactory instance. If not provided, it will be retrieved from the secret's metadata.")
 
     args = parser.parse_args()
-    print(f"Parsed arguments: {args}")
 
     # OCI SDK Setup - moved here to use --profile argument
     global secrets_client, vaults_client
@@ -244,7 +243,6 @@ def main():
     if args.auth_method == "api_key" or args.auth_method == "security_token":
         try:
             config = oci.config.from_file(profile_name=args.profile)
-            print(f"Using OCI config profile: {args.profile}")
         except Exception as config_e:
             print(f"Error loading OCI config file with profile '{args.profile}': {config_e}")
             print("Please ensure your OCI config file (~/.oci/config) is correctly set up or provide valid credentials.")
@@ -255,7 +253,6 @@ def main():
         # Check for security token session and create a signer if found
         token_file = os.path.expanduser(os.path.join('~', '.oci', 'sessions', 'DEFAULT', 'token'))
         if os.path.exists(token_file):
-            print("Found security token session, attempting to use it.")
             try:
                 from oci.auth.signers import SecurityTokenSigner
                 from oci.signer import load_private_key_from_file
