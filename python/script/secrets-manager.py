@@ -260,7 +260,20 @@ def main():
             private_key = load_private_key_from_file(os.path.expanduser(key_file), config.get('pass_phrase'))
             signer = SecurityTokenSigner(token, private_key)
         except Exception as e:
-            print(f"Could not create security token signer: {e}. Falling back to API key authentication.")
+            print(f"Could not create security token signer: {e}. Falling back to other authentication methods.")
+            signer = None
+
+    if not signer: # If security token didn't work, try Instance Principals
+        try:
+            from oci.auth.signers import InstancePrincipalsSecurityTokenSigner
+            signer = InstancePrincipalsSecurityTokenSigner()
+            print("Using Instance Principals for authentication.")
+            # When using Instance Principals, config can be empty, but we still need region.
+            # We'll extract region from the config file if available, otherwise rely on default.
+            if not config.get('region'):
+                print("Warning: Region not found in OCI config. Instance Principals might require it.")
+        except Exception as e:
+            print(f"Instance Principals authentication failed: {e}. Falling back to API Key authentication from config file.")
             signer = None
 
     try:
@@ -268,9 +281,16 @@ def main():
             # When providing a signer, we still need to provide the region.
             region = config.get('region')
             if not region:
-                raise Exception("Region not found in OCI config and is required.")
+                # If region is not in config, and we are using a signer, it might fail.
+                # For Instance Principals, region might be inferred or set in environment.
+                # For now, we'll raise an error if region is explicitly needed and missing.
+                if isinstance(signer, InstancePrincipalsSecurityTokenSigner):
+                    print("Warning: Region not found in OCI config. Instance Principals might infer it or require it via environment variables.")
+                    client_config = {} # Instance Principals can often work without explicit region in config
+                else:
+                    raise Exception("Region not found in OCI config and is required for this authentication method.")
 
-            client_config = {'region': region}
+            client_config = {'region': region} if region else {}
             secrets_client = oci.secrets.secrets_client.SecretsClient(config=client_config, signer=signer)
             vaults_client = oci.vault.vaults_client.VaultsClient(config=client_config, signer=signer)
         else:
