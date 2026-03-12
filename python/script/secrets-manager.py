@@ -285,12 +285,10 @@ def main():
             # When providing a signer, we still need to provide the region.
             region = config.get('region')
             if not region:
-                # If region is not in config, and we are using a signer, it might fail.
-                # For Instance Principals, region might be inferred or set in environment.
-                # For now, we'll raise an error if region is explicitly needed and missing.
                 if isinstance(signer, InstancePrincipalsSecurityTokenSigner):
-                    print("Warning: Region not found in OCI config. Instance Principals might infer it or require it via environment variables.")
-                    client_config = {} # Instance Principals can often work without explicit region in config
+                    # Hardcode region for Instance Principals if not found in config
+                    region = "us-ashburn-1"
+                    print(f"Warning: Region not found in OCI config. Hardcoding region to {region} for Instance Principals.")
                 else:
                     raise Exception("Region not found in OCI config and is required for this authentication method.")
 
