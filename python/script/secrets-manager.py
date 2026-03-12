@@ -208,7 +208,11 @@ def main():
     parser = argparse.ArgumentParser(description="Manage Artifactory access tokens in OCI Vault.")
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
-    # Fetch command (removed as username/password authentication is removed)
+    # Fetch command
+    fetch_parser = subparsers.add_parser("fetch", help="Fetch an access token from a secret and output it.")
+    fetch_parser.add_argument("--profile", default="DEFAULT", help="The config profile to use from ~/.oci/config.")
+    fetch_parser.add_argument("--secret-id", required=True, help="OCID of the secret containing the Artifactory token.")
+    fetch_parser.add_argument("--output-format", choices=["value", "username_token", "json"], default="value", help="Output format for the token.")
 
     # Store command (create/update secret)
     store_parser = subparsers.add_parser("store", help="Refresh an Artifactory token and store/update it in OCI Vault.")
@@ -305,7 +309,19 @@ def main():
         print(f"Error creating OCI clients: {e}")
         exit(1)
 
-    if args.command == "store":
+    if args.command == "fetch":
+        secret_content = get_secret_bundle(args.secret_id)
+        if not secret_content:
+            print(f"Error: Could not retrieve secret content for ID: {args.secret_id}")
+            exit(1)
+        
+        access_token = secret_content.get("access_token")
+        if not access_token:
+            print(f"Error: 'access_token' not found in secret content for ID: {args.secret_id}")
+            exit(1)
+        
+        output_token({"access_token": access_token}, args.output_format)
+    elif args.command == "store":
         # 1. Read the existing secret to get the refresh token and access token
         existing_secret_content = get_secret_bundle(args.source_secret_id)
         if not existing_secret_content:
