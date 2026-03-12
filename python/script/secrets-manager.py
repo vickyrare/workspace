@@ -133,25 +133,20 @@ def output_token(token_json, output_format, username=None):
     else:
         print(f"Unsupported output format: {output_format}")
 
-def refresh_artifactory_token(artifactory_url, refresh_token, access_token_for_auth=None):
+def refresh_artifactory_token(artifactory_url, refresh_token, access_token):
     """
     Refreshes an access token from Artifactory using a refresh token.
     Optionally uses an existing access token for authorization.
     """
-    #token_url = f"{artifactory_url}/artifactory/api/security/token"
-    token_url = f"{artifactory_url}/access/api/v1/tokens"
-    #headers = {"Content-Type": "application/x-www-form-urlencoded"}
-    headers = {}
-    if access_token_for_auth:
-        headers["Authorization"] = f"Bearer {access_token_for_auth}"
+    token_url = f"{artifactory_url}/artifactory/api/security/token"
     data = {
         "grant_type": "refresh_token",
-        "refresh_token": refresh_token,
-      #  "scope": "member-of-groups:telesis-swa-services_reader,arthubidcs_telesis-swa-services_reader,readers,authenticated_users",
-        #"scope": "api:* read:write" # Adjust scope as needed
+        "expires_in": 7776000,
+        "access_token": access_token,
+        "refresh_token": refresh_token
     }
     try:
-        response = requests.post(token_url, headers=headers, data=data)
+        response = requests.post(token_url, data=data)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -300,12 +295,12 @@ def main():
             print(f"Error: 'refresh_token' not found in secret content for ID: {args.source_secret_id}")
             exit(1)
 
-        access_token_for_auth = existing_secret_content.get("access_token")
-        if not access_token_for_auth:
+        access_token = existing_secret_content.get("access_token")
+        if not access_token:
             print(f"Warning: 'access_token' not found in secret content for ID: {args.source_secret_id}. Proceeding without it for authorization.")
 
         # 2. Refresh the access token
-        token_json = refresh_artifactory_token(args.artifactory_url, refresh_token, access_token_for_auth)
+        token_json = refresh_artifactory_token(args.artifactory_url, refresh_token, access_token)
         if not token_json:
             print("Error: Failed to refresh Artifactory token.")
             exit(1)
