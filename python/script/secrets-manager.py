@@ -139,6 +139,9 @@ def refresh_artifactory_token(artifactory_url, refresh_token, access_token):
     Optionally uses an existing access token for authorization.
     """
     token_url = f"{artifactory_url}/artifactory/api/security/token"
+    if 'csartifactorydev' in token_url:
+        #cs dev artifactory have a different end-point to refresh access token based on aud
+        token_url = f"{artifactory_url}/access/api/v1/tokens"
     data = {
         "grant_type": "refresh_token",
         "expires_in": 7776000,
@@ -215,8 +218,7 @@ def main():
     store_parser.add_argument("--username", help="Artifactory username. Used for metadata.")
     store_parser.add_argument("--compartment-id", required=True, help="OCID of the compartment where the secret will reside.")
     store_parser.add_argument("--vault-id", required=True, help="OCID of the Vault where the secret will reside.")
-    store_parser.add_argument("--secret-name", required=True,
-                              help="Name of the secret. Should follow 'artifactory-<instance>-<username>' convention.")
+    store_parser.add_argument("--secret-name", required=True, help="Name of the secret. Should follow 'artifactory-<instance>-<username>' convention.")
     store_parser.add_argument("--key-id", required=True, help="OCID of the Key to encrypt the secret.")
 
     # Ping command
@@ -312,8 +314,7 @@ def main():
             print("Warning: --username not provided. Using 'unknown_user' for metadata.")
             args.username = "unknown_user"
         
-        create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
-                                token_json, args.username, args.artifactory_url, args.key_id)
+        create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id, token_json, args.username, args.artifactory_url, args.key_id)
     elif args.command == "ping":
         ping_artifactory(args.secret_id, args.artifactory_url)
     else:
