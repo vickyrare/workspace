@@ -295,7 +295,6 @@ def main():
                 if isinstance(signer, InstancePrincipalsSecurityTokenSigner):
                     # Hardcode region for Instance Principals if not found in config
                     region = "us-ashburn-1"
-                    print(f"Warning: Region not found in OCI config. Hardcoding region to {region} for Instance Principals.")
                 else:
                     raise Exception("Region not found in OCI config and is required for this authentication method.")
 
@@ -341,20 +340,51 @@ def main():
         if not access_token:
             print(f"Warning: 'access_token' not found in secret content for ID: {args.source_secret_id}. Proceeding without it for authorization.")
 
-        # 2. Refresh the access token
-        token_json = refresh_artifactory_token(args.artifactory_url, refresh_token, access_token)
-        if not token_json:
-            print("Error: Failed to refresh Artifactory token.")
-            exit(1)
+        expires_in = existing_secret_content.get("expires_in")
+        if expires_in is None:
+            print(f"Warning: 'expires_in' not found in secret content for ID: {args.source_secret_id}. Refreshing token unconditionally.")
+            should_refresh = True
+        else:
+            try:
+                expires_in_seconds = int(expires_in)
+                # Calculate current token expiration time
+                # Assuming the token was fetched/stored recently, we can approximate its creation time
+                # For more accuracy, the script would need to store the token's creation timestamp.
+                # For now, we'll assume 'expires_in' is relative to 'now' when read.
+                current_time = datetime.datetime.now()
+                expiration_time = current_time + datetime.timedelta(seconds=expires_in_seconds)
+                
+                # Check if token expires within 1 day (24 hours)
+                one_day_from_now = current_time + datetime.timedelta(days=1)
+                
+                if expiration_time < one_day_from_now:
+                    print(f"Token for secret ID {args.source_secret_id} expires at {expiration_time}. Refreshing token.")
+                    should_refresh = True
+                else:
+                    print(f"Token for secret ID {args.source_secret_id} expires at {expiration_time}. No refresh needed yet.")
+                    should_refresh = False
+            except ValueError:
+                print(f"Warning: 'expires_in' value '{expires_in}' is not a valid number. Refreshing token unconditionally.")
+                should_refresh = True
 
-        # 3. Store the new token information back into the secret
-        # For metadata, we still need username and artifactory_url.
-        # If not provided, we'll use placeholders or raise an error if strictly needed.
-        if not args.username:
-            print("Warning: --username not provided. Using 'unknown_user' for metadata.")
-            args.username = "unknown_user"
-        
-        create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id, token_json, args.username, args.artifactory_url, args.key_id)
+        if should_refresh:
+            # 2. Refresh the access token
+            token_json = refresh_artifactory_token(args.artifactory_url, refresh_token, access_token)
+            if not token_json:
+                print("Error: Failed to refresh Artifactory token.")
+                exit(1)
+
+            # 3. Store the new token information back into the secret
+            # For metadata, we still need username and artifactory_url.
+            # If not provided, we'll use placeholders or raise an error if strictly needed.
+            if not args.username:
+                print("Warning: --username not provided. Using 'unknown_user' for metadata.")
+                args.username = "unknown_user"
+            
+            create_or_update_secret(args.secret_name, args.compartment_id, args.vault_id,
+                                    token_json, args.username, args.artifactory_url, args.key_id)
+        else:
+            print("Token not refreshed as it's not due to expire within 1 day.")
     elif args.command == "ping":
         ping_artifactory(args.secret_id, args.artifactory_url)
     else:
